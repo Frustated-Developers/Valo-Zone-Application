@@ -9,7 +9,7 @@ class Homepage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text("data"),
+        title: Text("ValoZone"),
       ),
       body: Center(
         child: Column(
