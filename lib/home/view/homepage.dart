@@ -17,14 +17,56 @@ class Homepage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomButton(
-              text: "LEARN THE GAMES",
-            ),
-            SizedBox(
-              height: 20,
-            ),
             Container(
-              child: SvgPicture.asset("assets/images/Rectangle 1.svg"),
+              child: Stack(
+                children: [
+                  SvgPicture.asset(
+                    "assets/images/Rectangle 1.svg",
+                    height: 250,
+                    width: 100,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "S A G E",
+                        style: TextStyle(
+                            color: Colors.black.withOpacity(0.05),
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "S A G E",
+                        style: TextStyle(
+                            color: Colors.black.withOpacity(0.05),
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "S A G E",
+                        style: TextStyle(
+                            color: Colors.black.withOpacity(0.05),
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "S A G E",
+                        style: TextStyle(
+                            color: Colors.black.withOpacity(0.05),
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "S A G E",
+                        style: TextStyle(
+                            color: Colors.black.withOpacity(0.05),
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             )
           ],
         ),
