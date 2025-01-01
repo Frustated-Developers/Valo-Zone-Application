@@ -1,3 +1,3 @@
-class AssetPath{
-  static const String ic_valo= "assets/Icons/ic_valo.png";
+class AssetPath {
+  static const String ic_valo = "assets/Icons/Valo.png";
 }

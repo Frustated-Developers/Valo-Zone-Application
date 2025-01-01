@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
@@ -7,68 +7,72 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF0F1923),
       appBar: AppBar(
         title: Text("ValoZone"),
       ),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Stack(
                 children: [
                   SvgPicture.asset(
-                    "assets/images/Rectangle 1.svg",
-                    height: 250,
-                    width: 100,
+                    "assets/images/Rectangle 1.svg", // Your SVG file path
+                    fit: BoxFit.fill,
+                    color: Color(0xFFE5F6F6),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  Stack(
                     children: [
-                      Text(
-                        "S A G E",
-                        style: TextStyle(
-                            color: Colors.black.withOpacity(0.05),
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          children: [
+                            Text(
+                              "S A G E",
+                              style: TextStyle(
+                                  color: Colors.grey[200],
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 75),
+                            ),
+                            Text(
+                              "S A G E",
+                              style: TextStyle(
+                                  color: Colors.grey[200],
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 75),
+                            ),
+                            Text(
+                              "S A G E",
+                              style: TextStyle(
+                                  color: Colors.grey[200],
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 75),
+                            ),
+                            Text(
+                              "S A G E",
+                              style: TextStyle(
+                                  color: Colors.grey[200],
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 75),
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        "S A G E",
-                        style: TextStyle(
-                            color: Colors.black.withOpacity(0.05),
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "S A G E",
-                        style: TextStyle(
-                            color: Colors.black.withOpacity(0.05),
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "S A G E",
-                        style: TextStyle(
-                            color: Colors.black.withOpacity(0.05),
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "S A G E",
-                        style: TextStyle(
-                            color: Colors.black.withOpacity(0.05),
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold),
-                      ),
+                      Align(
+                          alignment: Alignment.topCenter,
+                          child: Image.asset("assets/characters/sage.png"))
                     ],
                   ),
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
