@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:valo_zone/utils/AppColors.dart';
+import 'package:valo_zone/utils/Assets_path.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
@@ -7,69 +8,30 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF0F1923),
+      backgroundColor: AppColors.homepageBackground,
       appBar: AppBar(
-        title: Text("ValoZone"),
+        backgroundColor: AppColors.homepageBackground,
+        leading: Image.asset(width: 100, height: 100, AssetPath.ic_valo),
+        actions: [
+          CircleAvatar(
+            radius: 20,
+          ),
+          SizedBox(
+            width: 20,
+          )
+        ],
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Stack(
-                children: [
-                  SvgPicture.asset(
-                    "assets/images/Rectangle 1.svg", // Your SVG file path
-                    fit: BoxFit.fill,
-                    color: Color(0xFFE5F6F6),
-                  ),
-                  Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Column(
-                          children: [
-                            Text(
-                              "S A G E",
-                              style: TextStyle(
-                                  color: Colors.grey[200],
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 75),
-                            ),
-                            Text(
-                              "S A G E",
-                              style: TextStyle(
-                                  color: Colors.grey[200],
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 75),
-                            ),
-                            Text(
-                              "S A G E",
-                              style: TextStyle(
-                                  color: Colors.grey[200],
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 75),
-                            ),
-                            Text(
-                              "S A G E",
-                              style: TextStyle(
-                                  color: Colors.grey[200],
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 75),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Align(
-                          alignment: Alignment.topCenter,
-                          child: Image.asset("assets/characters/sage.png"))
-                    ],
-                  ),
-                ],
-              ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text(
+              "Get Your \nFavourite Agent",
+              style: TextStyle(
+                  fontFamily: "Pennypacker",
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.whiteText),
             ),
           )
         ],
