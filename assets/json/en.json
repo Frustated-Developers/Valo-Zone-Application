@@ -1,0 +1,14 @@
+{
+  "home": {
+    "title":  "Get Your \nFavourite Agent",
+    "navigationBar": {
+      "home": "Home",
+      "wallpaper": "Wallpapers",
+      "setting": "Setting",
+      "weapon": "Weapons"
+    }
+  },
+  "searchBox": {
+    "hintText": "Search Agent.."
+  }
+}
