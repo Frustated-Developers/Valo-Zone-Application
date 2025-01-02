@@ -77,14 +77,14 @@ class _LoginPageState extends State<loginPage> {
                 child: SizedBox(
                   width: 100, // Adjust size as needed
                   height: 100, // Adjust size as needed
-                  child: Image.asset('assets/Icons/ic_valo.png'),
+                  child: Image.asset(AssetPath.ic_valo),
                 ),
               ),
               Positioned(
                   bottom: MediaQuery.of(context).size.height* -1.23,
                   right: MediaQuery.of(context).size.width* -1.93,
                   child:
-                  Image.asset('assets/characters/sage1x.png')),
+                  Image.asset(AssetPath.sage)),
 
               Positioned(
                 top: 104,
