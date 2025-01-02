@@ -98,9 +98,18 @@ class _LoginPageState extends State<loginPage> {
                       fontWeight: FontWeight.w600),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 100.0),
-                child: Text("We are Valo Zone",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,),),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 110.0,left: 10.0),
+                  child: Text("We are ValoZone".toUpperCase(),style: TextStyle(shadows: [
+                    Shadow(
+                      blurRadius: 0.0,
+                      color: Color(0xFF896C6D),
+                      offset: Offset(-1.0, -5.0),
+                    ),
+                  ],fontWeight: FontWeight.bold,color: Color(0xFFF5F2F2),fontSize: 50),),
+                ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
