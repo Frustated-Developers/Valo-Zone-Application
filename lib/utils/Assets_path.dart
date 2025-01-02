@@ -42,4 +42,6 @@ class AssetPath {
       "assets/characters/characters_card/Viper.png";
   static const String vyse_card = "assets/characters/characters_card/Vyse.png";
   static const String yoru_card = "assets/characters/characters_card/Yoru.png";
+  static const String sage= "assets/characters/sage1x.png";
+
 }
