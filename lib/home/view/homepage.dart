@@ -170,7 +170,7 @@ class _HomepageState extends State<Homepage> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               navigationItems[index].svgPath != null
                   ? SvgPicture.asset(
                       isActive
