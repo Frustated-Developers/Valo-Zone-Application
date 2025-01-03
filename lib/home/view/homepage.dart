@@ -1,5 +1,4 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valo_zone/utils/AppColors.dart';
@@ -16,7 +15,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   String searchText = "";
   int _selectedIndex = 0;
-  final AudioPlayer audioPlayer = AudioPlayer();
+
   Map<String, bool> hoverStates = {};
 
   final List<NavigationItem> navigationItems = [
@@ -49,12 +48,6 @@ class _HomepageState extends State<Homepage> {
     getAgentsList().forEach((agent) {
       hoverStates[agent['name']!] = false;
     });
-  }
-
-  @override
-  void dispose() {
-    audioPlayer.dispose();
-    super.dispose();
   }
 
   void _onItemTapped(int index) {
@@ -105,7 +98,10 @@ class _HomepageState extends State<Homepage> {
             backgroundColor: AppColors.homepageBackground,
             expandedHeight: 60,
             leading: Image.asset(width: 100, height: 100, AssetPath.ic_valo),
-            actions: [CircleAvatar(radius: 20), SizedBox(width: 20)],
+            actions: [
+              const CircleAvatar(radius: 20),
+              const SizedBox(width: 20)
+            ],
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -113,7 +109,7 @@ class _HomepageState extends State<Homepage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Get Your \nFavourite Agent",
                     style: TextStyle(
                       fontFamily: "Pennypacker",
@@ -122,7 +118,7 @@ class _HomepageState extends State<Homepage> {
                       color: AppColors.whiteText,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   SearchBox(
                     width: double.infinity,
                     onChanged: (value) {
@@ -131,13 +127,13 @@ class _HomepageState extends State<Homepage> {
                       });
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
           ),
           SliverPadding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 15.0,
               right: 15.0,
               bottom: 80.0,
@@ -151,7 +147,7 @@ class _HomepageState extends State<Homepage> {
         height: 65,
         child: FloatingActionButton(
           backgroundColor: AppColors.SelectedIconColor,
-          shape: CircleBorder(),
+          shape: const CircleBorder(),
           child: Image.asset(
             AssetPath.ic_valo,
             width: 60,
@@ -170,7 +166,7 @@ class _HomepageState extends State<Homepage> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               navigationItems[index].svgPath != null
                   ? SvgPicture.asset(
                       isActive
@@ -204,7 +200,7 @@ class _HomepageState extends State<Homepage> {
         height: 65,
         shadow: Shadow(
           color: Colors.black.withOpacity(0.2),
-          offset: Offset(0, -3),
+          offset: const Offset(0, -3),
           blurRadius: 6,
         ),
       ),
@@ -218,7 +214,7 @@ class _HomepageState extends State<Homepage> {
         .toList();
 
     return SliverGrid(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
@@ -240,7 +236,7 @@ class _HomepageState extends State<Homepage> {
         setState(() {
           hoverStates[agentName] = true;
         });
-        audioPlayer.play(AssetSource('assets/sound/hover.mp3'));
+        // audioPlayer.play(AssetSource('assets/sound/hover.mp3'));
       },
       onExit: (_) {
         setState(() {
@@ -248,7 +244,7 @@ class _HomepageState extends State<Homepage> {
         });
       },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
         transform: hoverStates[agentName] == true
             ? (Matrix4.identity()..scale(1.05))

@@ -1,126 +1,138 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/reusable_widgets/CustomButton.dart/CustomButton.dart';
 
-class loginPage extends StatefulWidget {
-  const loginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<loginPage> createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<loginPage> {
-
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/login_background.png'),
-            fit: BoxFit.fitHeight,
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(AssetPath.landing_background),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Center(
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // Horizontal dividers
-              Container(
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 60),
-                    Divider(
-                      color: Colors.white,
-                      thickness: 1,
-                    ),
-                    SizedBox(height: 60),
-                    Divider(
-                      color: Colors.white,
-                      thickness: 1,
-                    ),
-                  ],
+              // Dividers
+              _buildDividers(),
+
+              _buildVerticalDividers(),
+
+              // Logo at the top left
+              Positioned(
+                top: 45.h,
+                left: 10.w,
+                child: Image.asset(
+                  AssetPath.ic_valo,
+                  width: 80.w,
+                  height: 80.h,
                 ),
               ),
 
-              // Vertical dividers
-              Container(
-                height: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 10),
-                    Container(
-                      height: double.infinity,
-                      child: VerticalDivider(
-                        color: Colors.white,
-                        thickness: 1,
-                      ),
-                    ),
-                    SizedBox(width: 60),
-                    Container(
-                      height: double.infinity,
-                      child: VerticalDivider(
-                        color: Colors.white,
-                        thickness: 1,
-                      ),
-                    ),
-                  ],
+              // Background Character (Scaled for responsiveness)
+              Positioned(
+                bottom: MediaQuery.of(context).size.height >= 669
+                    ? -1020.h
+                    : -1100.h,
+                left: -910.w,
+                child: Image.asset(
+                  AssetPath.sage,
+                  width: 2000.w,
+                  height: 2000.h,
                 ),
               ),
-              Positioned(
-                top: 50,
-                left: 10,
-                child: SizedBox(
-                  width: 100, // Adjust size as needed
-                  height: 100, // Adjust size as needed
-                  child: Image.asset(AssetPath.ic_valo),
-                ),
-              ),
-              Positioned(
-                  bottom: MediaQuery.of(context).size.height* -1.23,
-                  right: MediaQuery.of(context).size.width* -1.93,
-                  child:
-                  Image.asset(AssetPath.sage)),
 
+              // Intro Text
               Positioned(
-                top: 104,
-                right: 18,
+                top: 83.h,
+                right: 18.w,
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: 280.w),
+                  child: Text(
+                    "You are given 13 rounds to attack and \ndefend your side with fierce \nmarksman skills and tactical abilities.",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Main Title
+              Positioned(
+                bottom:
+                    MediaQuery.of(context).size.height >= 669 ? 120.h : 120.h,
+                left: 40.h,
                 child: Text(
-                  "You are given 13 rounds to attack and \ndefend your side with fierce \nmarksman skills and tactical abilities",
-                  maxLines: 3,
+                  "We are \nValoZone".toUpperCase(),
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600),
+                    shadows: const [
+                      Shadow(
+                        blurRadius: 0.0,
+                        color: AppColors.landingTitleShadow,
+                        offset: Offset(-1.0, -5.0),
+                      ),
+                    ],
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.landingTitle,
+                    fontSize: 40.sp,
+                  ),
                 ),
               ),
+
+              // Login Button
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 110.0,left: 10.0),
-                  child: Text("We are ValoZone".toUpperCase(),style: TextStyle(shadows: [
-                    Shadow(
-                      blurRadius: 0.0,
-                      color: Color(0xFF896C6D),
-                      offset: Offset(-1.0, -5.0),
-                    ),
-                  ],fontWeight: FontWeight.bold,color: Color(0xFFF5F2F2),fontSize: 50),),
+                  padding: EdgeInsets.all(
+                      MediaQuery.of(context).size.height >= 669 ? 50.w : 25.w),
+                  child: CustomButton(
+                    text: "LET'S GET STARTED",
+                  ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: CustomButton(
-                        text: "LOGIN"),
-                  )),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildVerticalDividers() {
+    return Row(
+      children: [
+        SizedBox(width: 10.w),
+        VerticalDivider(color: Colors.white, thickness: 1),
+        SizedBox(width: 50.w),
+        VerticalDivider(color: Colors.white, thickness: 1),
+        SizedBox(width: 60.w),
+      ],
+    );
+  }
+
+  Widget _buildDividers() {
+    return Column(
+      children: [
+        SizedBox(height: 45.h),
+        Divider(color: Colors.white, thickness: 1),
+        SizedBox(height: 50.h),
+        Divider(color: Colors.white, thickness: 1),
+        SizedBox(height: 60.h),
+      ],
     );
   }
 }

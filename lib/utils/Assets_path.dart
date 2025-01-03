@@ -1,6 +1,7 @@
 class AssetPath {
   static const String ic_valo = "assets/icons/Valo.png";
   static const String ic_home = "assets/icons/ic_home.svg";
+  static const String landing_background = "assets/images/login_background.png";
   static const String ic_home_red = "assets/icons/ic_home_red.svg";
   static const String ic_wall = "assets/icons/ic_wall.svg";
   static const String ic_wall_red = "assets/icons/ic_wall_red.svg";
@@ -42,6 +43,5 @@ class AssetPath {
       "assets/characters/characters_card/Viper.png";
   static const String vyse_card = "assets/characters/characters_card/Vyse.png";
   static const String yoru_card = "assets/characters/characters_card/Yoru.png";
-  static const String sage= "assets/characters/sage1x.png";
-
+  static const String sage = "assets/characters/sage1x.png";
 }
