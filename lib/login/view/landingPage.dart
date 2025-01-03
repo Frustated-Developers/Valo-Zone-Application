@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:valo_zone/home/view/homepage.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/reusable_widgets/CustomButton.dart/CustomButton.dart';
@@ -45,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
               // Background Character (Scaled for responsiveness)
               Positioned(
                 bottom: MediaQuery.of(context).size.height >= 669
-                    ? -1020.h
+                    ? -1050.h
                     : -1100.h,
                 left: -910.w,
                 child: Image.asset(
@@ -101,6 +102,15 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.all(
                       MediaQuery.of(context).size.height >= 669 ? 50.w : 25.w),
                   child: CustomButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Homepage()),
+                      );
+                    },
+                    width:
+                        MediaQuery.of(context).size.height >= 669 ? 400 : 300,
                     text: "LET'S GET STARTED",
                   ),
                 ),
