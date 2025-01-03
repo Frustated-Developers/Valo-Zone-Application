@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:valo_zone/utils/Assets_path.dart';
+import 'package:valo_zone/utils/reusable_widgets/CustomButton.dart/CustomButton.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class loginPage extends StatefulWidget {
+  const loginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<loginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<loginPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/Login_background.png'),
+            image: AssetImage('assets/images/login_background.png'),
             fit: BoxFit.fitHeight,
           ),
         ),
@@ -73,17 +76,18 @@ class _LoginPageState extends State<LoginPage> {
                 child: SizedBox(
                   width: 100, // Adjust size as needed
                   height: 100, // Adjust size as needed
-                  child: Image.asset('assets/icons/Valo.png'),
+                  child: Image.asset(AssetPath.ic_valo),
                 ),
               ),
               Positioned(
-                  bottom: -760,
-                  left: -300,
-                  child: Image.asset('assets/characters/sage.png')),
+                  bottom: MediaQuery.of(context).size.height* -1.23,
+                  right: MediaQuery.of(context).size.width* -1.93,
+                  child:
+                  Image.asset(AssetPath.sage)),
 
               Positioned(
-                top: 112,
-                right: 20,
+                top: 104,
+                right: 18,
                 child: Text(
                   "You are given 13 rounds to attack and \ndefend your side with fierce \nmarksman skills and tactical abilities",
                   maxLines: 3,
@@ -92,7 +96,27 @@ class _LoginPageState extends State<LoginPage> {
                       fontSize: 12,
                       fontWeight: FontWeight.w600),
                 ),
-              )
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 110.0,left: 10.0),
+                  child: Text("We are ValoZone".toUpperCase(),style: TextStyle(shadows: [
+                    Shadow(
+                      blurRadius: 0.0,
+                      color: Color(0xFF896C6D),
+                      offset: Offset(-1.0, -5.0),
+                    ),
+                  ],fontWeight: FontWeight.bold,color: Color(0xFFF5F2F2),fontSize: 50),),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: CustomButton(
+                        text: "LOGIN"),
+                  )),
             ],
           ),
         ),
