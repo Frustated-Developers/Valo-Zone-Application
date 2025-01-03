@@ -1,4 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valo_zone/utils/AppColors.dart';
@@ -15,6 +16,9 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   String searchText = "";
   int _selectedIndex = 0;
+  final AudioPlayer audioPlayer = AudioPlayer();
+  Map<String, bool> hoverStates = {};
+
   final List<NavigationItem> navigationItems = [
     NavigationItem(
       icon: Icons.home,
@@ -38,10 +42,54 @@ class _HomepageState extends State<Homepage> {
     ),
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    // Initialize hover states for all agents
+    getAgentsList().forEach((agent) {
+      hoverStates[agent['name']!] = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  List<Map<String, String>> getAgentsList() {
+    return [
+      {'image': AssetPath.pheonix_card, 'name': "Phoenix"},
+      {'image': AssetPath.sage_card, 'name': "Sage"},
+      {'image': AssetPath.jett_card, 'name': "Jett"},
+      {'image': AssetPath.sova_card, 'name': "Sova"},
+      {'image': AssetPath.raze_card, 'name': "Raze"},
+      {'image': AssetPath.reyna_card, 'name': "Reyna"},
+      {'image': AssetPath.clove_card, 'name': "Clove"},
+      {'image': AssetPath.cypher_card, 'name': "Cypher"},
+      {'image': AssetPath.gekko_card, 'name': "Gekko"},
+      {'image': AssetPath.kayo_card, 'name': "KAY/O"},
+      {'image': AssetPath.killjoy_card, 'name': "Killjoy"},
+      {'image': AssetPath.neon_card, 'name': "Neon"},
+      {'image': AssetPath.skye_card, 'name': "Skye"},
+      {'image': AssetPath.yoru_card, 'name': "Yoru"},
+      {'image': AssetPath.omen_card, 'name': "Omen"},
+      {'image': AssetPath.raja_card, 'name': "Raja"},
+      {'image': AssetPath.astra_card, 'name': "Astra"},
+      {'image': AssetPath.breach_card, 'name': "Breach"},
+      {'image': AssetPath.brimston_card, 'name': "Brimstone"},
+      {'image': AssetPath.chamber_card, 'name': "Chamber"},
+      {'image': AssetPath.deadlock_card, 'name': "Deadlock"},
+      {'image': AssetPath.fade_card, 'name': "Fade"},
+      {'image': AssetPath.viper_card, 'name': "Viper"},
+      {'image': AssetPath.vyse_card, 'name': "Vyse"},
+    ];
   }
 
   @override
@@ -52,6 +100,7 @@ class _HomepageState extends State<Homepage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            pinned: true,
             floating: true,
             backgroundColor: AppColors.homepageBackground,
             expandedHeight: 60,
@@ -121,9 +170,7 @@ class _HomepageState extends State<Homepage> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
               navigationItems[index].svgPath != null
                   ? SvgPicture.asset(
                       isActive
@@ -152,13 +199,9 @@ class _HomepageState extends State<Homepage> {
         },
         activeIndex: _selectedIndex,
         gapLocation: GapLocation.center,
-
-        // activeColor: AppColors.SelectedIconColor,
-        // inactiveColor: Colors.white,
         backgroundColor: AppColors.buttonBlue,
         onTap: _onItemTapped,
         height: 65,
-        // iconSize: 30,
         shadow: Shadow(
           color: Colors.black.withOpacity(0.2),
           offset: Offset(0, -3),
@@ -169,33 +212,7 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget buildAgentCardsSliver() {
-    List<Map<String, String>> agents = [
-      {'image': AssetPath.pheonix_card, 'name': "Phoenix"},
-      {'image': AssetPath.sage_card, 'name': "Sage"},
-      {'image': AssetPath.jett_card, 'name': "Jett"},
-      {'image': AssetPath.sova_card, 'name': "Sova"},
-      {'image': AssetPath.astra_card, 'name': "Astra"},
-      {'image': AssetPath.breach_card, 'name': "Breach"},
-      {'image': AssetPath.brimston_card, 'name': "Brimstone"},
-      {'image': AssetPath.chamber_card, 'name': "Chamber"},
-      {'image': AssetPath.clove_card, 'name': "Clove"},
-      {'image': AssetPath.cypher_card, 'name': "Cypher"},
-      {'image': AssetPath.deadlock_card, 'name': "Deadlock"},
-      {'image': AssetPath.fade_card, 'name': "Fade"},
-      {'image': AssetPath.gekko_card, 'name': "Gekko"},
-      {'image': AssetPath.kayo_card, 'name': "KAY/O"},
-      {'image': AssetPath.killjoy_card, 'name': "Killjoy"},
-      {'image': AssetPath.neon_card, 'name': "Neon"},
-      {'image': AssetPath.omen_card, 'name': "Omen"},
-      {'image': AssetPath.raja_card, 'name': "Raja"},
-      {'image': AssetPath.raze_card, 'name': "Raze"},
-      {'image': AssetPath.reyna_card, 'name': "Reyna"},
-      {'image': AssetPath.skye_card, 'name': "Skye"},
-      {'image': AssetPath.viper_card, 'name': "Viper"},
-      {'image': AssetPath.vyse_card, 'name': "Vyse"},
-      {'image': AssetPath.yoru_card, 'name': "Yoru"},
-    ];
-
+    List<Map<String, String>> agents = getAgentsList();
     List<Map<String, String>> filteredAgents = agents
         .where((agent) => agent['name']!.toLowerCase().contains(searchText))
         .toList();
@@ -218,13 +235,45 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget agentCard(String imagePath, String agentName) {
-    return Container(
-      key: ValueKey(agentName),
-      child: Image.asset(
-        imagePath,
-        width: MediaQuery.of(context).size.width * 0.45,
-        height: 300,
-        fit: BoxFit.cover,
+    return MouseRegion(
+      onEnter: (_) {
+        setState(() {
+          hoverStates[agentName] = true;
+        });
+        audioPlayer.play(AssetSource('assets/sound/hover.mp3'));
+      },
+      onExit: (_) {
+        setState(() {
+          hoverStates[agentName] = false;
+        });
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+        transform: hoverStates[agentName] == true
+            ? (Matrix4.identity()..scale(1.05))
+            : Matrix4.identity(),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: hoverStates[agentName] == true
+              ? [
+                  BoxShadow(
+                    color: AppColors.SelectedIconColor.withOpacity(0.3),
+                    blurRadius: 8,
+                    spreadRadius: 2,
+                  )
+                ]
+              : [],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.asset(
+            imagePath,
+            width: MediaQuery.of(context).size.width * 0.45,
+            height: 300,
+            fit: BoxFit.cover,
+          ),
+        ),
       ),
     );
   }
