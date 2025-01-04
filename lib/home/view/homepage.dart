@@ -5,6 +5,7 @@ import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/navigation.dart';
 import 'package:valo_zone/utils/reusable_widgets/Search_box.dart';
+import 'package:valo_zone/wallpaper_page/views/astra_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/clove_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/cypher_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/gekko_wallpaper.dart';
@@ -14,6 +15,7 @@ import 'package:valo_zone/wallpaper_page/views/killjoy.dart';
 import 'package:valo_zone/wallpaper_page/views/neon_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/omen_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/phoenix_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/raja_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/raze_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/reyna_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/sage_wallpaper.dart';
@@ -294,12 +296,12 @@ class _HomepageState extends State<Homepage> {
         if (agentName == "Omen") {
           navigateToAgentWallpaper(context, OmenWallpaper());
         }
-        // if (agentName == "Raja") {
-        //   navigateToAgentWallpaper(context, YoruWallpaper());
-        // }
-        // if (agentName == "Astra") {
-        //   navigateToAgentWallpaper(context, YoruWallpaper());
-        // }
+        if (agentName == "Raja") {
+          navigateToAgentWallpaper(context, RajaWallpaper());
+        }
+        if (agentName == "Astra") {
+          navigateToAgentWallpaper(context, AstraWallpaper());
+        }
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),

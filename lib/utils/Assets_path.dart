@@ -86,6 +86,8 @@ class AssetPath {
       "assets/characters/wallpaper_card/gekko_wallpaper_card.png";
   static const String fade_wallpaper =
       "assets/characters/wallpaper_card/fade_wallpaper_card.png";
+  static const String raja_wallpaper =
+      "assets/characters/wallpaper_card/raja_wallpaper_card.png";
   static const String kayo_wallpaper =
       "assets/characters/wallpaper_card/kayo_wallpaper_card.png";
 }
