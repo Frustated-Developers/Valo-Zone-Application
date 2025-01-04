@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:valo_zone/home/view/homepage.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/reusable_widgets/CustomButton.dart/CustomButton.dart';
-import 'package:valo_zone/wallpaper_page/views/phoenix_wallpaper.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -106,7 +106,7 @@ class _LandingPageState extends State<LandingPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const PhoenixWallpaper()),
+                            builder: (context) => const Homepage()),
                       );
                     },
                     width:
@@ -126,9 +126,9 @@ class _LandingPageState extends State<LandingPage> {
     return Row(
       children: [
         SizedBox(width: 10.w),
-        VerticalDivider(color: Colors.white, thickness: 1),
+        const VerticalDivider(color: Colors.white, thickness: 1),
         SizedBox(width: 50.w),
-        VerticalDivider(color: Colors.white, thickness: 1),
+        const VerticalDivider(color: Colors.white, thickness: 1),
         SizedBox(width: 60.w),
       ],
     );
@@ -138,9 +138,9 @@ class _LandingPageState extends State<LandingPage> {
     return Column(
       children: [
         SizedBox(height: 45.h),
-        Divider(color: Colors.white, thickness: 1),
+        const Divider(color: Colors.white, thickness: 1),
         SizedBox(height: 50.h),
-        Divider(color: Colors.white, thickness: 1),
+        const Divider(color: Colors.white, thickness: 1),
         SizedBox(height: 60.h),
       ],
     );

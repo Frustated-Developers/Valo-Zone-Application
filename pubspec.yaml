@@ -33,6 +33,7 @@ flutter:
   assets:
     - assets/characters/
     - assets/characters/characters_card/
+    - assets/characters/wallpaper_card/
     - assets/icons/
     - assets/images/
     - assets/json/
