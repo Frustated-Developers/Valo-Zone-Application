@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 
-class PhoenixWallpaper extends StatelessWidget {
-  const PhoenixWallpaper({super.key});
+class JettWallpaper extends StatelessWidget {
+  const JettWallpaper({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class PhoenixWallpaper extends StatelessWidget {
         backgroundColor: AppColors.homepageBackground,
         centerTitle: true,
         title: const Text(
-          "Phoenix",
+          "Jett",
           style: TextStyle(
             fontFamily: "Pennypacker",
             fontWeight: FontWeight.bold,
@@ -43,10 +43,10 @@ class PhoenixWallpaper extends StatelessWidget {
             children: [
               // Scrollable Image Container
               Container(
-                height: 200, // Image container height
+                height: 250, // Image container height
                 decoration: BoxDecoration(
                   image: const DecorationImage(
-                    image: AssetImage(AssetPath.pheonix_wallpaper),
+                    image: AssetImage(AssetPath.jett_wallpaper),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(10),

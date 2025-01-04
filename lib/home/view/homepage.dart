@@ -3,7 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
+import 'package:valo_zone/utils/navigation.dart';
 import 'package:valo_zone/utils/reusable_widgets/Search_box.dart';
+import 'package:valo_zone/wallpaper_page/views/clove_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/cypher_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/gekko_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/jett_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/kayo_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/killjoy.dart';
+import 'package:valo_zone/wallpaper_page/views/neon_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/omen_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/phoenix_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/raze_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/reyna_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/sage_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/skye_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/sova_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/yoru_wallpaper.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -231,44 +247,67 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget agentCard(String imagePath, String agentName) {
-    return MouseRegion(
-      onEnter: (_) {
-        setState(() {
-          hoverStates[agentName] = true;
-        });
-        // audioPlayer.play(AssetSource('assets/sound/hover.mp3'));
+    return GestureDetector(
+      onTap: () {
+        if (agentName == "Phoenix") {
+          navigateToAgentWallpaper(context, const PhoenixWallpaper());
+        }
+        if (agentName == "Sage") {
+          navigateToAgentWallpaper(context, SageWallpaper());
+        }
+        if (agentName == "Jett") {
+          navigateToAgentWallpaper(context, JettWallpaper());
+        }
+        if (agentName == "Sova") {
+          navigateToAgentWallpaper(context, SovaWallpaper());
+        }
+        if (agentName == "Raze") {
+          navigateToAgentWallpaper(context, RazeWallpaper());
+        }
+        if (agentName == "Reyna") {
+          navigateToAgentWallpaper(context, ReynaWallpaper());
+        }
+        if (agentName == "Clove") {
+          navigateToAgentWallpaper(context, CloveWallpaper());
+        }
+        if (agentName == "Cypher") {
+          navigateToAgentWallpaper(context, CypherWallpaper());
+        }
+        if (agentName == "Gekko") {
+          navigateToAgentWallpaper(context, GekkoWallpaper());
+        }
+        if (agentName == "KAY/O") {
+          navigateToAgentWallpaper(context, KayoWallpaper());
+        }
+        if (agentName == "Killjoy") {
+          navigateToAgentWallpaper(context, KilljoyWallpaper());
+        }
+        if (agentName == "Neon") {
+          navigateToAgentWallpaper(context, NeonWallpaper());
+        }
+        if (agentName == "Skye") {
+          navigateToAgentWallpaper(context, SkyeWallpaper());
+        }
+        if (agentName == "Yoru") {
+          navigateToAgentWallpaper(context, YoruWallpaper());
+        }
+        if (agentName == "Omen") {
+          navigateToAgentWallpaper(context, OmenWallpaper());
+        }
+        // if (agentName == "Raja") {
+        //   navigateToAgentWallpaper(context, YoruWallpaper());
+        // }
+        // if (agentName == "Astra") {
+        //   navigateToAgentWallpaper(context, YoruWallpaper());
+        // }
       },
-      onExit: (_) {
-        setState(() {
-          hoverStates[agentName] = false;
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeInOut,
-        transform: hoverStates[agentName] == true
-            ? (Matrix4.identity()..scale(1.05))
-            : Matrix4.identity(),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: hoverStates[agentName] == true
-              ? [
-                  BoxShadow(
-                    color: AppColors.SelectedIconColor.withOpacity(0.3),
-                    blurRadius: 8,
-                    spreadRadius: 2,
-                  )
-                ]
-              : [],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.asset(
-            imagePath,
-            width: MediaQuery.of(context).size.width * 0.45,
-            height: 300,
-            fit: BoxFit.cover,
-          ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Image.asset(
+          imagePath,
+          width: MediaQuery.of(context).size.width * 0.45,
+          height: 300,
+          fit: BoxFit.cover,
         ),
       ),
     );
