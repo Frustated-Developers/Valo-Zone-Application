@@ -8,8 +8,11 @@ import 'package:valo_zone/utils/reusable_widgets/Search_box.dart';
 import 'package:valo_zone/wallpaper_page/views/astra_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/breach_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/brimstone_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/chamber_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/clove_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/cypher_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/deadlock_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/fade_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/gekko_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/jett_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/kayo_wallpaper.dart';
@@ -23,6 +26,8 @@ import 'package:valo_zone/wallpaper_page/views/reyna_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/sage_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/skye_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/sova_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/viper_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/vyse_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/yoru_wallpaper.dart';
 
 class Homepage extends StatefulWidget {
@@ -311,19 +316,19 @@ class _HomepageState extends State<Homepage> {
           navigateToAgentWallpaper(context, const BrimstoneWallpaper());
         }
         if (agentName == "Chamber") {
-          navigateToAgentWallpaper(context, const AstraWallpaper());
+          navigateToAgentWallpaper(context, const ChamberWallpaper());
         }
         if (agentName == "Deadlock") {
-          navigateToAgentWallpaper(context, const AstraWallpaper());
+          navigateToAgentWallpaper(context, const DeadlockWallpaper());
         }
         if (agentName == "Fade") {
-          navigateToAgentWallpaper(context, const AstraWallpaper());
+          navigateToAgentWallpaper(context, const FadeWallpaper());
         }
         if (agentName == "Viper") {
-          navigateToAgentWallpaper(context, const AstraWallpaper());
+          navigateToAgentWallpaper(context, const ViperWallpaper());
         }
         if (agentName == "Vyse") {
-          navigateToAgentWallpaper(context, const AstraWallpaper());
+          navigateToAgentWallpaper(context, const VyseWallpaper());
         }
       },
       child: ClipRRect(
