@@ -6,6 +6,7 @@ import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/navigation.dart';
 import 'package:valo_zone/utils/reusable_widgets/Search_box.dart';
 import 'package:valo_zone/wallpaper_page/views/astra_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/breach_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/clove_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/cypher_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/gekko_wallpaper.dart';
@@ -255,52 +256,73 @@ class _HomepageState extends State<Homepage> {
           navigateToAgentWallpaper(context, const PhoenixWallpaper());
         }
         if (agentName == "Sage") {
-          navigateToAgentWallpaper(context, SageWallpaper());
+          navigateToAgentWallpaper(context, const SageWallpaper());
         }
         if (agentName == "Jett") {
-          navigateToAgentWallpaper(context, JettWallpaper());
+          navigateToAgentWallpaper(context, const JettWallpaper());
         }
         if (agentName == "Sova") {
-          navigateToAgentWallpaper(context, SovaWallpaper());
+          navigateToAgentWallpaper(context, const SovaWallpaper());
         }
         if (agentName == "Raze") {
-          navigateToAgentWallpaper(context, RazeWallpaper());
+          navigateToAgentWallpaper(context, const RazeWallpaper());
         }
         if (agentName == "Reyna") {
-          navigateToAgentWallpaper(context, ReynaWallpaper());
+          navigateToAgentWallpaper(context, const ReynaWallpaper());
         }
         if (agentName == "Clove") {
-          navigateToAgentWallpaper(context, CloveWallpaper());
+          navigateToAgentWallpaper(context, const CloveWallpaper());
         }
         if (agentName == "Cypher") {
-          navigateToAgentWallpaper(context, CypherWallpaper());
+          navigateToAgentWallpaper(context, const CypherWallpaper());
         }
         if (agentName == "Gekko") {
-          navigateToAgentWallpaper(context, GekkoWallpaper());
+          navigateToAgentWallpaper(context, const GekkoWallpaper());
         }
         if (agentName == "KAY/O") {
-          navigateToAgentWallpaper(context, KayoWallpaper());
+          navigateToAgentWallpaper(context, const KayoWallpaper());
         }
         if (agentName == "Killjoy") {
-          navigateToAgentWallpaper(context, KilljoyWallpaper());
+          navigateToAgentWallpaper(context, const KilljoyWallpaper());
         }
         if (agentName == "Neon") {
-          navigateToAgentWallpaper(context, NeonWallpaper());
+          navigateToAgentWallpaper(context, const NeonWallpaper());
         }
         if (agentName == "Skye") {
-          navigateToAgentWallpaper(context, SkyeWallpaper());
+          navigateToAgentWallpaper(context, const SkyeWallpaper());
         }
         if (agentName == "Yoru") {
-          navigateToAgentWallpaper(context, YoruWallpaper());
+          navigateToAgentWallpaper(context, const YoruWallpaper());
         }
         if (agentName == "Omen") {
-          navigateToAgentWallpaper(context, OmenWallpaper());
+          navigateToAgentWallpaper(context, const OmenWallpaper());
         }
         if (agentName == "Raja") {
-          navigateToAgentWallpaper(context, RajaWallpaper());
+          navigateToAgentWallpaper(context, const RajaWallpaper());
         }
         if (agentName == "Astra") {
-          navigateToAgentWallpaper(context, AstraWallpaper());
+          navigateToAgentWallpaper(context, const AstraWallpaper());
+        }
+        if (agentName == "Breach") {
+          navigateToAgentWallpaper(context, const BreachWallpaper());
+        }
+        if (agentName == "Brimstone") {
+          navigateToAgentWallpaper(context, const AstraWallpaper());
+        }
+        if (agentName == "Chamber") {
+          navigateToAgentWallpaper(context, const AstraWallpaper());
+        }
+        if (agentName == "Deadlock") {
+          navigateToAgentWallpaper(context, const AstraWallpaper());
+        }
+        if (agentName == "Fade") {
+          navigateToAgentWallpaper(context, const AstraWallpaper());
+        }
+        if (agentName == "Viper") {
+          navigateToAgentWallpaper(context, const AstraWallpaper());
+        }
+        if (agentName == "Vyse") {
+          navigateToAgentWallpaper(context, const AstraWallpaper());
         }
       },
       child: ClipRRect(
