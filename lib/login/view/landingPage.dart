@@ -5,14 +5,14 @@ import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/reusable_widgets/CustomButton.dart/CustomButton.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LandingPage extends StatefulWidget {
+  const LandingPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LandingPage> createState() => _LandingPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
