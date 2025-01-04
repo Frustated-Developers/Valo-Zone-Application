@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 
 class Customloginbutton extends StatelessWidget {
-  const Customloginbutton({super.key});
+  final VoidCallback? onPressed; // Added onPressed parameter
+  const Customloginbutton({
+    super.key,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
