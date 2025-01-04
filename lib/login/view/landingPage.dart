@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:valo_zone/home/view/homepage.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/reusable_widgets/CustomButton.dart/CustomButton.dart';
+import 'package:valo_zone/wallpaper_page/views/phoenix_wallpaper.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -106,7 +106,7 @@ class _LandingPageState extends State<LandingPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Homepage()),
+                            builder: (context) => const PhoenixWallpaper()),
                       );
                     },
                     width:
