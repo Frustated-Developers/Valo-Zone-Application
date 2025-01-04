@@ -7,6 +7,7 @@ import 'package:valo_zone/utils/navigation.dart';
 import 'package:valo_zone/utils/reusable_widgets/Search_box.dart';
 import 'package:valo_zone/wallpaper_page/views/astra_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/breach_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/brimstone_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/clove_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/cypher_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/gekko_wallpaper.dart';
@@ -307,7 +308,7 @@ class _HomepageState extends State<Homepage> {
           navigateToAgentWallpaper(context, const BreachWallpaper());
         }
         if (agentName == "Brimstone") {
-          navigateToAgentWallpaper(context, const AstraWallpaper());
+          navigateToAgentWallpaper(context, const BrimstoneWallpaper());
         }
         if (agentName == "Chamber") {
           navigateToAgentWallpaper(context, const AstraWallpaper());
