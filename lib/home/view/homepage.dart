@@ -126,6 +126,7 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.homepageBackground,
       body: CustomScrollView(
         slivers: [
