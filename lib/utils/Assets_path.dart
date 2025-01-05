@@ -108,6 +108,8 @@ class AssetPath {
       "assets/icons/googleLogo.png";
   static const String apple =
       "assets/icons/apple.jpg";
+  static const String icIcon=
+      "assets/icons/icLogin.png";
 }
 
 
