@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:valo_zone/home/view/homepage.dart';
 import 'package:valo_zone/login/view/loginPage.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
@@ -19,6 +18,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -47,7 +47,7 @@ class _LandingPageState extends State<LandingPage> {
 
               // Background Character (Scaled for responsiveness)
               Positioned(
-                bottom: MediaQuery.of(context).size.height >= 669
+                bottom: MediaQuery.of(context).size.height >= 750
                     ? -1050.h
                     : -1100.h,
                 left: -910.w,
@@ -78,7 +78,7 @@ class _LandingPageState extends State<LandingPage> {
               // Main Title
               Positioned(
                 bottom:
-                    MediaQuery.of(context).size.height >= 669 ? 120.h : 120.h,
+                    MediaQuery.of(context).size.height >= 750 ? 120.h : 120.h,
                 left: 40.h,
                 child: Text(
                   "We are \nValoZone".toUpperCase(),
@@ -102,13 +102,13 @@ class _LandingPageState extends State<LandingPage> {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: EdgeInsets.all(
-                      MediaQuery.of(context).size.height >= 669 ? 50.w : 25.w),
+                      MediaQuery.of(context).size.height >= 750 ? 50.w : 25.w),
                   child: CustomButton(
                     onPressed: () {
-                      navigateTo(context,LoginPage());
+                      navigateTo(context, LoginPage());
                     },
                     width:
-                        MediaQuery.of(context).size.height >= 669 ? 400 : 300,
+                        MediaQuery.of(context).size.height >= 750 ? 400 : 300,
                     text: "LET'S GET STARTED",
                   ),
                 ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:valo_zone/landing/view/landingPage.dart';
+import 'package:valo_zone/home/view/homepage.dart';
+import 'package:valo_zone/sign_up/view/sign_up.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
+import 'package:valo_zone/utils/navigation.dart';
 import 'package:valo_zone/utils/reusable_widgets/CustomButton.dart/CustomLoginButton.dart';
 import 'package:valo_zone/utils/reusable_widgets/Custom_TextField.dart';
 
@@ -15,15 +17,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   bool _isChecked = false; // Track the checkbox state
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  // Controllers for the TextFields
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          Container(
+          const SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Image(
@@ -32,29 +39,39 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           _buildOpacityContainer(),
-
           Positioned(
-            top: MediaQuery.of(context).size.width * 0.19,
-              right: MediaQuery.of(context).size.height * 0.05,
-              child: _buildLogo()),
-
+            top: MediaQuery.of(context).size.width * 0.1,
+            right: MediaQuery.of(context).size.height >= 750
+                ? MediaQuery.of(context).size.height * 0.08
+                : MediaQuery.of(context).size.height * 0.1,
+            child: _buildLogo(),
+          ),
           _buildTextField(),
-
           Positioned(
-            left: MediaQuery.of(context).size.width * 0.07,
-            bottom: MediaQuery.of(context).size.height * 0.25,
+            left: MediaQuery.of(context).size.height >= 750
+                ? MediaQuery.of(context).size.width * 0.07
+                : MediaQuery.of(context).size.width * 0.05,
+            bottom: MediaQuery.of(context).size.height >= 750
+                ? MediaQuery.of(context).size.height * 0.28
+                : MediaQuery.of(context).size.height * 0.25,
             child: _buildSocialLogin(),
           ),
-
           Positioned(
-            bottom:  MediaQuery.of(context).size.height * 0.18,
+            bottom: MediaQuery.of(context).size.height >= 750
+                ? MediaQuery.of(context).size.height * 0.20
+                : MediaQuery.of(context).size.height * 0.18,
+            left: MediaQuery.of(context).size.height >= 750
+                ? MediaQuery.of(context).size.width * 0.05
+                : MediaQuery.of(context).size.width * 0.02,
             child: _buildRememberMe(),
           ),
-
           Positioned(
-              left: MediaQuery.of(context).size.width * 0.35,
-              bottom: MediaQuery.of(context).size.height * 0.05,
-              child: _footer()),
+            left: MediaQuery.of(context).size.height >= 750
+                ? MediaQuery.of(context).size.width * 0.35
+                : MediaQuery.of(context).size.width * 0.35,
+            bottom: MediaQuery.of(context).size.height * 0.05,
+            child: _buildfooter(context),
+          ),
         ],
       ),
     );
@@ -68,53 +85,64 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  
+
   Widget _buildLogo() {
-    return Container(
-      child: Image.asset(AssetPath.icIcon,scale: 2.3,),
+    return Image.asset(
+      AssetPath.icIcon,
+      height: 250.h,
+      width: 250.w,
     );
   }
 
   Widget _buildTextField() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CustomTextfield(
-          hintText: 'Username',
-          icon: Icons.person,
-          keyboardType: TextInputType.text,
-          onChanged: (value) {
-            print('Value changed: $value');
-          },
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter your username';
-            }
-            return null;
-          },
-        ),
-        SizedBox(
-          height: 8.h,
-        ),
-        CustomTextfield(
-          hintText: 'Password',
-          icon: Icons.lock_open,
-          keyboardType: TextInputType.text,
-          onChanged: (value) {
-            print('Value changed: $value');
-          },
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter your password';
-            }
-            return null;
-          },
-        ),
-        SizedBox(
-          height: 12.h,
-        ),
-        Customloginbutton(),
-      ],
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Username field with controller and validation
+          CustomTextfield(
+            controller: _usernameController,
+            hintText: 'Username',
+            icon: Icons.person,
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your username';
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: 8.h),
+
+          // Password field with controller and validation
+          CustomTextfield(
+            controller: _passwordController,
+            hintText: 'Password',
+            icon: Icons.lock_open,
+            obscureText: true,
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your password';
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: 12.h),
+
+          // Login button with validation and navigation
+          Customloginbutton(
+            buttonText: "LOGIN",
+            onPressed: () {
+              if (_formKey.currentState?.validate() ?? false) {
+                // If form is valid, navigate to Homepage
+                navigateTo(context, Homepage());
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -122,31 +150,37 @@ class _LoginPageState extends State<LoginPage> {
     return Center(
       child: Row(
         children: [
+          // Facebook login button
           Container(
-            color: Color(0XFF1877F2),
-            height: 40,
-            width: 100,
-            child: SvgPicture.asset(AssetPath.fb),
+            color: const Color(0XFF1877F2),
+            height: 40.h,
+            width: 100.w,
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: SvgPicture.asset(AssetPath.fb),
+            ),
           ),
-          SizedBox(
-            width: 20.w,
-          ),
+          SizedBox(width: 20.w),
+
+          // Google login button
           Container(
             color: Colors.white,
-            height: 40,
-            width: 100,
+            height: 40.h,
+            width: 100.w,
             child: Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: MediaQuery.of(context).size.height >= 750
+                  ? const EdgeInsets.all(10.0)
+                  : const EdgeInsets.all(8.0),
               child: Image.asset(AssetPath.google),
             ),
           ),
-          SizedBox(
-            width: 20.w,
-          ),
+          SizedBox(width: 20.w),
+
+          // Apple login button
           Container(
             color: Colors.black,
-            height: 40,
-            width: 100,
+            height: 40.h,
+            width: 100.w,
             child: Image.asset(AssetPath.apple),
           ),
         ],
@@ -158,9 +192,16 @@ class _LoginPageState extends State<LoginPage> {
     return Row(
       children: [
         Checkbox(
-          activeColor: Colors.blue, // Color of the checkbox when selected
-          checkColor: Colors.white,
-          fillColor: MaterialStateProperty.all(Colors.grey.shade300), // Light grey fill color
+          activeColor: _isChecked
+              ? AppColors.SelectedIconColor
+              : Colors.white70, // Color of the checkbox when selected
+          checkColor: Colors.white, // Tick color should be white
+          fillColor: MaterialStateProperty.all(
+            _isChecked
+                ? Colors.red
+                : Colors.grey
+                    .shade50, // Grey color when unchecked, Red when checked
+          ),
           value: _isChecked,
           onChanged: (bool? newValue) {
             setState(() {
@@ -168,32 +209,46 @@ class _LoginPageState extends State<LoginPage> {
             });
           },
         ),
-        Text(
+        const Text(
           "Stay signed in",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: AppColors.whiteText),
         ),
       ],
     );
   }
-}
 
-  Widget _footer() {
-  return Column(
-    children: [
-      Container(
-        child: Text("CAN'T SIGN IN",style: TextStyle(
-            color:AppColors.whiteText,
-            fontWeight: FontWeight.bold,
-            fontSize: 12),
+  Widget _buildfooter(BuildContext context) {
+    return Column(
+      children: [
+        // Can't sign in text
+        Text(
+          "CAN'T SIGN IN",
+          style: TextStyle(
+              color: AppColors.whiteText,
+              fontWeight: FontWeight.bold,
+              fontSize: 12),
         ),
-      ),
-      Container(
-        child: Text("CREATE ACCOUNT",style: TextStyle(
-            color:AppColors.whiteText,
-            fontWeight: FontWeight.bold,
-            fontSize: 12),
+        // Create account link
+        GestureDetector(
+          onTap: () => navigateTo(context, const SignUp()),
+          child: Text(
+            "CREATE ACCOUNT",
+            style: TextStyle(
+                color: AppColors.whiteText,
+                fontWeight: FontWeight.bold,
+                fontSize: 12),
+          ),
         ),
-      ),
-    ],
-  );
+      ],
+    );
   }
+
+  @override
+  void dispose() {
+    // Dispose controllers when the widget is disposed
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+}

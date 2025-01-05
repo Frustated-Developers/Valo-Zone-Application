@@ -105,6 +105,7 @@ class CustomTextfield extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextFormField(
+                  style: TextStyle(fontWeight: FontWeight.bold),
                   obscureText: obscureText,
                   keyboardType: keyboardType,
                   onChanged: onChanged,
