@@ -32,16 +32,29 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           _buildOpacityContainer(),
-          _buildTextField(),
+
           Positioned(
-            left: MediaQuery.of(context).size.width * 0.1,
+            top: MediaQuery.of(context).size.width * 0.19,
+              right: MediaQuery.of(context).size.height * 0.05,
+              child: _buildLogo()),
+
+          _buildTextField(),
+
+          Positioned(
+            left: MediaQuery.of(context).size.width * 0.07,
             bottom: MediaQuery.of(context).size.height * 0.25,
             child: _buildSocialLogin(),
           ),
+
           Positioned(
             bottom:  MediaQuery.of(context).size.height * 0.18,
             child: _buildRememberMe(),
           ),
+
+          Positioned(
+              left: MediaQuery.of(context).size.width * 0.35,
+              bottom: MediaQuery.of(context).size.height * 0.05,
+              child: _footer()),
         ],
       ),
     );
@@ -53,6 +66,12 @@ class _LoginPageState extends State<LoginPage> {
       child: Container(
         color: AppColors.SelectedIconColor,
       ),
+    );
+  }
+  
+  Widget _buildLogo() {
+    return Container(
+      child: Image.asset(AssetPath.icIcon,scale: 2.3,),
     );
   }
 
@@ -106,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             color: Color(0XFF1877F2),
             height: 40,
-            width: 90,
+            width: 100,
             child: SvgPicture.asset(AssetPath.fb),
           ),
           SizedBox(
@@ -115,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             color: Colors.white,
             height: 40,
-            width: 90,
+            width: 100,
             child: Padding(
               padding: const EdgeInsets.all(6.0),
               child: Image.asset(AssetPath.google),
@@ -127,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             color: Colors.black,
             height: 40,
-            width: 90,
+            width: 100,
             child: Image.asset(AssetPath.apple),
           ),
         ],
@@ -157,3 +176,24 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+  Widget _footer() {
+  return Column(
+    children: [
+      Container(
+        child: Text("CAN'T SIGN IN",style: TextStyle(
+            color:AppColors.whiteText,
+            fontWeight: FontWeight.bold,
+            fontSize: 12),
+        ),
+      ),
+      Container(
+        child: Text("CREATE ACCOUNT",style: TextStyle(
+            color:AppColors.whiteText,
+            fontWeight: FontWeight.bold,
+            fontSize: 12),
+        ),
+      ),
+    ],
+  );
+  }

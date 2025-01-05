@@ -91,7 +91,7 @@ class CustomTextfield extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
             child: Container(
               color: const Color(0XFFC8C8C8),
-              height: 60,
+              height: 50,
               width: 380,
             ),
           ),
@@ -99,7 +99,7 @@ class CustomTextfield extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
           child: Container(
-            height: 60,
+            height: 50,
             width: 380,
             child: Center(
               child: Padding(
