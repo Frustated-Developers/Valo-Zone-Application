@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:valo_zone/home/view/homepage.dart';
+import 'package:valo_zone/login/view/loginPage.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
+import 'package:valo_zone/utils/navigation.dart';
 import 'package:valo_zone/utils/reusable_widgets/CustomButton.dart/CustomButton.dart';
 
 class LandingPage extends StatefulWidget {
@@ -103,11 +105,7 @@ class _LandingPageState extends State<LandingPage> {
                       MediaQuery.of(context).size.height >= 669 ? 50.w : 25.w),
                   child: CustomButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Homepage()),
-                      );
+                      navigateTo(context,LoginPage());
                     },
                     width:
                         MediaQuery.of(context).size.height >= 669 ? 400 : 300,

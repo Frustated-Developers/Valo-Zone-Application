@@ -75,14 +75,14 @@ class Customloginbutton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
           child: Container(
             color: AppColors.SelectedIconColor,
-            height: 80,
+            height: 60,
             width: 380,
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
           child: Container(
-            height: 80,
+            height: 60,
             width: 380,
             child: Center(
               child: Padding(
@@ -91,7 +91,7 @@ class Customloginbutton extends StatelessWidget {
                     'LOGIN',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      fontSize: 14,
                     ),
                   )),
             ),
