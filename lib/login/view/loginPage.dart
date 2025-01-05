@@ -35,11 +35,11 @@ class _LoginPageState extends State<LoginPage> {
           _buildTextField(),
           Positioned(
             left: MediaQuery.of(context).size.width * 0.1,
-            bottom: MediaQuery.of(context).size.height * 0.15,
+            bottom: MediaQuery.of(context).size.height * 0.25,
             child: _buildSocialLogin(),
           ),
           Positioned(
-            bottom: 190,
+            bottom:  MediaQuery.of(context).size.height * 0.18,
             child: _buildRememberMe(),
           ),
         ],
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CustomTextfield(
-          hintText: 'Enter your username',
+          hintText: 'Username',
           icon: Icons.person,
           keyboardType: TextInputType.text,
           onChanged: (value) {
@@ -75,10 +75,10 @@ class _LoginPageState extends State<LoginPage> {
           },
         ),
         SizedBox(
-          height: 15.h,
+          height: 8.h,
         ),
         CustomTextfield(
-          hintText: 'Enter your password',
+          hintText: 'Password',
           icon: Icons.lock_open,
           keyboardType: TextInputType.text,
           onChanged: (value) {
@@ -90,6 +90,9 @@ class _LoginPageState extends State<LoginPage> {
             }
             return null;
           },
+        ),
+        SizedBox(
+          height: 12.h,
         ),
         Customloginbutton(),
       ],
