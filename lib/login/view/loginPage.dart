@@ -23,6 +23,37 @@ class _LoginPageState extends State<LoginPage> {
   // Controllers for the TextFields
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final FocusNode _usernameFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _usernameFocusNode.addListener(() {
+      if (_usernameFocusNode.hasFocus) {
+        _clearUsernameError();
+      }
+    });
+
+    _passwordFocusNode.addListener(() {
+      if (_passwordFocusNode.hasFocus) {
+        _clearPasswordError();
+      }
+    });
+  }
+
+  void _clearUsernameError() {
+    if (!_formKey.currentState!.validate()) {
+      setState(() {});
+    }
+  }
+
+  void _clearPasswordError() {
+    if (!_formKey.currentState!.validate()) {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,12 +131,12 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Username field with controller and validation
           CustomTextfield(
             controller: _usernameController,
             hintText: 'Username',
             icon: Icons.person,
             keyboardType: TextInputType.text,
+            focusNode: _usernameFocusNode,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your username';
@@ -114,14 +145,13 @@ class _LoginPageState extends State<LoginPage> {
             },
           ),
           SizedBox(height: 8.h),
-
-          // Password field with controller and validation
           CustomTextfield(
             controller: _passwordController,
             hintText: 'Password',
             icon: Icons.lock_open,
             obscureText: true,
             keyboardType: TextInputType.text,
+            focusNode: _passwordFocusNode,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your password';
@@ -130,13 +160,10 @@ class _LoginPageState extends State<LoginPage> {
             },
           ),
           SizedBox(height: 12.h),
-
-          // Login button with validation and navigation
           Customloginbutton(
             buttonText: "LOGIN",
             onPressed: () {
               if (_formKey.currentState?.validate() ?? false) {
-                // If form is valid, navigate to Homepage
                 navigateTo(context, Homepage());
               }
             },

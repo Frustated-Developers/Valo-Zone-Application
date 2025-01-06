@@ -7,6 +7,7 @@ class CustomTextfield extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final bool obscureText;
+  final focusNode;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
 
@@ -15,6 +16,7 @@ class CustomTextfield extends StatelessWidget {
     this.backgroundColor = const Color(0xFFFB4453),
     this.hintText = 'User Name',
     this.icon = Icons.person_3_outlined,
+    this.focusNode,
     this.controller,
     this.keyboardType,
     this.obscureText = false,
@@ -106,6 +108,7 @@ class CustomTextfield extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextFormField(
                   style: TextStyle(fontWeight: FontWeight.bold),
+                  focusNode: focusNode,
                   obscureText: obscureText,
                   keyboardType: keyboardType,
                   onChanged: onChanged,
