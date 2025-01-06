@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:valo_zone/login/view/landingPage.dart';
+import 'package:valo_zone/settings/view/settings.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 
 void main() {

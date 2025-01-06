@@ -63,6 +63,7 @@ class _HomepageState extends State<Homepage> {
     NavigationItem(
       icon: Icons.settings,
       label: 'Setting',
+
     ),
   ];
 
