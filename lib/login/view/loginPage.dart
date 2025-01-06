@@ -23,36 +23,10 @@ class _LoginPageState extends State<LoginPage> {
   // Controllers for the TextFields
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final FocusNode _usernameFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-
-    _usernameFocusNode.addListener(() {
-      if (_usernameFocusNode.hasFocus) {
-        _clearUsernameError();
-      }
-    });
-
-    _passwordFocusNode.addListener(() {
-      if (_passwordFocusNode.hasFocus) {
-        _clearPasswordError();
-      }
-    });
-  }
-
-  void _clearUsernameError() {
-    if (!_formKey.currentState!.validate()) {
-      setState(() {});
-    }
-  }
-
-  void _clearPasswordError() {
-    if (!_formKey.currentState!.validate()) {
-      setState(() {});
-    }
   }
 
   @override
@@ -136,7 +110,6 @@ class _LoginPageState extends State<LoginPage> {
             hintText: 'Username',
             icon: Icons.person,
             keyboardType: TextInputType.text,
-            focusNode: _usernameFocusNode,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your username';
@@ -151,7 +124,6 @@ class _LoginPageState extends State<LoginPage> {
             icon: Icons.lock_open,
             obscureText: true,
             keyboardType: TextInputType.text,
-            focusNode: _passwordFocusNode,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your password';
@@ -219,15 +191,11 @@ class _LoginPageState extends State<LoginPage> {
     return Row(
       children: [
         Checkbox(
-          activeColor: _isChecked
-              ? AppColors.SelectedIconColor
-              : Colors.white70, // Color of the checkbox when selected
+          activeColor:
+              _isChecked ? AppColors.SelectedIconColor : Colors.white70,
           checkColor: Colors.white, // Tick color should be white
           fillColor: MaterialStateProperty.all(
-            _isChecked
-                ? Colors.red
-                : Colors.grey
-                    .shade50, // Grey color when unchecked, Red when checked
+            _isChecked ? Colors.red : Colors.grey.shade50,
           ),
           value: _isChecked,
           onChanged: (bool? newValue) {
