@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "698436486219",
+    "project_id": "valozone-5967a",
+    "storage_bucket": "valozone-5967a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698436486219:android:8cf43da03efbf7cbf9b9ce",
+        "android_client_info": {
+          "package_name": "com.example.valo_zone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjnBJX1qBjNj7CJlwNOhEMCgl8lAHyCx0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
