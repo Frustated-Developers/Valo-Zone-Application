@@ -7,6 +7,7 @@ class CustomTextfield extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final bool obscureText;
+  final focusNode;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
 
@@ -15,6 +16,7 @@ class CustomTextfield extends StatelessWidget {
     this.backgroundColor = const Color(0xFFFB4453),
     this.hintText = 'User Name',
     this.icon = Icons.person_3_outlined,
+    this.focusNode,
     this.controller,
     this.keyboardType,
     this.obscureText = false,
@@ -91,7 +93,7 @@ class CustomTextfield extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
             child: Container(
               color: const Color(0XFFC8C8C8),
-              height: 80,
+              height: 50,
               width: 380,
             ),
           ),
@@ -99,12 +101,14 @@ class CustomTextfield extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
           child: Container(
-            height: 80,
+            height: 50,
             width: 380,
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextFormField(
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  focusNode: focusNode,
                   obscureText: obscureText,
                   keyboardType: keyboardType,
                   onChanged: onChanged,
@@ -113,11 +117,11 @@ class CustomTextfield extends StatelessWidget {
                   decoration: InputDecoration(
                     icon: Icon(
                       icon,
-                      size: 30,
+                      size: 20,
                     ),
                     hintText: hintText,
                     hintStyle: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                        color: Colors.white, fontWeight: FontWeight.normal),
                     iconColor: Colors.white,
                     border: InputBorder.none,
                   ),

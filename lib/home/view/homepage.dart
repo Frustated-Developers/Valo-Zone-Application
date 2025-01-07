@@ -70,7 +70,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    // Initialize hover states for all agents
+    _selectedIndex = 0;
     getAgentsList().forEach((agent) {
       hoverStates[agent['name']!] = false;
     });
@@ -80,6 +80,18 @@ class _HomepageState extends State<Homepage> {
     setState(() {
       _selectedIndex = index;
     });
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ChamberWallpaper(),
+        ),
+      ).then((_) {
+        setState(() {
+          _selectedIndex = 0;
+        });
+      });
+    }
   }
 
   List<Map<String, String>> getAgentsList() {
@@ -115,6 +127,7 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.homepageBackground,
       body: CustomScrollView(
         slivers: [

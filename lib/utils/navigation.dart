@@ -6,3 +6,10 @@ void navigateToAgentWallpaper(BuildContext context, page) {
     MaterialPageRoute(builder: (context) => page),
   );
 }
+
+Future<void> navigateTo(BuildContext context, path) async {
+  await Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => path),
+  );
+}
