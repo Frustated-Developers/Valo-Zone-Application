@@ -1,7 +1,10 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valo_zone/home/view/homepage.dart';
+import 'package:valo_zone/services/login_service.dart';
 import 'package:valo_zone/sign_up/view/sign_up.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
@@ -23,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   // Controllers for the TextFields
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  final LoginService _loginService = LoginService();
   @override
   void initState() {
     super.initState();
@@ -134,9 +137,29 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(height: 12.h),
           Customloginbutton(
             buttonText: "LOGIN",
-            onPressed: () {
+            onPressed: () async {
               if (_formKey.currentState?.validate() ?? false) {
-                navigateTo(context, Homepage());
+                User? user = await _loginService.signInWithEmailAndPassword(
+                  _usernameController.text.trim(),
+                  _passwordController.text.trim(),
+                );
+
+                if (user != null) {
+                  navigateTo(context, Homepage());
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: "Are yrr!",
+                          contentType: ContentType.failure,
+                          message:
+                              'We couldn\'t find an account. Try signing up or double-check your details.',
+                        )),
+                  );
+                }
               }
             },
           ),
