@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:valo_zone/login/view/loginPage.dart';
@@ -16,12 +17,40 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Controllers for the TextFields
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+
+  bool _isLoading = false;
+
+  Future<void> _createAccount() async {
+    if (!_formKey.currentState!.validate()) return;
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Account created successfully!')),
+      );
+      navigateTo(context, const LoginPage());
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to create account: \$e')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,27 +100,23 @@ class _SignUpState extends State<SignUp> {
 
   Widget _buildTextField() {
     return Form(
-      key: _formKey, // Assign the form key
+      key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Username field
           CustomTextfield(
-            controller: _usernameController,
-            hintText: 'Username',
-            icon: Icons.person,
-            keyboardType: TextInputType.text,
+            controller: _emailController,
+            hintText: 'Email',
+            icon: Icons.email,
+            keyboardType: TextInputType.emailAddress,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your username';
+                return 'Please enter your email';
               }
               return null;
             },
           ),
-          SizedBox(
-            height: 8.h,
-          ),
-          // Password field
+          SizedBox(height: 8.h),
           CustomTextfield(
             controller: _passwordController,
             hintText: 'Password',
@@ -103,15 +128,12 @@ class _SignUpState extends State<SignUp> {
                 return 'Please enter your password';
               }
               if (value.length < 6) {
-                return 'Password should be at least 6 characters long';
+                return 'Password should be at least 6 characters';
               }
               return null;
             },
           ),
-          SizedBox(
-            height: 8.h,
-          ),
-          // Confirm Password field
+          SizedBox(height: 8.h),
           CustomTextfield(
             controller: _confirmPasswordController,
             hintText: 'Confirm Password',
@@ -119,28 +141,19 @@ class _SignUpState extends State<SignUp> {
             obscureText: true,
             keyboardType: TextInputType.text,
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please confirm your password';
-              }
               if (value != _passwordController.text) {
                 return 'Passwords do not match';
               }
               return null;
             },
           ),
-          SizedBox(
-            height: 12.h,
-          ),
-          // Create Account button
-          Customloginbutton(
-            buttonText: "CREATE MY ACCOUNT",
-            onPressed: () {
-              if (_formKey.currentState?.validate() ?? false) {
-                // If the form is valid, navigate to the LoginPage
-                navigateTo(context, const LoginPage());
-              }
-            },
-          ),
+          SizedBox(height: 12.h),
+          _isLoading
+              ? CircularProgressIndicator()
+              : Customloginbutton(
+                  buttonText: "CREATE MY ACCOUNT",
+                  onPressed: _createAccount,
+                ),
         ],
       ),
     );
@@ -148,7 +161,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
