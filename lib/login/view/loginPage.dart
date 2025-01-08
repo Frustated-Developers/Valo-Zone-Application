@@ -213,7 +213,7 @@ class _LoginPageState extends State<LoginPage> {
             }
           },
           child: Container(
-            color: Colors.white,
+            color: Colors.white70,
             height: 45.h,
             width: 325.w,
             child: Padding(
