@@ -12,7 +12,20 @@
           "package_name": "com.example.valo_zone"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "698436486219-dk4kam50tagpa2ted01atasdu4591ge1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.valo_zone",
+            "certificate_hash": "7b272c5254f756e116d6543810592174703671c8"
+          }
+        },
+        {
+          "client_id": "698436486219-690l1ifqole89v8lrnihuvt9uqo9dj2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBjnBJX1qBjNj7CJlwNOhEMCgl8lAHyCx0"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698436486219-690l1ifqole89v8lrnihuvt9uqo9dj2f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "698436486219-gcrm5ilfbmfaqdf8i2ug2vp9k0pn4lt5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.valoZone"
+              }
+            }
+          ]
         }
       }
     }

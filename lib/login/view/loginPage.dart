@@ -2,7 +2,6 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valo_zone/home/view/homepage.dart';
 import 'package:valo_zone/services/login_service.dart';
 import 'package:valo_zone/sign_up/view/sign_up.dart';
@@ -163,50 +162,83 @@ class _LoginPageState extends State<LoginPage> {
               }
             },
           ),
+          Text(
+            "OR",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 10,
+          )
         ],
       ),
     );
   }
 
   Widget _buildSocialLogin() {
-    return Center(
-      child: Row(
-        children: [
-          // Facebook login button
-          Container(
-            color: const Color(0XFF1877F2),
-            height: 40.h,
-            width: 100.w,
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: SvgPicture.asset(AssetPath.fb),
-            ),
-          ),
-          SizedBox(width: 20.w),
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () async {
+            try {
+              final LoginService loginService = LoginService();
+              final user = await loginService.signInWithGoogle();
 
-          // Google login button
-          Container(
-            color: Colors.white,
-            height: 40.h,
-            width: 100.w,
+              if (user != null) {
+                // Successfully logged in
+                // Navigate to your home screen or next screen
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const Homepage(), // Replace with your home screen
+                  ),
+                );
+              } else {
+                // Show error message
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Google sign in failed. Please try again.'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            } catch (e) {
+              // Show error message
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Error: ${e.toString()}'),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          },
+          child: Container(
+            color: Colors.white70,
+            height: 45.h,
+            width: 325.w,
             child: Padding(
               padding: MediaQuery.of(context).size.height >= 750
-                  ? const EdgeInsets.all(10.0)
+                  ? const EdgeInsets.all(12.0)
                   : const EdgeInsets.all(8.0),
-              child: Image.asset(AssetPath.google),
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                SizedBox(
+                  width: 0,
+                ),
+                Image.asset(AssetPath.google),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Sign in with Google",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                )
+              ]),
             ),
           ),
-          SizedBox(width: 20.w),
-
-          // Apple login button
-          Container(
-            color: Colors.black,
-            height: 40.h,
-            width: 100.w,
-            child: Image.asset(AssetPath.apple),
-          ),
-        ],
-      ),
+        ),
+        SizedBox(width: 20.w),
+      ],
     );
   }
 
