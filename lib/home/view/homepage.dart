@@ -1,4 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valo_zone/utils/AppColors.dart';
@@ -40,6 +41,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   String searchText = "";
   int _selectedIndex = 0;
+  final User? user = FirebaseAuth.instance.currentUser;
 
   Map<String, bool> hoverStates = {};
 
@@ -73,6 +75,8 @@ class _HomepageState extends State<Homepage> {
     getAgentsList().forEach((agent) {
       hoverStates[agent['name']!] = false;
     });
+
+    getUserPhoto();
   }
 
   void _onItemTapped(int index) {
@@ -122,6 +126,17 @@ class _HomepageState extends State<Homepage> {
     ];
   }
 
+  void getUserPhoto() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      final String? photoUrl = user.photoURL;
+      print('User photo URL: $photoUrl');
+    } else {
+      print('No user is signed in.');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,7 +152,9 @@ class _HomepageState extends State<Homepage> {
             expandedHeight: 60,
             leading: Image.asset(width: 100, height: 100, AssetPath.ic_valo),
             actions: [
-              const CircleAvatar(radius: 20),
+              CircleAvatar(
+                  radius: 20,
+                  foregroundImage: NetworkImage(user!.photoURL! ?? '')),
               const SizedBox(width: 20)
             ],
           ),
