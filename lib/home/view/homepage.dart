@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/navigation.dart';
+import 'package:valo_zone/utils/reusable_widgets/CustomSilverAppBar.dart';
 import 'package:valo_zone/utils/reusable_widgets/Search_box.dart';
 import 'package:valo_zone/wallpaper_page/views/astra_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/breach_wallpaper.dart';
@@ -75,8 +76,6 @@ class _HomepageState extends State<Homepage> {
     getAgentsList().forEach((agent) {
       hoverStates[agent['name']!] = false;
     });
-
-    getUserPhoto();
   }
 
   void _onItemTapped(int index) {
@@ -126,17 +125,6 @@ class _HomepageState extends State<Homepage> {
     ];
   }
 
-  void getUserPhoto() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      final String? photoUrl = user.photoURL;
-      print('User photo URL: $photoUrl');
-    } else {
-      print('No user is signed in.');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,24 +133,8 @@ class _HomepageState extends State<Homepage> {
       backgroundColor: AppColors.homepageBackground,
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            pinned: true,
-            floating: true,
-            backgroundColor: AppColors.homepageBackground,
-            expandedHeight: 60,
-            leading: Image.asset(width: 100, height: 100, AssetPath.ic_valo),
-            actions: [
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: Colors.grey,
-                foregroundImage: user?.photoURL != null
-                    ? NetworkImage(user!.photoURL!)
-                    : AssetImage(
-                        AssetPath.dummy_avatar,
-                      ),
-              ),
-              const SizedBox(width: 20)
-            ],
+          CustomSliverAppBar(
+            showTitle: false,
           ),
           SliverToBoxAdapter(
             child: Padding(
