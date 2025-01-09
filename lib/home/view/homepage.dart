@@ -153,8 +153,14 @@ class _HomepageState extends State<Homepage> {
             leading: Image.asset(width: 100, height: 100, AssetPath.ic_valo),
             actions: [
               CircleAvatar(
-                  radius: 20,
-                  foregroundImage: NetworkImage(user!.photoURL! ?? '')),
+                radius: 20,
+                backgroundColor: Colors.grey,
+                foregroundImage: user?.photoURL != null
+                    ? NetworkImage(user!.photoURL!)
+                    : AssetImage(
+                        AssetPath.dummy_avatar,
+                      ),
+              ),
               const SizedBox(width: 20)
             ],
           ),

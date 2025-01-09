@@ -21,6 +21,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isChecked = false; // Track the checkbox state
+  bool _isLoading = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Controllers for the TextFields
@@ -171,33 +172,9 @@ class _LoginPageState extends State<LoginPage> {
           ),
           SizedBox(height: 12.h),
           Customloginbutton(
-            buttonText: "LOGIN",
-            onPressed: () async {
-              if (_formKey.currentState?.validate() ?? false) {
-                User? user = await _loginService.signInWithEmailAndPassword(
-                  _usernameController.text.trim(),
-                  _passwordController.text.trim(),
-                );
-
-                if (user != null) {
-                  navigateTo(context, Homepage());
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.transparent,
-                        content: AwesomeSnackbarContent(
-                          title: "Are yrr!",
-                          contentType: ContentType.failure,
-                          message:
-                              'We couldn\'t find an account. Try signing up or double-check your details.',
-                        )),
-                  );
-                }
-              }
-            },
-          ),
+              isLoader: _isLoading,
+              buttonText: "LOGIN",
+              onPressed: _handleButtonClick),
           Text(
             "OR",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -339,6 +316,43 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ],
     );
+  }
+
+  void _handleButtonClick() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      await Future.delayed(const Duration(seconds: 2)); // Add 2-second delay
+
+      User? user = await _loginService.signInWithEmailAndPassword(
+        _usernameController.text.trim(),
+        _passwordController.text.trim(),
+      );
+
+      setState(() {
+        _isLoading = false;
+      });
+
+      if (user != null) {
+        navigateTo(context, Homepage());
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: "Are yrr!",
+              contentType: ContentType.failure,
+              message:
+                  'We couldn\'t find an account. Try signing up or double-check your details.',
+            ),
+          ),
+        );
+      }
+    }
   }
 
   @override
