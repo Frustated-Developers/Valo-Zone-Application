@@ -2,6 +2,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:valo_zone/home/view/homepage.dart';
 import 'package:valo_zone/services/login_service.dart';
 import 'package:valo_zone/sign_up/view/sign_up.dart';
@@ -26,9 +27,44 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final LoginService _loginService = LoginService();
+
+  // Add constant for shared preferences key
+  static const String PREFS_IS_LOGGED_IN = 'is_logged_in';
+  static const String PREFS_USER_EMAIL = 'user_email';
+
   @override
   void initState() {
     super.initState();
+    // Check login state as soon as LoginPage initializes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadRememberMeStatus();
+    });
+  }
+
+  // Load remember me status and redirect if necessary
+  Future<void> _loadRememberMeStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool isLoggedIn = prefs.getBool(PREFS_IS_LOGGED_IN) ?? false;
+
+    if (isLoggedIn && mounted) {
+      navigateTo(context, const Homepage());
+    }
+  }
+
+  // Save login state
+  Future<void> _saveLoginState(String email) async {
+    if (_isChecked) {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(PREFS_IS_LOGGED_IN, true);
+      await prefs.setString(PREFS_USER_EMAIL, email);
+    }
+  }
+
+  // Clear login state
+  Future<void> _clearLoginState() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(PREFS_IS_LOGGED_IN, false);
+    await prefs.remove(PREFS_USER_EMAIL);
   }
 
   @override
@@ -110,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
           CustomTextfield(
             controller: _usernameController,
             hintText: 'Username',
-            icon: Icons.person,
+            icon: Icons.email,
             keyboardType: TextInputType.text,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -167,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            height: 10,
+            height: 20.h,
           )
         ],
       ),
@@ -186,6 +222,7 @@ class _LoginPageState extends State<LoginPage> {
               if (user != null) {
                 // Successfully logged in
                 // Navigate to your home screen or next screen
+                await _saveLoginState(_usernameController.text.trim());
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -194,6 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 );
               } else {
+                await _clearLoginState();
                 // Show error message
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
@@ -220,20 +258,23 @@ class _LoginPageState extends State<LoginPage> {
               padding: MediaQuery.of(context).size.height >= 750
                   ? const EdgeInsets.all(12.0)
                   : const EdgeInsets.all(8.0),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                SizedBox(
-                  width: 0,
-                ),
-                Image.asset(AssetPath.google),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  "Sign in with Google",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                )
-              ]),
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Image.asset(AssetPath.google),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Sign in with Google",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    )
+                  ]),
             ),
           ),
         ),
@@ -248,21 +289,27 @@ class _LoginPageState extends State<LoginPage> {
         Checkbox(
           activeColor:
               _isChecked ? AppColors.SelectedIconColor : Colors.white70,
-          checkColor: Colors.white, // Tick color should be white
+          checkColor: Colors.white,
           fillColor: MaterialStateProperty.all(
             _isChecked ? Colors.red : Colors.grey.shade50,
           ),
           value: _isChecked,
-          onChanged: (bool? newValue) {
+          onChanged: (bool? newValue) async {
             setState(() {
-              _isChecked = newValue ?? false; // Update the checkbox state
+              _isChecked = newValue ?? false;
             });
+
+            if (!_isChecked) {
+              await _clearLoginState();
+            }
           },
         ),
         const Text(
           "Stay signed in",
           style: TextStyle(
-              fontWeight: FontWeight.bold, color: AppColors.whiteText),
+            fontWeight: FontWeight.bold,
+            color: AppColors.whiteText,
+          ),
         ),
       ],
     );
@@ -296,7 +343,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
-    // Dispose controllers when the widget is disposed
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();

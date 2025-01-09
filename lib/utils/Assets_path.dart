@@ -97,21 +97,14 @@ class AssetPath {
   static const String kayo_wallpaper =
       "assets/characters/wallpaper_card/kayo_wallpaper_card.png";
 
+  ////////Splash Page////////
+  static const String splashlogo = "assets/icons/splash_icon.png";
 
   /////LOGIN PAGE////
 
-  static const String loginBg =
-      "assets/images/loginBg.png";
-  static const String fb =
-      "assets/icons/fb.svg";
-  static const String google =
-      "assets/icons/googleLogo.png";
-  static const String apple =
-      "assets/icons/apple.jpg";
-  static const String icIcon=
-      "assets/icons/icLogin.png";
+  static const String loginBg = "assets/images/loginBg.png";
+  static const String fb = "assets/icons/fb.svg";
+  static const String google = "assets/icons/googleLogo.png";
+  static const String apple = "assets/icons/apple.jpg";
+  static const String icIcon = "assets/icons/icLogin.png";
 }
-
-
-
-
