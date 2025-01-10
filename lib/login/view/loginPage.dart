@@ -233,14 +233,14 @@ class _LoginPageState extends State<LoginPage> {
             width: 325.w,
             child: Padding(
               padding: MediaQuery.of(context).size.height >= 750
-                  ? const EdgeInsets.all(12.0)
+                  ? const EdgeInsets.all(11.0)
                   : const EdgeInsets.all(8.0),
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 10,
+                      width: 9.w,
                     ),
                     Image.asset(AssetPath.google),
                     SizedBox(

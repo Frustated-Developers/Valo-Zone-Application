@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:valo_zone/firebase_options.dart';
+import 'package:valo_zone/home/view/homepage.dart';
 import 'package:valo_zone/splash/view/splash_screen.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: const SplashScreen(),
+            home: const Homepage(),
           ),
         );
       },

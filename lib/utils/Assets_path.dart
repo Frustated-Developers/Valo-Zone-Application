@@ -111,4 +111,15 @@ class AssetPath {
   static const String google = "assets/icons/googleLogo.png";
   static const String apple = "assets/icons/apple.jpg";
   static const String icIcon = "assets/icons/icLogin.png";
+
+
+  ////  SETTING PAGE//////
+  static const String ic_feedback = "assets/icons/ic_feedback.png";
+  static const String ic_share = "assets/icons/ic_share.png";
+  static const String ic_terms = "assets/icons/ic_terms.png";
+  static const String ic_support = "assets/icons/ic_support.png";
+  static const String ic_privacy = "assets/icons/ic_privacy.png";
+  static const String ic_logout = "assets/icons/ic_logout.png";
+  static const String ic_Home = "assets/icons/ic_Home.png";
+
 }
