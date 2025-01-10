@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:valo_zone/settings/widgets/settingsDrawer.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/navigation.dart';
@@ -44,8 +45,7 @@ class _HomepageState extends State<Homepage> {
   String searchText = "";
   int _selectedIndex = 0;
   final User? user = FirebaseAuth.instance.currentUser;
-
-  Map<String, bool> hoverStates = {};
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final List<NavigationItem> navigationItems = [
     NavigationItem(
@@ -74,9 +74,7 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     _selectedIndex = 0;
-    getAgentsList().forEach((agent) {
-      hoverStates[agent['name']!] = false;
-    });
+    getAgentsList().forEach((agent) {});
   }
 
   void _onItemTapped(int index) {
@@ -94,6 +92,9 @@ class _HomepageState extends State<Homepage> {
           _selectedIndex = 0;
         });
       });
+    }
+    if (index == 3) {
+      _scaffoldKey.currentState?.openEndDrawer();
     }
   }
 
@@ -129,6 +130,16 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      endDrawer: SettingsDrawer(),
+      onEndDrawerChanged: (isOpened) {
+        if (!isOpened) {
+          // if drawer is closed
+          setState(() {
+            _selectedIndex = 0;
+          });
+        }
+      },
       extendBody: true,
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.homepageBackground,
