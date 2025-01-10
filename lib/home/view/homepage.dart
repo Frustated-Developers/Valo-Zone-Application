@@ -7,6 +7,7 @@ import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/navigation.dart';
 import 'package:valo_zone/utils/reusable_widgets/CustomSilverAppBar.dart';
 import 'package:valo_zone/utils/reusable_widgets/Search_box.dart';
+import 'package:valo_zone/wallpaper_page/views/all_agent_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/astra_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/breach_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/brimstone_wallpaper.dart';
@@ -86,7 +87,7 @@ class _HomepageState extends State<Homepage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const ChamberWallpaper(),
+          builder: (context) => const AllAgentWallpaper(),
         ),
       ).then((_) {
         setState(() {

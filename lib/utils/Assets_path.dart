@@ -46,6 +46,8 @@ class AssetPath {
   static const String sage = "assets/characters/sage1x.png";
 
 /////////AGENT WALLPAPER CARDS////////////
+  static const String all_wallpaper =
+      "assets/characters/wallpaper_card/all_agents_wallpaper.png";
   static const String pheonix_wallpaper =
       "assets/characters/wallpaper_card/phoenix_wallpaper_card.png";
   static const String reyna_wallpaper =
