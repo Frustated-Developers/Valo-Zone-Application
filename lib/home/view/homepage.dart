@@ -1,9 +1,11 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/navigation.dart';
+import 'package:valo_zone/utils/reusable_widgets/CustomSilverAppBar.dart';
 import 'package:valo_zone/utils/reusable_widgets/Search_box.dart';
 import 'package:valo_zone/wallpaper_page/views/astra_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/breach_wallpaper.dart';
@@ -40,6 +42,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   String searchText = "";
   int _selectedIndex = 0;
+  final User? user = FirebaseAuth.instance.currentUser;
 
   Map<String, bool> hoverStates = {};
 
@@ -130,16 +133,8 @@ class _HomepageState extends State<Homepage> {
       backgroundColor: AppColors.homepageBackground,
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            pinned: true,
-            floating: true,
-            backgroundColor: AppColors.homepageBackground,
-            expandedHeight: 60,
-            leading: Image.asset(width: 100, height: 100, AssetPath.ic_valo),
-            actions: [
-              const CircleAvatar(radius: 20),
-              const SizedBox(width: 20)
-            ],
+          CustomSliverAppBar(
+            showTitle: false,
           ),
           SliverToBoxAdapter(
             child: Padding(

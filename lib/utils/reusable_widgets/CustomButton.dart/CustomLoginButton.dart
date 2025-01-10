@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 
 class Customloginbutton extends StatelessWidget {
   final VoidCallback? onPressed;
-  final String buttonText; // Added onPressed parameter
+  final String buttonText;
+  final bool isLoader;
   const Customloginbutton({
     super.key,
     this.onPressed,
+    this.isLoader = false,
     required this.buttonText,
   });
 
@@ -94,12 +97,24 @@ class Customloginbutton extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: GestureDetector(
                     onTap: onPressed,
-                    child: Text(
-                      buttonText,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
+                    child: Stack(
+                      children: [
+                        if (isLoader)
+                          LoadingAnimationWidget.threeArchedCircle(
+                            size: 40,
+                            color: Colors.white,
+                          ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          buttonText,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
                     ),
                   )),
             ),

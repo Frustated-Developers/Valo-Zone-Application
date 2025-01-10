@@ -100,8 +100,12 @@ class AssetPath {
   ////////Splash Page////////
   static const String splashlogo = "assets/icons/splash_icon.png";
 
+  /////HOME PAGE////
+  static const String dummy_avatar = "assets/images/dummy_avatar.png";
+
   /////LOGIN PAGE////
 
+  static const String iconBallCircleLoading = "assets/images/loginBg.png";
   static const String loginBg = "assets/images/loginBg.png";
   static const String fb = "assets/icons/fb.svg";
   static const String google = "assets/icons/googleLogo.png";
