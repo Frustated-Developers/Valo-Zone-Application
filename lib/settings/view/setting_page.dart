@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:valo_zone/legal/view/privacy.dart';
 import 'package:valo_zone/legal/view/terms.dart';
 import 'package:valo_zone/utils/AppColors.dart';
@@ -65,6 +66,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
             height: 15.h,
           ),
           _buildList(AssetPath.ic_support, "Support", () {
+            openGmailWithSubject();
             setState(() {
               selectedItem = "Support";
             });
@@ -155,6 +157,47 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
       width: 200.w,
       color: AppColors.whiteText,
     );
+  }
+
+  Future<void> openGmailWithSubject() async {
+    // Email details
+    const String email = 'drishtantranjansrivastava54@gmail.com';
+    const String subject = 'Support Request';
+    const String body = 'Hi Support Team,\n\n';
+
+    // Create mailto URI - Modified to ensure it opens in mail apps
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: email,
+      queryParameters: {
+        'subject': subject,
+        'body': body,
+      },
+    );
+
+    try {
+      if (await canLaunchUrl(emailUri)) {
+        await launchUrl(
+          emailUri,
+          mode: LaunchMode.platformDefault,  // This ensures it opens in mail apps
+        );
+      } else {
+        // Try alternative launch method if the first one fails
+        final String emailString = 'mailto:$email?subject=${Uri.encodeComponent(subject)}&body=${Uri.encodeComponent(body)}';
+        final Uri alternativeUri = Uri.parse(emailString);
+
+        if (await canLaunchUrl(alternativeUri)) {
+          await launchUrl(
+            alternativeUri,
+            mode: LaunchMode.platformDefault,
+          );
+        } else {
+          throw 'Could not launch email client';
+        }
+      }
+    } catch (e) {
+      throw 'Failed to open email app: $e';
+    }
   }
 
 
