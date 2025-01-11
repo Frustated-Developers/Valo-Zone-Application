@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:valo_zone/legal/view/privacy.dart';
+import 'package:valo_zone/legal/view/terms.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
+import 'package:valo_zone/utils/navigation.dart';
 
 class SettingsDrawer extends StatefulWidget {
   const SettingsDrawer({super.key});
@@ -70,6 +73,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
             height: 15.h,
           ),
           _buildList(AssetPath.ic_privacy, "Privacy Policy", () {
+            navigateTo(context, PrivacyPolicy());
             setState(() {
               selectedItem = "Privacy Policy";
             });
@@ -78,6 +82,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
             height: 15.h,
           ),
           _buildList(AssetPath.ic_terms, "Terms & Conditions", () {
+            navigateTo(context, TermsNConditions());
             setState(() {
               selectedItem = "Terms & Conditions";
             });

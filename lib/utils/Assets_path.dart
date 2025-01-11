@@ -121,5 +121,8 @@ class AssetPath {
   static const String ic_privacy = "assets/icons/ic_privacy.png";
   static const String ic_logout = "assets/icons/ic_logout.png";
   static const String ic_Home = "assets/icons/ic_Home.png";
+  static const String legal_terms = "assets/legal/terms&conditions.pdf";
+  static const String legal_privacy = "assets/legal/legal_privacy.pdf";
+
 
 }
