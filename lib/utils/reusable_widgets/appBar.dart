@@ -29,6 +29,7 @@ class appBar extends PreferredSize {
         ),
         leading: GestureDetector(
           onTap: () {
+
             Navigator.pop(context);
           },
           child: Image.asset(
