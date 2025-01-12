@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:valo_zone/home/view/homepage.dart';
+import 'package:valo_zone/landing/view/landingPage.dart';
 import 'package:valo_zone/legal/view/privacy.dart';
 import 'package:valo_zone/legal/view/terms.dart';
 import 'package:valo_zone/utils/AppColors.dart';
@@ -40,7 +42,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Drishtant Ranjan",style: TextStyle(color: AppColors.whiteText,fontSize: 16),),
-                  Text("drishtantranjansrivastava54@gmail.com",style: TextStyle(color: AppColors.whiteText),),
+                  Text("drishtantranjan54@gmail.com",style: TextStyle(color: AppColors.whiteText),),
                 ],
               )
             ],
@@ -103,12 +105,14 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
           ),
 
           _buildList(AssetPath.ic_Home, "Back to Home", () {
+            navigateTo(context, Homepage());
             setState(() {
               selectedItem = "Back to Home";
             });
           }, selectedItem == "Back to Home"),
 
           _buildList(AssetPath.ic_logout, "Logout", () {
+            navigateTo(context, LandingPage());
             setState(() {
               selectedItem = "Logout";
             });
