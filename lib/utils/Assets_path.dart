@@ -125,4 +125,7 @@ class AssetPath {
   static const String legal_privacy = "assets/legal/legal_privacy.pdf";
 
 
+  /////////////Featured Page///////////////
+  static const String featureBackground = "assets/images/featuredBackground.png";
+
 }
