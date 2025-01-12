@@ -39,8 +39,8 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Yesra",style: TextStyle(color: AppColors.whiteText,fontSize: 16),),
-                  Text("fyesra0@gmail.com",style: TextStyle(color: AppColors.whiteText),),
+                  Text("Drishtant Ranjan",style: TextStyle(color: AppColors.whiteText,fontSize: 16),),
+                  Text("drishtantranjansrivastava54@gmail.com",style: TextStyle(color: AppColors.whiteText),),
                 ],
               )
             ],

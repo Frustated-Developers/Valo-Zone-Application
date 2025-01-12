@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
+import 'package:valo_zone/utils/reusable_widgets/appBar.dart';
 
 class DeadlockWallpaper extends StatelessWidget {
   const DeadlockWallpaper({super.key});
@@ -10,31 +11,9 @@ class DeadlockWallpaper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.homepageBackground,
-      appBar: AppBar(
-        backgroundColor: AppColors.homepageBackground,
-        centerTitle: true,
-        title: const Text(
-          "Deadlock",
-          style: TextStyle(
-            fontFamily: "Pennypacker",
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Image.asset(
-            width: 100,
-            height: 100,
-            AssetPath.ic_valo,
-          ),
-        ),
-        actions: [
-          const CircleAvatar(radius: 20),
-          const SizedBox(width: 20),
-        ],
+      appBar: appBar(showImage: true,
+        title: "Deadlock",
+        fontSize: 14,
       ),
       body: SingleChildScrollView(
         child: Padding(
