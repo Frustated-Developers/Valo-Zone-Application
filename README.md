@@ -1,6 +1,6 @@
 # valo_zone
 
-A new Flutter project.
+THis is the new flutter project.
 
 ## Getting Started
 
