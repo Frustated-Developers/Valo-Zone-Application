@@ -133,4 +133,11 @@ class AssetPath {
   static const String bg_container2 = "assets/images/bg_container2.png";
   static const String bg_container3 = "assets/images/bg_container3.png";
   static const String bg_container4 = "assets/images/bg_container4.png";
+
+
+  //////FEATURE PAGE////
+  static const String posters = "assets/images/posters.png";
+  static const String tshirts = "assets/images/tshirt.png";
+  static const String hoodies = "assets/images/hoodies.png";
+  static const String mugs = "assets/images/mugs.png";
 }

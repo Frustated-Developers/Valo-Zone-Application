@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:valo_zone/featured/view/featured_home.dart';
 import 'package:valo_zone/firebase_options.dart';
 import 'package:valo_zone/home/view/homepage.dart';
 import 'package:valo_zone/legal/view/terms.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: const Homepage(),
+            home: const FeaturedHome(),
           ),
         );
       },
