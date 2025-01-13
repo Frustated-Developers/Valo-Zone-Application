@@ -22,128 +22,121 @@ class WeaponsPage extends StatelessWidget {
         child: Column(
           children: [
             Image.asset(AssetPath.weapons_background),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             _buildCollectionTitle("SIDE ARMS"),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildGunContainer(AssetPath.bg_container2, "SHORTY",
-                    "assets/weapons/shorty.png", 230),
+                _buildGunContainer(
+                    AssetPath.bg_container2, "SHORTY", AssetPath.shorty, 230.h),
                 _buildGunContainer(AssetPath.bg_container1, "CLASSIC",
-                    "assets/weapons/classic.png", 200),
+                    AssetPath.classic, 200.h),
               ],
             ),
-            SizedBox(
-              height: 20.h,
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildGunContainer(
+                    AssetPath.bg_container4, "GHOST", AssetPath.ghost, 230.h),
+                _buildGunContainer(
+                    AssetPath.bg_container3, "FRENZY", AssetPath.frenzy, 180.h),
+              ],
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              _buildGunContainer(AssetPath.bg_container4, "GHOST",
-                  "assets/weapons/ghost.png", 230),
-              _buildGunContainer(AssetPath.bg_container1, "FRENZY",
-                  "assets/weapons/frenzy.png", 200),
-            ]),
-            SizedBox(
-              height: 20.h,
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildGunContainer(AssetPath.bg_container2, "SHERRIF",
+                    AssetPath.sheriff, 210.h),
+                _buildGunContainer(
+                    AssetPath.bg_container1, "KNIFE", AssetPath.knife, 200.h),
+              ],
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              _buildGunContainer(AssetPath.bg_container2, "SHERRIF",
-                  "assets/weapons/sheriff.png", 230),
-              _buildGunContainer(AssetPath.bg_container2, "KNIFE",
-                  "assets/weapons/knife.png", 220),
-            ]),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             _buildCollectionTitle("RIFLES"),
-            SizedBox(
-              height: 20.h,
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildGunContainer(AssetPath.bg_container4, "PHANTOM",
+                    AssetPath.phantom, 230.h),
+                _buildGunContainer(
+                    AssetPath.bg_container1, "VANDAL", AssetPath.vandal, 230.h),
+              ],
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              _buildGunContainer(AssetPath.bg_container4, "PHANTOM",
-                  "assets/weapons/phantom.png", 230),
-              _buildGunContainer(AssetPath.bg_container1, "VANDAL",
-                  "assets/weapons/vandal.png", 230),
-            ]),
-            SizedBox(
-              height: 20.h,
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildGunContainer(AssetPath.bg_container3, "BULLDOG",
+                    AssetPath.bulldog, 210.h),
+                _buildGunContainer(AssetPath.bg_container2, "GUARDIAN",
+                    AssetPath.guardian, 245.h),
+              ],
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              _buildGunContainer(AssetPath.bg_container3, "BULLDOG",
-                  "assets/weapons/bulldog.png", 230),
-              _buildGunContainer(AssetPath.bg_container2, "GUARDIAN",
-                  "assets/weapons/guardian.png", 255),
-            ]),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             _buildCollectionTitle("SMGS"),
-            SizedBox(
-              height: 20.h,
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildGunContainer(AssetPath.bg_container3, "SPECTRE",
+                    AssetPath.spectre, 230.h),
+                _buildGunContainer(AssetPath.bg_container2, "STRINGER",
+                    AssetPath.stringer, 220.h),
+              ],
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              _buildGunContainer(AssetPath.bg_container3, "SPECTRE",
-                  "assets/weapons/spectre.png", 230),
-              _buildGunContainer(AssetPath.bg_container2, "STRINGER",
-                  "assets/weapons/stringer.png", 235),
-            ]),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             _buildCollectionTitle("SHORT GUNS"),
-            SizedBox(
-              height: 20.h,
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildGunContainer(
+                    AssetPath.bg_container4, "BUCKY", AssetPath.bucky, 230.h),
+                _buildGunContainer(
+                    AssetPath.bg_container1, "JUDGE", AssetPath.judge, 220.h),
+              ],
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              _buildGunContainer(AssetPath.bg_container4, "BUCKY",
-                  "assets/weapons/bucky.png", 230),
-              _buildGunContainer(AssetPath.bg_container1, "JUDGE",
-                  "assets/weapons/judge.png", 220),
-            ]),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             _buildCollectionTitle("MACHINE GUN"),
-            SizedBox(
-              height: 20.h,
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildGunContainer(
+                    AssetPath.bg_container3, "ARES", AssetPath.ares, 230.h),
+                _buildGunContainer(
+                    AssetPath.bg_container2, "ODIN", AssetPath.odin, 235.h),
+              ],
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              _buildGunContainer(AssetPath.bg_container3, "ARES",
-                  "assets/weapons/ares.png", 230),
-              _buildGunContainer(AssetPath.bg_container2, "ODIN",
-                  "assets/weapons/odin.png", 235),
-            ]),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             _buildCollectionTitle("SNIPER RIFLES"),
-            SizedBox(
-              height: 20.h,
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildGunContainer(AssetPath.bg_container1, "OPERATOR",
+                    AssetPath.operator, 230.h),
+                _buildGunContainer(AssetPath.bg_container3, "MARSHAL",
+                    AssetPath.marshal, 240.h),
+              ],
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              _buildGunContainer(AssetPath.bg_container1, "OPERATOR",
-                  "assets/weapons/operator.png", 230),
-              _buildGunContainer(AssetPath.bg_container3, "MARSHAL",
-                  "assets/weapons/marshal.png", 245),
-            ]),
-            SizedBox(
-              height: 20.h,
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildGunContainer(
+                    AssetPath.bg_container3, "OUTLAW", AssetPath.outlaw, 220.h),
+                Container(
+                  height: 225.h,
+                  width: 160.w,
+                ),
+              ],
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              _buildGunContainer(AssetPath.bg_container3, "OUTLAW",
-                  "assets/weapons/outlaw.png", 220),
-              Container(
-                height: 225.h,
-                width: 160.w,
-              ),
-            ]),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
           ],
         ),
       ),
@@ -159,36 +152,40 @@ Widget _buildGunContainer(@required String ContainerImage,
         height: 225.h,
         width: 160.w,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-                image: AssetImage(ContainerImage), fit: BoxFit.cover)),
+          borderRadius: BorderRadius.circular(10.r),
+          image: DecorationImage(
+            image: AssetImage(ContainerImage),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Stack(
           children: [
             RotatedBox(
-                quarterTurns: 1,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                    bottom: 10.0,
+              quarterTurns: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  bottom: 10.0,
+                ),
+                child: Text(
+                  GunName,
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w900,
+                    color: AppColors.blackText,
                   ),
-                  child: Text(
-                    GunName,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w900,
-                      color: AppColors.blackText,
-                    ),
-                  ),
-                )),
+                ),
+              ),
+            ),
           ],
         ),
       ),
       Positioned(
-        bottom: 10,
-        left: 10,
+        bottom: 5.h,
+        left: 10.h,
         child: Image.asset(
           GunImage,
-          height: GunHeight ?? 200,
+          height: GunHeight ?? 200.h,
         ),
       ),
     ],
