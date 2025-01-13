@@ -112,7 +112,6 @@ class AssetPath {
   static const String apple = "assets/icons/apple.jpg";
   static const String icIcon = "assets/icons/icLogin.png";
 
-
   ////  SETTING PAGE//////
   static const String ic_feedback = "assets/icons/ic_feedback.png";
   static const String ic_share = "assets/icons/ic_share.png";
@@ -121,11 +120,17 @@ class AssetPath {
   static const String ic_privacy = "assets/icons/ic_privacy.png";
   static const String ic_logout = "assets/icons/ic_logout.png";
   static const String ic_Home = "assets/icons/ic_Home.png";
-  static const String legal_terms = "assets/legal/terms&conditions.pdf";
+  static const String legal_terms = "assets/legal/terms.pdf";
   static const String legal_privacy = "assets/legal/legal_privacy.pdf";
 
-
   /////////////Featured Page///////////////
-  static const String featureBackground = "assets/images/featuredBackground.png";
+  static const String featureBackground =
+      "assets/images/featuredBackground.png";
 
+  /////////////WEAPONS PAGE///////////////
+  static const String weapons_background = "assets/images/weopons_image.webp";
+  static const String bg_container1 = "assets/images/bg_container1.png";
+  static const String bg_container2 = "assets/images/bg_container2.png";
+  static const String bg_container3 = "assets/images/bg_container3.png";
+  static const String bg_container4 = "assets/images/bg_container4.png";
 }

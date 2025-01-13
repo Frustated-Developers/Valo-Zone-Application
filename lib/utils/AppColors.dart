@@ -11,4 +11,5 @@ class AppColors {
   static const Color SelectedSetting = Color(0xFF23374C);
   static const Color Divider = Color(0xFF686D73);
   static const Color whiteText = Colors.white;
+  static const Color blackText = Colors.black;
 }

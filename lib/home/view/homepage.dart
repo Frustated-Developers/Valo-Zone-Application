@@ -33,6 +33,7 @@ import 'package:valo_zone/wallpaper_page/views/sova_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/viper_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/vyse_wallpaper.dart';
 import 'package:valo_zone/wallpaper_page/views/yoru_wallpaper.dart';
+import 'package:valo_zone/weapons/view/weapons.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -93,6 +94,18 @@ class _HomepageState extends State<Homepage> {
         });
       });
     }
+    if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const WeaponsPage(),
+        ),
+      ).then((_) {
+        setState(() {
+          _selectedIndex = 0;
+        });
+      });
+    }
     if (index == 3) {
       _scaffoldKey.currentState?.openEndDrawer();
     }
@@ -130,7 +143,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=> FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: _scaffoldKey,
         endDrawer: SettingsDrawer(),
@@ -224,19 +237,22 @@ class _HomepageState extends State<Homepage> {
                             : navigationItems[index].svgPath!,
                         height: 24,
                         width: 24,
-                        color:
-                            isActive ? AppColors.SelectedIconColor : Colors.white,
+                        color: isActive
+                            ? AppColors.SelectedIconColor
+                            : Colors.white,
                       )
                     : Icon(
                         navigationItems[index].icon,
-                        color:
-                            isActive ? AppColors.SelectedIconColor : Colors.white,
+                        color: isActive
+                            ? AppColors.SelectedIconColor
+                            : Colors.white,
                       ),
                 const SizedBox(height: 4),
                 Text(
                   navigationItems[index].label,
                   style: TextStyle(
-                    color: isActive ? AppColors.SelectedIconColor : Colors.white,
+                    color:
+                        isActive ? AppColors.SelectedIconColor : Colors.white,
                     fontSize: 12,
                   ),
                 ),

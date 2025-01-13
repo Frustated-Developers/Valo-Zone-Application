@@ -196,6 +196,7 @@ flutter:
     - assets/images/
     - assets/json/
     - assets/legal/
+    - assets/weapons/
 
   fonts:
     - family: "Pennypacker"
