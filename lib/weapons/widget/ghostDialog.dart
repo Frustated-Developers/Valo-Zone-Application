@@ -157,7 +157,7 @@ class GhostDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 96 in ( 0 - 50m )",
+                                    "Avg 96 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -202,7 +202,7 @@ class GhostDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 27.5 in ( 0 - 50m )",
+                                    "Avg 27.5 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -247,7 +247,7 @@ class GhostDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 23 in ( 0 - 50m )",
+                                    "Avg 23 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],

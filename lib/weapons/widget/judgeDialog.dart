@@ -154,7 +154,7 @@ class JudgeDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 22.66 in ( 0 - 50m )",
+                                    "Avg 22.66 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -199,7 +199,7 @@ class JudgeDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 11.33 in ( 0 - 50m )",
+                                    "Avg 11.33 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -244,7 +244,7 @@ class JudgeDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 9 in ( 0 - 50m )",
+                                    "Avg 9 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],

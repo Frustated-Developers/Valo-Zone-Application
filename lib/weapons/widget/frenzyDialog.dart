@@ -157,7 +157,7 @@ class FrenzyDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 70.5 in ( 0 - 50m )",
+                                    "Avg 70.5 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -202,7 +202,7 @@ class FrenzyDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 23.5 in ( 0 - 50m )",
+                                    "Avg 23.5 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -247,7 +247,7 @@ class FrenzyDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 19.5 in ( 0 - 50m )",
+                                    "Avg 19.5 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],

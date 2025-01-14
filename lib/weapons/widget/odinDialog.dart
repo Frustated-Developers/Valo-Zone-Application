@@ -154,7 +154,7 @@ class OdinDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 86 in ( 0 - 50m )",
+                                    "Avg 86 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -199,7 +199,7 @@ class OdinDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 34.5 in ( 0 - 50m )",
+                                    "Avg 34.5 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -244,7 +244,7 @@ class OdinDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 29 in ( 0 - 50m )",
+                                    "Avg 29 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],

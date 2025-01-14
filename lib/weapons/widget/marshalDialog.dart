@@ -154,7 +154,7 @@ class MarshalDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 202 in ( 0 - 50m )",
+                                    "Avg 202 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -199,7 +199,7 @@ class MarshalDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 101 in ( 0 - 50m )",
+                                    "Avg 101 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -244,7 +244,7 @@ class MarshalDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 85 in ( 0 - 50m )",
+                                    "Avg 85 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],

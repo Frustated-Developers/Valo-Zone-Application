@@ -157,7 +157,7 @@ class SpectreDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 68 in ( 0 - 50m )",
+                                    "Avg 68 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -202,7 +202,7 @@ class SpectreDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 22.66 in ( 0 - 50m )",
+                                    "Avg 22.66 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -247,7 +247,7 @@ class SpectreDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 19 in ( 0 - 50m )",
+                                    "Avg 19 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],

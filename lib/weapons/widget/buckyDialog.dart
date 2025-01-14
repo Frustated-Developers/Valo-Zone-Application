@@ -154,7 +154,7 @@ class BuckyDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 28 in ( 0 - 50m )",
+                                    "Avg 28 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -199,7 +199,7 @@ class BuckyDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 14 in ( 0 - 50m )",
+                                    "Avg 14 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -244,7 +244,7 @@ class BuckyDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 11.66 in ( 0 - 50m )",
+                                    "Avg 11.66 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],

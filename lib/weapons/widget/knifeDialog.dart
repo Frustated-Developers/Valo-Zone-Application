@@ -36,6 +36,7 @@ class KnifeDialog extends StatelessWidget {
                         height: 10.h,
                       ),
                       const Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
                             "// ORIGIN : ",
@@ -44,9 +45,11 @@ class KnifeDialog extends StatelessWidget {
                                 letterSpacing: 1,
                                 color: AppColors.dullWhiteText),
                           ),
-                          Text(
-                            "Independent Manufacturing",
-                            style: TextStyle(color: AppColors.greyText),
+                          Expanded(
+                            child: Text(
+                              "Independent Manufacturing",
+                              style: TextStyle(color: AppColors.greyText),
+                            ),
                           ),
                         ],
                       ),

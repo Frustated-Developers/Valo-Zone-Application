@@ -157,7 +157,7 @@ class PhantomDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 148 in ( 0 - 50m )",
+                                    "Avg 148 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -202,7 +202,7 @@ class PhantomDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 37 in ( 0 - 50m )",
+                                    "Avg 37 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -247,7 +247,7 @@ class PhantomDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 47.5 in ( 0 - 50m )",
+                                    "Avg 47.5 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],

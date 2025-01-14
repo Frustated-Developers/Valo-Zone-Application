@@ -36,6 +36,7 @@ class SherrifDialog extends StatelessWidget {
                         height: 10.h,
                       ),
                       const Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
                             "// ORIGIN : ",
@@ -44,9 +45,12 @@ class SherrifDialog extends StatelessWidget {
                                 letterSpacing: 1,
                                 color: AppColors.dullWhiteText),
                           ),
-                          Text(
-                            "Independent Manufacturing",
-                            style: TextStyle(color: AppColors.greyText),
+                          Expanded(
+                            child: Text(
+                              maxLines: 2,
+                              "Independent Manufacturing",
+                              style: TextStyle(color: AppColors.greyText,overflow: TextOverflow.ellipsis,),
+                            ),
                           ),
                         ],
                       ),
@@ -157,7 +161,7 @@ class SherrifDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 152 in ( 0 - 50m )",
+                                    "Avg 152 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -202,7 +206,7 @@ class SherrifDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 80 in ( 0 - 50m )",
+                                    "Avg 80 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
@@ -247,7 +251,7 @@ class SherrifDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 44 in ( 0 - 50m )",
+                                    "Avg 44 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],

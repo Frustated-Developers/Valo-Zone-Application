@@ -13,6 +13,7 @@ class ShortyDialog extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
+          width: double.infinity,
           decoration: BoxDecoration(
               color: AppColors.homepageBackground,
               borderRadius: BorderRadius.circular(10)),
@@ -108,12 +109,13 @@ class ShortyDialog extends StatelessWidget {
                                   Text(
                                     "AMMUNATION",
                                     style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.greyText),
                                   ),
                                   Text(
-                                    "36 ( per pellet )",
-                                    style: TextStyle(color: AppColors.greyText),
+                                    "36 (per pellet)",
+                                    style: TextStyle(color: AppColors.greyText,overflow: TextOverflow.ellipsis,),
                                   ),
                                 ],
                               ),
@@ -153,12 +155,13 @@ class ShortyDialog extends StatelessWidget {
                                   Text(
                                     "HEAD SHOT",
                                     style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 13.33 in ( 0 - 50m )",
-                                    style: TextStyle(color: AppColors.greyText),
+                                    "Avg 13.33 in (0 - 50m)",
+                                    style: TextStyle(color: AppColors.greyText,overflow: TextOverflow.ellipsis,),
                                   ),
                                 ],
                               ),
@@ -198,12 +201,13 @@ class ShortyDialog extends StatelessWidget {
                                   Text(
                                     "BODY SHOT",
                                     style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 6.66 in ( 0 - 50m )",
-                                    style: TextStyle(color: AppColors.greyText),
+                                    "Avg 6.66 in (0 - 50m)",
+                                    style: TextStyle(color: AppColors.greyText,overflow: TextOverflow.ellipsis,),
                                   ),
                                 ],
                               ),
@@ -247,7 +251,7 @@ class ShortyDialog extends StatelessWidget {
                                         color: AppColors.dullWhiteText),
                                   ),
                                   Text(
-                                    "Average 5.33 in ( 0 - 50m )",
+                                    "Avg 5.33 in (0 - 50m)",
                                     style: TextStyle(color: AppColors.greyText),
                                   ),
                                 ],
