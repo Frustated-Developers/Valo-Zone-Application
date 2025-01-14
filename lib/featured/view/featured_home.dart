@@ -174,17 +174,16 @@ class _FeaturedHomeState extends State<FeaturedHome> {
         width: 65,
         height: 65,
         child: FloatingActionButton(
-          backgroundColor: AppColors.SelectedIconColor,
-          shape: const CircleBorder(),
-          child: Image.asset(
-            AssetPath.ic_valo,
-            width: 60,
-            height: 60,
-          ),
-          onPressed: () {
-            navigateTo(context, FeaturedHome());
-          },
-        ),
+            backgroundColor: AppColors.SelectedIconColor,
+            shape: const CircleBorder(),
+            child: Image.asset(
+              AssetPath.ic_valo,
+              width: 60,
+              height: 60,
+            ),
+            onPressed: () => (_selectedIndex == -1)
+                ? null
+                : navigateTo(context, FeaturedHome())),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(

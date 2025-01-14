@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valo_zone/featured/view/featured_home.dart';
 import 'package:valo_zone/settings/view/setting_page.dart';
@@ -146,12 +147,17 @@ class _HomepageState extends State<Homepage> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: WillPopScope(
         onWillPop: () async {
-          await navigateTo(context, Homepage());
-          return false;
+          if (_selectedIndex == 0) {
+            SystemNavigator.pop();
+            return Future.value(false);
+          } else {
+            navigateTo(context, const Homepage());
+            return Future.value(true);
+          }
         },
         child: Scaffold(
           key: _scaffoldKey,
-          endDrawer: SettingsDrawer(),
+          endDrawer: const SettingsDrawer(),
           onEndDrawerChanged: (isOpened) {
             if (!isOpened) {
               // if drawer is closed
@@ -166,7 +172,7 @@ class _HomepageState extends State<Homepage> {
           body: CustomScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             slivers: [
-              CustomSliverAppBar(
+              const CustomSliverAppBar(
                 showTitle: false,
               ),
               SliverToBoxAdapter(
@@ -212,19 +218,19 @@ class _HomepageState extends State<Homepage> {
             width: 65,
             height: 65,
             child: FloatingActionButton(
-              backgroundColor: AppColors.SelectedIconColor,
-              shape: const CircleBorder(),
-              child: Image.asset(
-                AssetPath.ic_valo,
-                width: 60,
-                height: 60,
-              ),
-              onPressed: () {
-                navigateTo(context, FeaturedHome());
-              },
-            ),
+                backgroundColor: AppColors.SelectedIconColor,
+                shape: const CircleBorder(),
+                child: Image.asset(
+                  AssetPath.ic_valo,
+                  width: 60,
+                  height: 60,
+                ),
+                onPressed: () => (_selectedIndex == -1)
+                    ? null
+                    : navigateTo(context, FeaturedHome())),
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar.builder(
             itemCount: navigationItems.length,
             notchMargin: 15,
@@ -406,5 +412,3 @@ class NavigationItem {
     required this.label,
   });
 }
-
-
