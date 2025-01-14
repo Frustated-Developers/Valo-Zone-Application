@@ -133,34 +133,54 @@ class AssetPath {
   static const String bg_container2 = "assets/images/bg_container2.png";
   static const String bg_container3 = "assets/images/bg_container3.png";
   static const String bg_container4 = "assets/images/bg_container4.png";
-
+  static const String ic_bullets = "assets/icons/bullets.png";
+  static const String ic_legs = "assets/icons/ic_legs.png";
+  static const String ic_head = "assets/icons/ic_head.png";
+  static const String ic_body = "assets/icons/ic_body.png";
 
   // Weapon Images
   static const String shorty = "assets/weapons/shorty.png";
+  static const String shorty_gun = "assets/weapons/shorty_detail.png";
   static const String classic = "assets/weapons/classic.png";
+  static const String classic_gun = "assets/weapons/classic_details.png";
   static const String ghost = "assets/weapons/ghost.png";
+  static const String ghost_gun = "assets/weapons/ghost_detail.png";
   static const String frenzy = "assets/weapons/frenzy.png";
+  static const String frenzy_gun = "assets/weapons/frenzy_detail.png";
   static const String sheriff = "assets/weapons/sheriff.png";
+  static const String sheriff_gun = "assets/weapons/sherrif_detail.png";
   static const String knife = "assets/weapons/knife.png";
+  static const String knife_detail = "assets/weapons/knife_detail.webp";
   static const String phantom = "assets/weapons/phantom.png";
+  static const String phantom_gun = "assets/weapons/phantom_detail.png";
   static const String vandal = "assets/weapons/vandal.png";
+  static const String vandal_gun = "assets/weapons/vandal_detail.png";
   static const String bulldog = "assets/weapons/bulldog.png";
+  static const String bulldog_gun = "assets/weapons/bulldog_detail.png";
   static const String guardian = "assets/weapons/guardian.png";
+  static const String guardian_gun = "assets/weapons/guardiant_detail.png";
   static const String spectre = "assets/weapons/spectre.png";
+  static const String spectre_gun = "assets/weapons/spectre_detail.png";
   static const String stringer = "assets/weapons/stringer.png";
+  static const String stringer_gun = "assets/weapons/stringer_detail.png";
   static const String bucky = "assets/weapons/bucky.png";
+  static const String bucky_gun = "assets/weapons/bucky_detail.png";
   static const String judge = "assets/weapons/judge.png";
+  static const String judge_gun = "assets/weapons/judge_detail.png";
   static const String ares = "assets/weapons/ares.png";
+  static const String ares_gun = "assets/weapons/ares_detail.png";
   static const String odin = "assets/weapons/odin.png";
+  static const String odin_gun = "assets/weapons/odin_detail.png";
   static const String operator = "assets/weapons/operator.png";
+  static const String operator_gun = "assets/weapons/operator_detail.png";
   static const String marshal = "assets/weapons/marshal.png";
+  static const String marshal_gun = "assets/weapons/marshal_detail.png";
   static const String outlaw = "assets/weapons/outlaw.png";
-=======
+  static const String outlaw_gun = "assets/weapons/outlaw_detail.png";
 
   //////FEATURE PAGE////
   static const String posters = "assets/images/posters.png";
   static const String tshirts = "assets/images/tshirt.png";
   static const String hoodies = "assets/images/hoodies.png";
   static const String mugs = "assets/images/mugs.png";
-
 }

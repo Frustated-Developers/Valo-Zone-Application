@@ -99,12 +99,14 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    userName ?? "Unknown",
-                    style: TextStyle(color: AppColors.whiteText, fontSize: 16),
+                    userName ?? "Guest User",
+                    style: const TextStyle(
+                        color: AppColors.whiteText, fontSize: 16),
                   ),
                   Text(
-                    userEmail ?? "",
-                    style: TextStyle(color: AppColors.whiteText, fontSize: 11),
+                    userEmail ?? "xxxx123@gmail.com",
+                    style: const TextStyle(
+                        color: AppColors.whiteText, fontSize: 11),
                   ),
                 ],
               )
@@ -127,15 +129,15 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
             height: 15.h,
           ),
           _buildList(AssetPath.ic_privacy, "Privacy Policy", () {
-            navigateTo(context, PrivacyPolicy());
+            navigateTo(context, const PrivacyPolicy());
           }, false),
           SizedBox(
             height: 15.h,
           ),
           _buildList(AssetPath.ic_terms, "Terms & Conditions", () {
-            navigateTo(context, TermsNConditions());
+            navigateTo(context, const TermsNConditions());
           }, false),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           _buildADBanner(),
@@ -147,7 +149,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
             ),
           ),
           _buildList(AssetPath.ic_Home, "Back to Home", () {
-            navigateTo(context, Homepage());
+            navigateTo(context, const Homepage());
           }, false),
           _buildList(AssetPath.ic_logout, "Logout", () async {
             await _handleSignOut(context);
@@ -180,7 +182,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
             ),
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                   color: AppColors.whiteText,
                   fontWeight: FontWeight.normal,
                   fontSize: 14),
@@ -249,7 +251,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
 
       // Navigate to landing page
       if (mounted) {
-        navigateTo(context, LandingPage());
+        navigateTo(context, const LandingPage());
       }
     } catch (e) {
       // Close loading dialog if error occurs
