@@ -144,130 +144,136 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: _scaffoldKey,
-        endDrawer: SettingsDrawer(),
-        onEndDrawerChanged: (isOpened) {
-          if (!isOpened) {
-            // if drawer is closed
-            setState(() {
-              _selectedIndex = 0;
-            });
-          }
+      child: WillPopScope(
+        onWillPop: () async {
+          await navigateTo(context, Homepage());
+          return false;
         },
-        extendBody: true,
-        resizeToAvoidBottomInset: false,
-        backgroundColor: AppColors.homepageBackground,
-        body: CustomScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          slivers: [
-            CustomSliverAppBar(
-              showTitle: false,
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Get Your \nFavourite Agent",
-                      style: TextStyle(
-                        fontFamily: "Pennypacker",
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.whiteText,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    SearchBox(
-                      width: double.infinity,
-                      onChanged: (value) {
-                        setState(() {
-                          searchText = value.toLowerCase();
-                        });
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
+        child: Scaffold(
+          key: _scaffoldKey,
+          endDrawer: SettingsDrawer(),
+          onEndDrawerChanged: (isOpened) {
+            if (!isOpened) {
+              // if drawer is closed
+              setState(() {
+                _selectedIndex = 0;
+              });
+            }
+          },
+          extendBody: true,
+          resizeToAvoidBottomInset: false,
+          backgroundColor: AppColors.homepageBackground,
+          body: CustomScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            slivers: [
+              CustomSliverAppBar(
+                showTitle: false,
               ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(
-                left: 15.0,
-                right: 15.0,
-                bottom: 80.0,
-              ),
-              sliver: buildAgentCardsSliver(),
-            ),
-          ],
-        ),
-        floatingActionButton: SizedBox(
-          width: 65,
-          height: 65,
-          child: FloatingActionButton(
-            backgroundColor: AppColors.SelectedIconColor,
-            shape: const CircleBorder(),
-            child: Image.asset(
-              AssetPath.ic_valo,
-              width: 60,
-              height: 60,
-            ),
-            onPressed: () {
-              navigateTo(context, FeaturedHome());
-            },
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-          itemCount: navigationItems.length,
-          notchMargin: 15,
-          notchSmoothness: NotchSmoothness.defaultEdge,
-          tabBuilder: (int index, bool isActive) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 10),
-                navigationItems[index].svgPath != null
-                    ? SvgPicture.asset(
-                        isActive
-                            ? navigationItems[index].selectedSvgPath!
-                            : navigationItems[index].svgPath!,
-                        height: 24,
-                        width: 24,
-                        color: isActive
-                            ? AppColors.SelectedIconColor
-                            : Colors.white,
-                      )
-                    : Icon(
-                        navigationItems[index].icon,
-                        color: isActive
-                            ? AppColors.SelectedIconColor
-                            : Colors.white,
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Get Your \nFavourite Agent",
+                        style: TextStyle(
+                          fontFamily: "Pennypacker",
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.whiteText,
+                        ),
                       ),
-                const SizedBox(height: 4),
-                Text(
-                  navigationItems[index].label,
-                  style: TextStyle(
-                    color:
-                        isActive ? AppColors.SelectedIconColor : Colors.white,
-                    fontSize: 12,
+                      const SizedBox(height: 20),
+                      SearchBox(
+                        width: double.infinity,
+                        onChanged: (value) {
+                          setState(() {
+                            searchText = value.toLowerCase();
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                    ],
                   ),
                 ),
-              ],
-            );
-          },
-          activeIndex: _selectedIndex,
-          gapLocation: GapLocation.center,
-          backgroundColor: AppColors.buttonBlue,
-          onTap: _onItemTapped,
-          height: 65,
-          shadow: Shadow(
-            color: Colors.black.withOpacity(0.2),
-            offset: const Offset(0, -3),
-            blurRadius: 6,
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.only(
+                  left: 15.0,
+                  right: 15.0,
+                  bottom: 80.0,
+                ),
+                sliver: buildAgentCardsSliver(),
+              ),
+            ],
+          ),
+          floatingActionButton: SizedBox(
+            width: 65,
+            height: 65,
+            child: FloatingActionButton(
+              backgroundColor: AppColors.SelectedIconColor,
+              shape: const CircleBorder(),
+              child: Image.asset(
+                AssetPath.ic_valo,
+                width: 60,
+                height: 60,
+              ),
+              onPressed: () {
+                navigateTo(context, FeaturedHome());
+              },
+            ),
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+            itemCount: navigationItems.length,
+            notchMargin: 15,
+            notchSmoothness: NotchSmoothness.defaultEdge,
+            tabBuilder: (int index, bool isActive) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 10),
+                  navigationItems[index].svgPath != null
+                      ? SvgPicture.asset(
+                          isActive
+                              ? navigationItems[index].selectedSvgPath!
+                              : navigationItems[index].svgPath!,
+                          height: 24,
+                          width: 24,
+                          color: isActive
+                              ? AppColors.SelectedIconColor
+                              : Colors.white,
+                        )
+                      : Icon(
+                          navigationItems[index].icon,
+                          color: isActive
+                              ? AppColors.SelectedIconColor
+                              : Colors.white,
+                        ),
+                  const SizedBox(height: 4),
+                  Text(
+                    navigationItems[index].label,
+                    style: TextStyle(
+                      color:
+                          isActive ? AppColors.SelectedIconColor : Colors.white,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              );
+            },
+            activeIndex: _selectedIndex,
+            gapLocation: GapLocation.center,
+            backgroundColor: AppColors.buttonBlue,
+            onTap: _onItemTapped,
+            height: 65,
+            shadow: Shadow(
+              color: Colors.black.withOpacity(0.2),
+              offset: const Offset(0, -3),
+              blurRadius: 6,
+            ),
           ),
         ),
       ),
@@ -400,3 +406,5 @@ class NavigationItem {
     required this.label,
   });
 }
+
+

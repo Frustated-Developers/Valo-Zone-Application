@@ -134,6 +134,7 @@ class AssetPath {
   static const String bg_container3 = "assets/images/bg_container3.png";
   static const String bg_container4 = "assets/images/bg_container4.png";
 
+
   // Weapon Images
   static const String shorty = "assets/weapons/shorty.png";
   static const String classic = "assets/weapons/classic.png";
@@ -154,4 +155,12 @@ class AssetPath {
   static const String operator = "assets/weapons/operator.png";
   static const String marshal = "assets/weapons/marshal.png";
   static const String outlaw = "assets/weapons/outlaw.png";
+=======
+
+  //////FEATURE PAGE////
+  static const String posters = "assets/images/posters.png";
+  static const String tshirts = "assets/images/tshirt.png";
+  static const String hoodies = "assets/images/hoodies.png";
+  static const String mugs = "assets/images/mugs.png";
+
 }
