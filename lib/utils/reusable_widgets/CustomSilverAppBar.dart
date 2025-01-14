@@ -25,19 +25,20 @@ class CustomSliverAppBar extends StatefulWidget {
 
 class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
   final User? user = FirebaseAuth.instance.currentUser;
+  String? userPhotoURL;
 
   @override
   void initState() {
-    getUserPhoto();
     super.initState();
+    getUserPhoto();
   }
 
-  void getUserPhoto() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      final String? photoUrl = user.photoURL;
-    } else {}
+  void getUserPhoto() {
+    if (user != null && user!.photoURL != null) {
+      setState(() {
+        userPhotoURL = user!.photoURL;
+      });
+    }
   }
 
   @override
@@ -62,8 +63,8 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
         CircleAvatar(
           radius: 20,
           backgroundColor: Colors.grey,
-          foregroundImage: widget.photoURL != null
-              ? NetworkImage(user!.photoURL!)
+          foregroundImage: userPhotoURL != null
+              ? NetworkImage(userPhotoURL!)
               : const AssetImage(AssetPath.dummy_avatar) as ImageProvider,
         ),
         const SizedBox(width: 20),
