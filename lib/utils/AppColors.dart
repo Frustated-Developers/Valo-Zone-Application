@@ -9,7 +9,12 @@ class AppColors {
   static const Color landingTitleShadow = Color(0xFF896C6D);
   static const Color landingTitle = Color(0xFFF5F2F2);
   static const Color SelectedSetting = Color(0xFF23374C);
+  static const Color DialogSelected = Color(0xFF13212E);
+  static const Color DialogContainer = Color(0xFF1B2A3E);
+
   static const Color Divider = Color(0xFF686D73);
   static const Color whiteText = Colors.white;
   static const Color blackText = Colors.black;
+  static const Color greyText = Colors.grey;
+  static const Color dullWhiteText = Colors.white70;
 }
