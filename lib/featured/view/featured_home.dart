@@ -1,4 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,15 +12,33 @@ import 'package:valo_zone/wallpaper_page/views/chamber_wallpaper.dart';
 import 'package:valo_zone/weapons/view/weapons.dart';
 
 class FeaturedHome extends StatefulWidget {
-   const FeaturedHome({super.key});
+  const FeaturedHome({super.key});
 
   @override
   State<FeaturedHome> createState() => _FeaturedHomeState();
 }
 
 class _FeaturedHomeState extends State<FeaturedHome> {
+  final User? user = FirebaseAuth.instance.currentUser;
+  String? userPhotoURL;
   int _selectedIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    getUserPhoto();
+  }
+
+  void getUserPhoto() {
+    if (user != null && user!.photoURL != null) {
+      setState(() {
+        _selectedIndex = -1;
+        userPhotoURL = user!.photoURL;
+      });
+    }
+  }
+
   final List<NavigationItem> navigationItems = [
     NavigationItem(
       icon: Icons.home,
@@ -112,12 +131,19 @@ class _FeaturedHomeState extends State<FeaturedHome> {
                   const Text(
                     "Featured",
                     style: TextStyle(
-                      fontFamily: "Pennypacker",
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                        fontFamily: "Pennypacker",
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20),
                   ),
-                  const CircleAvatar(radius: 20),
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.grey,
+                    foregroundImage: userPhotoURL != null
+                        ? NetworkImage(userPhotoURL!)
+                        : const AssetImage(AssetPath.dummy_avatar)
+                            as ImageProvider,
+                  ),
                 ],
               ),
             ),
@@ -173,27 +199,24 @@ class _FeaturedHomeState extends State<FeaturedHome> {
               const SizedBox(height: 10),
               navigationItems[index].svgPath != null
                   ? SvgPicture.asset(
-                isActive
-                    ? navigationItems[index].selectedSvgPath!
-                    : navigationItems[index].svgPath!,
-                height: 24,
-                width: 24,
-                color: isActive
-                    ? AppColors.SelectedIconColor
-                    : Colors.white,
-              )
+                      isActive
+                          ? navigationItems[index].selectedSvgPath!
+                          : navigationItems[index].svgPath!,
+                      height: 24,
+                      width: 24,
+                      color:
+                          isActive ? AppColors.SelectedIconColor : Colors.white,
+                    )
                   : Icon(
-                navigationItems[index].icon,
-                color: isActive
-                    ? AppColors.SelectedIconColor
-                    : Colors.white,
-              ),
+                      navigationItems[index].icon,
+                      color:
+                          isActive ? AppColors.SelectedIconColor : Colors.white,
+                    ),
               const SizedBox(height: 4),
               Text(
                 navigationItems[index].label,
                 style: TextStyle(
-                  color:
-                  isActive ? AppColors.SelectedIconColor : Colors.white,
+                  color: isActive ? AppColors.SelectedIconColor : Colors.white,
                   fontSize: 12,
                 ),
               ),
