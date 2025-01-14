@@ -135,9 +135,32 @@ class AssetPath {
   static const String bg_container4 = "assets/images/bg_container4.png";
 
 
+  // Weapon Images
+  static const String shorty = "assets/weapons/shorty.png";
+  static const String classic = "assets/weapons/classic.png";
+  static const String ghost = "assets/weapons/ghost.png";
+  static const String frenzy = "assets/weapons/frenzy.png";
+  static const String sheriff = "assets/weapons/sheriff.png";
+  static const String knife = "assets/weapons/knife.png";
+  static const String phantom = "assets/weapons/phantom.png";
+  static const String vandal = "assets/weapons/vandal.png";
+  static const String bulldog = "assets/weapons/bulldog.png";
+  static const String guardian = "assets/weapons/guardian.png";
+  static const String spectre = "assets/weapons/spectre.png";
+  static const String stringer = "assets/weapons/stringer.png";
+  static const String bucky = "assets/weapons/bucky.png";
+  static const String judge = "assets/weapons/judge.png";
+  static const String ares = "assets/weapons/ares.png";
+  static const String odin = "assets/weapons/odin.png";
+  static const String operator = "assets/weapons/operator.png";
+  static const String marshal = "assets/weapons/marshal.png";
+  static const String outlaw = "assets/weapons/outlaw.png";
+=======
+
   //////FEATURE PAGE////
   static const String posters = "assets/images/posters.png";
   static const String tshirts = "assets/images/tshirt.png";
   static const String hoodies = "assets/images/hoodies.png";
   static const String mugs = "assets/images/mugs.png";
+
 }

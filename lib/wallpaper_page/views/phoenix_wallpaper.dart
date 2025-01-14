@@ -11,9 +11,9 @@ class PhoenixWallpaper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.homepageBackground,
-      appBar: appBar(showImage: true,
+      appBar: appBar(
+        showImage: true,
         title: "Phoenix",
-        fontSize: 14,
       ),
       body: SingleChildScrollView(
         child: Padding(
