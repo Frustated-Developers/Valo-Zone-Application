@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:valo_zone/home/view/homepage.dart';
 import 'package:valo_zone/landing/view/landingPage.dart';
 import 'package:valo_zone/legal/view/privacy.dart';
 import 'package:valo_zone/legal/view/terms.dart';
+import 'package:valo_zone/services/admob_services.dart';
 import 'package:valo_zone/services/login_service.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
@@ -27,11 +29,41 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
   String? userName;
   String? userEmail;
   Map<String, dynamic>? userData;
+  BannerAd? _bannerAd;
+  bool _isBannerAdLoaded = false;
 
   @override
   void initState() {
     super.initState();
     initializeUserData();
+    _loadBannerAd();
+  }
+
+  void _loadBannerAd() {
+    _bannerAd = BannerAd(
+      adUnitId: AdMobService.bannerAdUnitId!,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _isBannerAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          print('Ad failed to load: $error');
+        },
+      ),
+    );
+
+    _bannerAd?.load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
   }
 
   Future<void> initializeUserData() async {
@@ -194,11 +226,19 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
   }
 
   Widget _buildADBanner() {
-    return Container(
-      height: 40.h,
-      width: 200.w,
-      color: AppColors.whiteText,
-    );
+    if (_isBannerAdLoaded && _bannerAd != null) {
+      return Container(
+        height: _bannerAd!.size.height.toDouble(),
+        width: _bannerAd!.size.width.toDouble(),
+        child: AdWidget(ad: _bannerAd!),
+      );
+    } else {
+      return Container(
+        height: 40.h,
+        width: 200.w,
+        color: Colors.transparent,
+      );
+    }
   }
 
   Future<void> openGmailWithSubject() async {

@@ -2,14 +2,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:valo_zone/featured/view/featured_home.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:valo_zone/firebase_options.dart';
-import 'package:valo_zone/landing/view/landingPage.dart';
+import 'package:valo_zone/splash/view/splash_screen.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 
 void main() async {
+  print("My APP is RESTARTED");
+
   WidgetsFlutterBinding.ensureInitialized();
+  await MobileAds.instance.initialize();
+  FlutterError.onError = (details) {
+    print((details.exception));
+    print(details.stack);
+  };
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -36,9 +44,7 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-
-            home: const LandingPage(),
-
+            home: const SplashScreen(),
           ),
         );
       },
