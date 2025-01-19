@@ -49,7 +49,10 @@ class SherrifDialog extends StatelessWidget {
                             child: Text(
                               maxLines: 2,
                               "Independent Manufacturing",
-                              style: TextStyle(color: AppColors.greyText,overflow: TextOverflow.ellipsis,),
+                              style: TextStyle(
+                                color: AppColors.greyText,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ),
                         ],

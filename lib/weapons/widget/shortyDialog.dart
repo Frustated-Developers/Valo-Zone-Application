@@ -115,7 +115,10 @@ class ShortyDialog extends StatelessWidget {
                                   ),
                                   Text(
                                     "36 (per pellet)",
-                                    style: TextStyle(color: AppColors.greyText,overflow: TextOverflow.ellipsis,),
+                                    style: TextStyle(
+                                      color: AppColors.greyText,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -161,7 +164,10 @@ class ShortyDialog extends StatelessWidget {
                                   ),
                                   Text(
                                     "Avg 13.33 in (0 - 50m)",
-                                    style: TextStyle(color: AppColors.greyText,overflow: TextOverflow.ellipsis,),
+                                    style: TextStyle(
+                                      color: AppColors.greyText,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -207,7 +213,10 @@ class ShortyDialog extends StatelessWidget {
                                   ),
                                   Text(
                                     "Avg 6.66 in (0 - 50m)",
-                                    style: TextStyle(color: AppColors.greyText,overflow: TextOverflow.ellipsis,),
+                                    style: TextStyle(
+                                      color: AppColors.greyText,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ],
                               ),

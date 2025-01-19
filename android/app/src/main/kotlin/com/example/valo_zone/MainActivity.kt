@@ -1,4 +1,4 @@
-package com.example.valo_zone
+package com.drishtant.valo_zone
 
 import android.os.Bundle
 import android.util.Log

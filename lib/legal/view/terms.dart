@@ -4,9 +4,7 @@ import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/reusable_widgets/appBar.dart';
 
-
 class TermsNConditions extends StatefulWidget {
-
   const TermsNConditions({super.key});
 
   @override
@@ -29,7 +27,8 @@ class _TermsNConditionsState extends State<TermsNConditions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(showImage: false,
+      appBar: appBar(
+        showImage: false,
         title: "Terms & Conditions",
         fontSize: 14,
       ),

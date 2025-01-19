@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:698436486219:android:8cf43da03efbf7cbf9b9ce",
         "android_client_info": {
-          "package_name": "com.example.valo_zone"
+          "package_name": "com.drishtant.valo_zone"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "698436486219-dk4kam50tagpa2ted01atasdu4591ge1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.valo_zone",
+            "package_name": "com.drishtant.valo_zone",
             "certificate_hash": "7b272c5254f756e116d6543810592174703671c8"
           }
         },

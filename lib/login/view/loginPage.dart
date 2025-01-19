@@ -90,7 +90,14 @@ class _LoginPageState extends State<LoginPage> {
                 : MediaQuery.of(context).size.height * 0.1,
             child: _buildLogo(),
           ),
-          _buildTextField(),
+          Positioned(
+              left: MediaQuery.of(context).size.height >= 750
+                  ? MediaQuery.of(context).size.width * 0.07
+                  : MediaQuery.of(context).size.width * 0.05,
+              bottom: MediaQuery.of(context).size.height >= 750
+                  ? MediaQuery.of(context).size.height * 0.28
+                  : MediaQuery.of(context).size.height * 0.25,
+              child: _buildTextField()),
           Positioned(
             left: MediaQuery.of(context).size.height >= 750
                 ? MediaQuery.of(context).size.width * 0.07
@@ -146,12 +153,12 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           CustomTextfield(
             controller: _usernameController,
-            hintText: 'Username',
+            hintText: 'Email',
             icon: Icons.email,
             keyboardType: TextInputType.text,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your username';
+                return 'Please enter your Email';
               }
               return null;
             },

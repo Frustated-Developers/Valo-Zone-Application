@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextfield extends StatelessWidget {
   final Color backgroundColor;
@@ -29,16 +30,16 @@ class CustomTextfield extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          width: 150,
+          width: 150.w,
           child: Divider(
             thickness: 1,
             color: Colors.black,
           ),
         ),
         Positioned(
-          left: 10,
+          left: 10.w,
           child: SizedBox(
-            height: 150,
+            height: 150.w,
             child: VerticalDivider(
               thickness: 1,
               color: Colors.black,
@@ -46,9 +47,9 @@ class CustomTextfield extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 10,
+          right: 10.w,
           child: SizedBox(
-            height: 150,
+            height: 150.w,
             child: VerticalDivider(
               thickness: 1,
               color: Colors.black,
@@ -56,9 +57,9 @@ class CustomTextfield extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: -1,
+          bottom: -1.h,
           child: SizedBox(
-            width: 150,
+            width: 150.w,
             child: Divider(
               thickness: 1,
               color: Colors.black,
@@ -66,10 +67,10 @@ class CustomTextfield extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: -1,
-          right: 1,
+          top: -1.h,
+          right: 1.h,
           child: SizedBox(
-            width: 150,
+            width: 150.w,
             child: Divider(
               thickness: 1,
               color: Colors.black,
@@ -77,7 +78,7 @@ class CustomTextfield extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: -1,
+          bottom: -1.h,
           right: 1,
           child: SizedBox(
             width: 150,
@@ -90,22 +91,22 @@ class CustomTextfield extends StatelessWidget {
         Opacity(
           opacity: 0.8,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
+            padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 15.h),
             child: Container(
               color: const Color(0XFFC8C8C8),
-              height: 50,
-              width: 380,
+              height: 50.h,
+              width: 380.w,
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
+          padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 15.h),
           child: Container(
-            height: 50,
-            width: 380,
+            height: 50.h,
+            width: 380.w,
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                 child: TextFormField(
                   style: TextStyle(fontWeight: FontWeight.bold),
                   focusNode: focusNode,
@@ -117,7 +118,7 @@ class CustomTextfield extends StatelessWidget {
                   decoration: InputDecoration(
                     icon: Icon(
                       icon,
-                      size: 20,
+                      size: 20.spMin,
                     ),
                     hintText: hintText,
                     hintStyle: TextStyle(

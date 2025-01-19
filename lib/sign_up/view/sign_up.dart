@@ -171,14 +171,15 @@ class _SignUpState extends State<SignUp> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(height: 8.h),
           CustomTextfield(
             controller: _userNameController,
             hintText: 'User Name',
-            icon: Icons.email,
+            icon: Icons.person,
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your email';
+                return 'Please enter your UserName';
               }
               return null;
             },
