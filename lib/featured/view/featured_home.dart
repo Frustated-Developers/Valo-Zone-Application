@@ -8,7 +8,7 @@ import 'package:valo_zone/settings/view/setting_page.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/navigation.dart';
-import 'package:valo_zone/wallpaper_page/views/chamber_wallpaper.dart';
+import 'package:valo_zone/wallpaper_page/views/all_agent_wallpaper.dart';
 import 'package:valo_zone/weapons/view/weapons.dart';
 
 class FeaturedHome extends StatefulWidget {
@@ -33,7 +33,7 @@ class _FeaturedHomeState extends State<FeaturedHome> {
   void getUserPhoto() {
     if (user != null && user!.photoURL != null) {
       setState(() {
-        _selectedIndex = -1;
+        _selectedIndex = -10;
         userPhotoURL = user!.photoURL;
       });
     }
@@ -69,11 +69,11 @@ class _FeaturedHomeState extends State<FeaturedHome> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const ChamberWallpaper(),
+          builder: (context) => const AllAgentWallpaper(),
         ),
       ).then((_) {
         setState(() {
-          _selectedIndex = 0;
+          _selectedIndex = -1;
         });
       });
     }
@@ -85,7 +85,7 @@ class _FeaturedHomeState extends State<FeaturedHome> {
         ),
       ).then((_) {
         setState(() {
-          _selectedIndex = 0;
+          _selectedIndex = -1;
         });
       });
     }

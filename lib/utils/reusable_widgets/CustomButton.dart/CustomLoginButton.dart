@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 
@@ -44,32 +45,32 @@ class Customloginbutton extends StatelessWidget {
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           bottom: -1,
           child: SizedBox(
-            width: 150,
+            width: 150.w,
             child: Divider(
               thickness: 1,
               color: Colors.black,
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           top: -1,
           right: 1,
           child: SizedBox(
-            width: 150,
+            width: 150.w,
             child: Divider(
               thickness: 1,
               color: Colors.black,
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           bottom: -1,
           right: 1,
           child: SizedBox(
-            width: 150,
+            width: 150.w,
             child: Divider(
               thickness: 1,
               color: Colors.black,
@@ -77,24 +78,24 @@ class Customloginbutton extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
+          padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 15.h),
           child: GestureDetector(
             onTap: onPressed,
             child: Container(
               color: AppColors.SelectedIconColor,
-              height: 50,
-              width: 380,
+              height: 50.h,
+              width: 380.w,
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15),
+          padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 15.h),
           child: SizedBox(
-            height: 50,
-            width: 380,
+            height: 50.h,
+            width: 380.w,
             child: Center(
               child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                   child: GestureDetector(
                     onTap: onPressed,
                     child: Stack(

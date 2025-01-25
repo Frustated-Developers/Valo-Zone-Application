@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:valo_zone/home/view/homepage.dart';
@@ -147,11 +148,16 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
           SizedBox(
             height: 30.h,
           ),
-          _buildList(AssetPath.ic_feedback, "Feedback", () {}, false),
+          _buildList(AssetPath.ic_feedback, "Feedback", () {
+            _launchURL(
+                'https://play.google.com/store/apps/details?id=com.drishtant.valo_zone');
+          }, false),
           SizedBox(
             height: 15.h,
           ),
-          _buildList(AssetPath.ic_share, "Refer a friend", () {}, false),
+          _buildList(AssetPath.ic_share, "Refer a friend", () {
+            _shareApp();
+          }, false),
           SizedBox(
             height: 15.h,
           ),
@@ -256,6 +262,34 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
 
     if (await canLaunchUrl(emailUri)) {
       await launchUrl(emailUri);
+    }
+  }
+
+  // Function to share the app URL via WhatsApp, Instagram, etc.
+  _shareApp() {
+    print("Sharing app now..."); // Debugging print statement
+    final String appUrl =
+        'https://play.google.com/store/apps/details?id=com.drishtant.valo_zone';
+    Share.share(appUrl);
+
+    _launchWhatsApp() async {
+      final String message =
+          'Hey, check out this app: https://play.google.com/store/apps/details?id=com.example.myapp';
+      final String whatsappUrl = 'whatsapp://send?text=$message';
+
+      if (await canLaunch(appUrl)) {
+        await launch(appUrl);
+      } else {
+        print("WhatsApp not installed");
+      }
+    }
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 

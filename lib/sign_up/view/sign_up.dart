@@ -136,13 +136,20 @@ class _SignUpState extends State<SignUp> {
           _buildOpacityContainer(),
           Positioned(
               top: MediaQuery.of(context).size.height >= 750
-                  ? MediaQuery.of(context).size.width * 0.1
+                  ? MediaQuery.of(context).size.width * 0.01
                   : MediaQuery.of(context).size.width * 0.01,
               right: MediaQuery.of(context).size.height >= 750
                   ? MediaQuery.of(context).size.height * 0.08
                   : MediaQuery.of(context).size.height * 0.12,
               child: _buildLogo()),
           _buildTextField(),
+          Positioned(
+            left: MediaQuery.of(context).size.height >= 750
+                ? MediaQuery.of(context).size.width * 0.35
+                : MediaQuery.of(context).size.width * 0.35,
+            bottom: MediaQuery.of(context).size.height * 0.05,
+            child: _buildfooter(context),
+          )
         ],
       ),
     );
@@ -239,4 +246,30 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+}
+
+Widget _buildfooter(BuildContext context) {
+  return Column(
+    children: [
+      // Can't sign in text
+      Text(
+        "ALREADY HAVE AN ACCOUNT",
+        style: TextStyle(
+            color: AppColors.whiteText,
+            fontWeight: FontWeight.bold,
+            fontSize: 12),
+      ),
+      // Create account link
+      GestureDetector(
+        onTap: () => navigateTo(context, const LoginPage()),
+        child: Text(
+          "LOGIN",
+          style: TextStyle(
+              color: AppColors.whiteText,
+              fontWeight: FontWeight.bold,
+              fontSize: 12),
+        ),
+      ),
+    ],
+  );
 }

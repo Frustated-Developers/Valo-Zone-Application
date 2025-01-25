@@ -90,14 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                 : MediaQuery.of(context).size.height * 0.1,
             child: _buildLogo(),
           ),
-          Positioned(
-              left: MediaQuery.of(context).size.height >= 750
-                  ? MediaQuery.of(context).size.width * 0.07
-                  : MediaQuery.of(context).size.width * 0.05,
-              bottom: MediaQuery.of(context).size.height >= 750
-                  ? MediaQuery.of(context).size.height * 0.28
-                  : MediaQuery.of(context).size.height * 0.25,
-              child: _buildTextField()),
+          _buildTextField(),
           Positioned(
             left: MediaQuery.of(context).size.height >= 750
                 ? MediaQuery.of(context).size.width * 0.07

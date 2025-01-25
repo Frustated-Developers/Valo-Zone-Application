@@ -23,11 +23,46 @@ class FullImagePage extends StatefulWidget {
 
 class _FullImagePageState extends State<FullImagePage> {
   bool _isLoading = false;
+  bool _isAdLoading = false;
 
   @override
   void initState() {
     super.initState();
+    _preloadAd();
+  }
+
+  void _preloadAd() {
+    debugPrint('Preloading ad');
     AdMobService.loadRewardedAd();
+  }
+
+  void _handleDownloadButtonPress() {
+    debugPrint('Download button pressed');
+
+    // If the ad is loading, show a message
+    if (_isAdLoading) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Ad is loading. Please try again in a moment.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    // Start loading the ad
+    setState(() {
+      _isAdLoading = true;
+    });
+
+    // Try to show ad if available
+    AdMobService.showRewardedAd(
+      onUserEarnedReward: (_) {
+        debugPrint('Ad reward earned');
+        // After earning reward, download the wallpaper
+        _downloadWallpaper();
+      },
+    );
   }
 
   @override
@@ -57,6 +92,7 @@ class _FullImagePageState extends State<FullImagePage> {
 
   Future<void> _downloadWallpaper() async {
     if (_isLoading) return;
+
     setState(() => _isLoading = true);
 
     try {
@@ -68,9 +104,11 @@ class _FullImagePageState extends State<FullImagePage> {
       final response = await http.get(Uri.parse(widget.imageUrl));
       if (!mounted) return;
 
-      final result = await ImageGallerySaver.saveImage(response.bodyBytes,
-          quality: 100,
-          name: "wallpaper_${DateTime.now().millisecondsSinceEpoch}");
+      final result = await ImageGallerySaver.saveImage(
+        response.bodyBytes,
+        quality: 100,
+        name: "wallpaper_${DateTime.now().millisecondsSinceEpoch}",
+      );
 
       if (!mounted) return;
 
@@ -81,9 +119,6 @@ class _FullImagePageState extends State<FullImagePage> {
             backgroundColor: Colors.green,
           ),
         );
-        if (mounted) {
-          Navigator.pop(context);
-        }
       } else {
         throw Exception('Failed to save wallpaper to gallery');
       }
@@ -97,35 +132,10 @@ class _FullImagePageState extends State<FullImagePage> {
           ),
         );
       }
-    }
-
-    if (mounted) {
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _handleDownloadButtonPress() {
-    if (AdMobService.isRewardedAdReady && AdMobService.rewardedAd != null) {
-      // Show loading indicator while ad is preparing
-      setState(() => _isLoading = true);
-
-      AdMobService.showRewardedAd(
-        onUserEarnedReward: (reward) {
-          // User has watched the ad and earned the reward
-          setState(() => _isLoading = false);
-          _downloadWallpaper();
-        },
-      );
-    } else {
-      // If ad is not ready, show message and download directly
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Loading advertisement...'),
-          duration: Duration(seconds: 1),
-        ),
-      );
-      _downloadWallpaper();
-      AdMobService.loadRewardedAd(); // Load ad for next time
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
     }
   }
 

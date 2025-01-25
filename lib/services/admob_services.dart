@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdMobService {
@@ -26,7 +27,7 @@ class AdMobService {
   static InterstitialAd? interstitialAd;
   static bool isInterstitialAdReady = false;
 
-  static RewardedAd? rewardedAd;
+  static RewardedAd? _rewardedAd;
   static bool isRewardedAdReady = false;
 
   static BannerAd createBannerAd() {
@@ -74,54 +75,68 @@ class AdMobService {
     }
   }
 
-  static void loadRewardedAd() {
-    RewardedAd.load(
-      adUnitId: rewardedAdUnitId!,
-      request: const AdRequest(),
-      rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (ad) {
-          rewardedAd = ad;
-          isRewardedAdReady = true;
-        },
-        onAdFailedToLoad: (error) {
-          isRewardedAdReady = false;
-        },
-      ),
-    );
+  static Future<void> loadRewardedAd() async {
+    try {
+      debugPrint('Loading rewarded ad...');
+      await RewardedAd.load(
+        adUnitId: rewardedAdUnitId!,
+        request: const AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(
+          onAdLoaded: (ad) {
+            _rewardedAd = ad;
+            isRewardedAdReady = true;
+            debugPrint('Rewarded ad loaded successfully');
+          },
+          onAdFailedToLoad: (error) {
+            _rewardedAd = null;
+            isRewardedAdReady = false;
+            debugPrint('Rewarded ad failed to load: $error');
+          },
+        ),
+      );
+    } catch (e) {
+      debugPrint('Error in loadRewardedAd: $e');
+      isRewardedAdReady = false;
+    }
   }
 
   static void showRewardedAd({
     required Function(RewardItem reward) onUserEarnedReward,
   }) {
-    if (isRewardedAdReady && rewardedAd != null) {
-      rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-        onAdDismissedFullScreenContent: (ad) {
-          ad.dispose();
-          isRewardedAdReady = false;
-          loadRewardedAd();
-        },
-        onAdFailedToShowFullScreenContent: (ad, error) {
-          ad.dispose();
-          isRewardedAdReady = false;
-          loadRewardedAd();
-        },
-      );
+    debugPrint('Attempting to show rewarded ad');
+    debugPrint('Is ad ready: $isRewardedAdReady');
+    debugPrint('Rewarded ad null: ${_rewardedAd == null}');
 
-      rewardedAd!.show(
-        onUserEarnedReward: (ad, reward) {
-          onUserEarnedReward(reward);
-        },
-      );
-    } else {
+    if (!isRewardedAdReady || _rewardedAd == null) {
+      debugPrint('Ad not ready, attempting to load');
       loadRewardedAd();
+      return;
     }
-  }
 
-  static void disposeInterstitialAd() {
-    interstitialAd?.dispose();
+    _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdDismissedFullScreenContent: (ad) {
+        debugPrint('Ad dismissed');
+        ad.dispose();
+        isRewardedAdReady = false;
+        loadRewardedAd();
+      },
+      onAdFailedToShowFullScreenContent: (ad, error) {
+        debugPrint('Ad failed to show: $error');
+        ad.dispose();
+        isRewardedAdReady = false;
+        loadRewardedAd();
+      },
+    );
+
+    _rewardedAd!.show(
+      onUserEarnedReward: (ad, reward) {
+        debugPrint('User earned reward');
+        onUserEarnedReward(reward);
+      },
+    );
   }
 
   static void disposeRewardedAd() {
-    rewardedAd?.dispose();
+    _rewardedAd?.dispose();
   }
 }
