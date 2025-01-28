@@ -145,9 +145,9 @@ class _SignUpState extends State<SignUp> {
           _buildTextField(),
           Positioned(
             left: MediaQuery.of(context).size.height >= 750
-                ? MediaQuery.of(context).size.width * 0.35
+                ? MediaQuery.of(context).size.width * 0.25
                 : MediaQuery.of(context).size.width * 0.35,
-            bottom: MediaQuery.of(context).size.height * 0.05,
+            bottom: MediaQuery.of(context).size.height * 0.08,
             child: _buildfooter(context),
           )
         ],
@@ -256,18 +256,28 @@ Widget _buildfooter(BuildContext context) {
         "ALREADY HAVE AN ACCOUNT",
         style: TextStyle(
             color: AppColors.whiteText,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.normal,
             fontSize: 12),
       ),
       // Create account link
       GestureDetector(
         onTap: () => navigateTo(context, const LoginPage()),
-        child: Text(
-          "LOGIN",
-          style: TextStyle(
+        child: Row(
+          children: [
+            Icon(
               color: AppColors.whiteText,
-              fontWeight: FontWeight.bold,
-              fontSize: 12),
+              Icons.arrow_circle_left_outlined,
+              size: 20,
+            ),
+            SizedBox(width: 5.w),
+            Text(
+              "BACK TO LOGIN",
+              style: TextStyle(
+                  color: AppColors.whiteText,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13),
+            ),
+          ],
         ),
       ),
     ],

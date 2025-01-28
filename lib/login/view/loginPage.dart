@@ -300,7 +300,7 @@ class _LoginPageState extends State<LoginPage> {
           "CAN'T SIGN IN",
           style: TextStyle(
               color: AppColors.whiteText,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.normal,
               fontSize: 12),
         ),
         // Create account link
@@ -311,7 +311,7 @@ class _LoginPageState extends State<LoginPage> {
             style: TextStyle(
                 color: AppColors.whiteText,
                 fontWeight: FontWeight.bold,
-                fontSize: 12),
+                fontSize: 13),
           ),
         ),
       ],
