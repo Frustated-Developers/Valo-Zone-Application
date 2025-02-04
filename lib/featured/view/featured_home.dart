@@ -28,6 +28,10 @@ class _FeaturedHomeState extends State<FeaturedHome> {
   void initState() {
     super.initState();
     getUserPhoto();
+    _selectedIndex = -1;
+    setState(() {
+
+    });
   }
 
   void getUserPhoto() {
@@ -76,6 +80,14 @@ class _FeaturedHomeState extends State<FeaturedHome> {
           _selectedIndex = -1;
         });
       });
+    }
+    if (index == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Homepage(),
+        ),
+      );
     }
     if (index == 2) {
       Navigator.push(
