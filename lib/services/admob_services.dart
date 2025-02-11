@@ -15,13 +15,13 @@ class AdMobService {
   }
 
   static final BannerAdListener bannerAdListener = BannerAdListener(
-    onAdLoaded: (ad) => print('Ad loaded: ${ad.responseInfo}'),
+    onAdLoaded: (ad) => debugPrint('Ad loaded: ${ad.responseInfo}'),
     onAdFailedToLoad: (ad, error) {
       ad.dispose();
-      print('Ad failed to load: $error');
+      debugPrint('Ad failed to load: $error');
     },
-    onAdOpened: (ad) => print('Ad opened'),
-    onAdClosed: (ad) => print('Ad closed'),
+    onAdOpened: (ad) => debugPrint('Ad opened'),
+    onAdClosed: (ad) => debugPrint('Ad closed'),
   );
 
   static InterstitialAd? interstitialAd;
@@ -47,31 +47,39 @@ class AdMobService {
         onAdLoaded: (ad) {
           interstitialAd = ad;
           isInterstitialAdReady = true;
+          debugPrint('Interstitial ad loaded successfully');
         },
         onAdFailedToLoad: (error) {
           isInterstitialAdReady = false;
+          debugPrint('Interstitial ad failed to load: $error');
         },
       ),
     );
   }
 
-  static void showInterstitialAd() {
+  static void showInterstitialAd({Function? onAdDismissed}) {
     if (isInterstitialAdReady && interstitialAd != null) {
       interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
         onAdDismissedFullScreenContent: (ad) {
+          debugPrint('Interstitial ad dismissed');
           ad.dispose();
           isInterstitialAdReady = false;
           loadInterstitialAd();
+          onAdDismissed?.call();
         },
         onAdFailedToShowFullScreenContent: (ad, error) {
+          debugPrint('Interstitial ad failed to show: $error');
           ad.dispose();
           isInterstitialAdReady = false;
           loadInterstitialAd();
+          onAdDismissed?.call();
         },
       );
       interstitialAd!.show();
     } else {
+      debugPrint('Interstitial ad not ready, loading new ad');
       loadInterstitialAd();
+      onAdDismissed?.call();
     }
   }
 
@@ -108,20 +116,20 @@ class AdMobService {
     debugPrint('Rewarded ad null: ${_rewardedAd == null}');
 
     if (!isRewardedAdReady || _rewardedAd == null) {
-      debugPrint('Ad not ready, attempting to load');
+      debugPrint('Rewarded ad not ready, loading new ad');
       loadRewardedAd();
       return;
     }
 
     _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdDismissedFullScreenContent: (ad) {
-        debugPrint('Ad dismissed');
+        debugPrint('Rewarded ad dismissed');
         ad.dispose();
         isRewardedAdReady = false;
         loadRewardedAd();
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
-        debugPrint('Ad failed to show: $error');
+        debugPrint('Rewarded ad failed to show: $error');
         ad.dispose();
         isRewardedAdReady = false;
         loadRewardedAd();

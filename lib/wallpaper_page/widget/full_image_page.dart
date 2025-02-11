@@ -39,13 +39,45 @@ class _FullImagePageState extends State<FullImagePage> {
   void _handleDownloadButtonPress() {
     debugPrint('Download button pressed');
 
-    // If the ad is loading, show a message
+    // Show a dialog to confirm if user wants to watch an ad
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          actionsAlignment: MainAxisAlignment.center,
+          title: Text('Enjoy a Free Wallpaper'),
+          content: Text(
+              'Want to download this awesome wallpaper? Just watch a quick ad to unlock it!'),
+          actions: <Widget>[
+            // Cancel button: close the dialog and do nothing
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            // OK button: show ad and then download wallpaper
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Show the ad before downloading
+                _showAdAndDownload();
+              },
+              child: Text('Continue'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showAdAndDownload() {
+    // If rewarded ad is loading, show interstitial ad instead
     if (_isAdLoading) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Ad is loading. Please try again in a moment.'),
-          duration: Duration(seconds: 2),
-        ),
+      AdMobService.showInterstitialAd(
+        onAdDismissed: () {
+          _downloadWallpaper();
+        },
       );
       return;
     }
@@ -55,11 +87,10 @@ class _FullImagePageState extends State<FullImagePage> {
       _isAdLoading = true;
     });
 
-    // Try to show ad if available
+    // Show rewarded ad if available
     AdMobService.showRewardedAd(
       onUserEarnedReward: (_) {
         debugPrint('Ad reward earned');
-        // After earning reward, download the wallpaper
         _downloadWallpaper();
       },
     );
@@ -134,7 +165,10 @@ class _FullImagePageState extends State<FullImagePage> {
       }
     } finally {
       if (mounted) {
-        setState(() => _isLoading = false);
+        setState(() {
+          _isLoading = false;
+          _isAdLoading = false;
+        });
       }
     }
   }

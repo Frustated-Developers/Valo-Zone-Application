@@ -7,18 +7,94 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:698436486219:android:8cf43da03efbf7cbf9b9ce",
+        "mobilesdk_app_id": "1:698436486219:android:68653ddf2cc1bf09f9b9ce",
         "android_client_info": {
           "package_name": "com.drishtant.valo_zone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "698436486219-dk4kam50tagpa2ted01atasdu4591ge1.apps.googleusercontent.com",
+          "client_id": "698436486219-q7goq825bu0atduq7ds746vlki7ak1l2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.drishtant.valo_zone",
+            "certificate_hash": "d212776afd3f11e2b426cd1a04adf4f7884f9c12"
+          }
+        },
+        {
+          "client_id": "698436486219-690l1ifqole89v8lrnihuvt9uqo9dj2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjnBJX1qBjNj7CJlwNOhEMCgl8lAHyCx0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698436486219-690l1ifqole89v8lrnihuvt9uqo9dj2f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "698436486219-gcrm5ilfbmfaqdf8i2ug2vp9k0pn4lt5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.valoZone"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698436486219:android:8cf43da03efbf7cbf9b9ce",
+        "android_client_info": {
+          "package_name": "com.example.valo_zone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698436486219-598h175n0h8hfjd38pq31dgug73nfsrb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.valo_zone",
+            "certificate_hash": "8d3e6f1a145408d6aadb4f0e70bbf7d30045e7a6"
+          }
+        },
+        {
+          "client_id": "698436486219-93k6dpndn5bv5kvd4ikjhu0qsvj4p1ae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.valo_zone",
+            "certificate_hash": "8d72240627281970fd74757fe2c9a1684f648d82"
+          }
+        },
+        {
+          "client_id": "698436486219-dk4kam50tagpa2ted01atasdu4591ge1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.valo_zone",
             "certificate_hash": "7b272c5254f756e116d6543810592174703671c8"
+          }
+        },
+        {
+          "client_id": "698436486219-ggpj7l67ct86e30rd7oadl5mr7m2ud0c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.valo_zone",
+            "certificate_hash": "d212776afd3f11e2b426cd1a04adf4f7884f9c12"
+          }
+        },
+        {
+          "client_id": "698436486219-mg6pi5ircjgca2t1s5kfbqjg4jglnm01.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.valo_zone",
+            "certificate_hash": "1cb0aad93dd7952dc2d5fb6687d46c9d7e1ec863"
           }
         },
         {

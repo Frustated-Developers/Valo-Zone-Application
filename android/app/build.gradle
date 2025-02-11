@@ -44,8 +44,8 @@ android {
         applicationId = "com.drishtant.valo_zone"
         minSdk = 24
         targetSdk = flutter.targetSdkVersion
-        versionCode = 2
-        versionName = '0.1.0'
+        versionCode = 4
+        versionName = '0.3.0'
         multiDexEnabled true
     }
 
