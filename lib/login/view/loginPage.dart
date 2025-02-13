@@ -175,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
               isLoader: _isLoading,
               buttonText: "LOGIN",
               onPressed: _handleButtonClick),
-          Text(
+          const Text(
             "OR",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
@@ -243,10 +243,10 @@ class _LoginPageState extends State<LoginPage> {
                       width: 9.w,
                     ),
                     Image.asset(AssetPath.google),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
-                    Text(
+                    const Text(
                       "Sign in with Google",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -296,7 +296,7 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       children: [
         // Can't sign in text
-        Text(
+        const Text(
           "CAN'T SIGN IN",
           style: TextStyle(
               color: AppColors.whiteText,
@@ -306,7 +306,7 @@ class _LoginPageState extends State<LoginPage> {
         // Create account link
         GestureDetector(
           onTap: () => navigateTo(context, const SignUp()),
-          child: Text(
+          child: const Text(
             "CREATE ACCOUNT",
             style: TextStyle(
                 color: AppColors.whiteText,
@@ -336,7 +336,7 @@ class _LoginPageState extends State<LoginPage> {
       });
 
       if (user != null) {
-        navigateTo(context, Homepage());
+        navigateTo(context, const Homepage());
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

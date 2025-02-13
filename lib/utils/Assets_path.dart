@@ -5,6 +5,7 @@ class AssetPath {
   static const String ic_home_red = "assets/icons/ic_home_red.svg";
   static const String ic_wall = "assets/icons/ic_wall.svg";
   static const String ic_wall_red = "assets/icons/ic_wall_red.svg";
+  static const String edit_bg = "assets/images/edit_bg.png";
 
   /////AGENT CARDS//////////
   static const String all_agent_card =

@@ -105,7 +105,7 @@ class _LandingPageState extends State<LandingPage> {
                       MediaQuery.of(context).size.height >= 750 ? 50.w : 25.w),
                   child: CustomButton(
                     onPressed: () {
-                      navigateTo(context, LoginPage());
+                      navigateTo(context, const LoginPage());
                     },
                     width:
                         MediaQuery.of(context).size.height >= 750 ? 400 : 300,

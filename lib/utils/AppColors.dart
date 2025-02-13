@@ -18,4 +18,5 @@ class AppColors {
   static const Color blackText = Colors.black;
   static const Color greyText = Colors.grey;
   static const Color dullWhiteText = Colors.white70;
+  static const Color buttonWhite = Color(0xFFD9D9D9);
 }
