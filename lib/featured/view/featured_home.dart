@@ -111,7 +111,7 @@ class _FeaturedHomeState extends State<FeaturedHome> {
     return Scaffold(
       key: _scaffoldKey,
       extendBody: true,
-      endDrawer: SettingsDrawer(),
+      endDrawer: const SettingsDrawer(),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -195,7 +195,7 @@ class _FeaturedHomeState extends State<FeaturedHome> {
             ),
             onPressed: () => (_selectedIndex == -1)
                 ? null
-                : navigateTo(context, FeaturedHome())),
+                : navigateTo(context, const FeaturedHome())),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
@@ -215,8 +215,9 @@ class _FeaturedHomeState extends State<FeaturedHome> {
                           : navigationItems[index].svgPath!,
                       height: 24,
                       width: 24,
-                      color:
-                          isActive ? AppColors.SelectedIconColor : Colors.white,
+                      colorFilter: isActive ?
+                          const ColorFilter.mode(AppColors.SelectedIconColor, BlendMode.screen) :
+                          const ColorFilter.mode(Colors.white, BlendMode.screen),
                     )
                   : Icon(
                       navigationItems[index].icon,
@@ -270,7 +271,7 @@ Widget _buildContainer(String image, String title) {
               ),
               // child: Image.asset(AssetPath.posters,height: 100,),
             ),
-            Positioned(
+            const Positioned(
                 bottom: 120,
                 left: 30,
                 child: Text(
@@ -282,7 +283,7 @@ Widget _buildContainer(String image, String title) {
         ),
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 16,
               color: AppColors.whiteText,
               fontWeight: FontWeight.bold),

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:valo_zone/edit_profile/view/edit_profile.dart';
 import 'package:valo_zone/firebase_options.dart';
+import 'package:valo_zone/home/view/homepage.dart';
 import 'package:valo_zone/splash/view/splash_screen.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 

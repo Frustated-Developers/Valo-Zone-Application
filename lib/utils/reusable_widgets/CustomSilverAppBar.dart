@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:valo_zone/edit_profile/view/edit_profile.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
+import 'package:valo_zone/utils/navigation.dart';
 
 class CustomSliverAppBar extends StatefulWidget {
   final String? photoURL;
@@ -60,12 +62,17 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
                   fontFamily: "Pennypacker", color: Colors.white))
           : null,
       actions: [
-        CircleAvatar(
-          radius: 20,
-          backgroundColor: Colors.grey,
-          foregroundImage: userPhotoURL != null
-              ? NetworkImage(userPhotoURL!)
-              : const AssetImage(AssetPath.dummy_avatar) as ImageProvider,
+        GestureDetector(
+          onTap: () {
+            navigateTo(context, EditProfile());
+          },
+          child: CircleAvatar(
+            radius: 20,
+            backgroundColor: Colors.grey,
+            foregroundImage: userPhotoURL != null
+                ? NetworkImage(userPhotoURL!)
+                : const AssetImage(AssetPath.dummy_avatar) as ImageProvider,
+          ),
         ),
         const SizedBox(width: 20),
       ],
