@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:valo_zone/login/view/loginPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:valo_zone/login&SignUp/repository/user_repository.dart';
+import 'package:valo_zone/login&SignUp/view/loginPage.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
 import 'package:valo_zone/utils/navigation.dart';
@@ -18,8 +20,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  late final UserRepository _userRepository;
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -29,61 +30,48 @@ class _SignUpState extends State<SignUp> {
 
   bool _isLoading = false;
 
+  @override
+  void initState() {
+    super.initState();
+    _initializeUserRepository();
+  }
+
+  Future<void> _initializeUserRepository() async {
+    final prefs = await SharedPreferences.getInstance();
+    _userRepository = UserRepository(
+      firestore: FirebaseFirestore.instance,
+      auth: FirebaseAuth.instance,
+      prefs: prefs,
+    );
+  }
+
   Future<void> _createAccount() async {
     if (!_formKey.currentState!.validate()) return;
+
     setState(() {
       _isLoading = true;
     });
 
     try {
-      // Create user with email and password
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
+      // Create user using repository
+      await _userRepository.createUserWithEmail(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
+        username: _userNameController.text.trim(),
       );
 
-      // Get the user's unique UID
-      String uid = userCredential.user!.uid;
+      if (mounted) {
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Account created successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
 
-      // Create a user document in Firestore
-      await _firestore.collection('users').doc(uid).set({
-        'uid': uid,
-        'username': _userNameController.text.trim(),
-        'email': _emailController.text.trim(),
-        'createdAt': FieldValue.serverTimestamp(),
-        'lastLogin': FieldValue.serverTimestamp(),
-        'isActive': true,
-        'accountDetails': {
-          'creationMethod': 'email',
-          'emailVerified': userCredential.user!.emailVerified,
-        },
-        'profile': {
-          'displayName': _userNameController.text.trim(),
-          'photoURL': null,
-          'bio': '',
-        },
-        'settings': {
-          'emailNotifications': true,
-          'pushNotifications': true,
-          'darkMode': false,
-        },
-        'stats': {
-          'loginCount': 1,
-          'lastUpdated': FieldValue.serverTimestamp(),
-        }
-      }, SetOptions(merge: true));
-
-      // Show success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Account created successfully!'),
-          backgroundColor: Colors.green,
-        ),
-      );
-
-      // Navigate to login page
-      navigateTo(context, const LoginPage());
+        // Navigate to login page
+        navigateTo(context, const LoginPage());
+      }
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {
@@ -99,24 +87,39 @@ class _SignUpState extends State<SignUp> {
         default:
           errorMessage = 'An error occurred. Please try again.';
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(errorMessage),
-          backgroundColor: Colors.red,
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to create account: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to create account: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     } finally {
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    _userNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -135,13 +138,14 @@ class _SignUpState extends State<SignUp> {
           ),
           _buildOpacityContainer(),
           Positioned(
-              top: MediaQuery.of(context).size.height >= 750
-                  ? MediaQuery.of(context).size.width * 0.01
-                  : MediaQuery.of(context).size.width * 0.01,
-              right: MediaQuery.of(context).size.height >= 750
-                  ? MediaQuery.of(context).size.height * 0.08
-                  : MediaQuery.of(context).size.height * 0.12,
-              child: _buildLogo()),
+            top: MediaQuery.of(context).size.height >= 750
+                ? MediaQuery.of(context).size.width * 0.01
+                : MediaQuery.of(context).size.width * 0.01,
+            right: MediaQuery.of(context).size.height >= 750
+                ? MediaQuery.of(context).size.height * 0.08
+                : MediaQuery.of(context).size.height * 0.12,
+            child: _buildLogo(),
+          ),
           _buildTextField(),
           Positioned(
             left: MediaQuery.of(context).size.height >= 750
@@ -183,10 +187,13 @@ class _SignUpState extends State<SignUp> {
             controller: _userNameController,
             hintText: 'User Name',
             icon: Icons.person,
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.text,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your UserName';
+              }
+              if (value.length < 3) {
+                return 'Username should be at least 3 characters';
               }
               return null;
             },
@@ -200,6 +207,10 @@ class _SignUpState extends State<SignUp> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
+              }
+              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                  .hasMatch(value)) {
+                return 'Please enter a valid email';
               }
               return null;
             },
@@ -237,7 +248,7 @@ class _SignUpState extends State<SignUp> {
           ),
           SizedBox(height: 12.h),
           _isLoading
-              ? CircularProgressIndicator()
+              ? const CircularProgressIndicator()
               : Customloginbutton(
                   buttonText: "CREATE MY ACCOUNT",
                   onPressed: _createAccount,
@@ -246,40 +257,40 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
-}
 
-Widget _buildfooter(BuildContext context) {
-  return Column(
-    children: [
-      // Can't sign in text
-      Text(
-        "ALREADY HAVE AN ACCOUNT",
-        style: TextStyle(
+  Widget _buildfooter(BuildContext context) {
+    return Column(
+      children: [
+        const Text(
+          "ALREADY HAVE AN ACCOUNT",
+          style: TextStyle(
             color: AppColors.whiteText,
             fontWeight: FontWeight.normal,
-            fontSize: 12),
-      ),
-      // Create account link
-      GestureDetector(
-        onTap: () => navigateTo(context, const LoginPage()),
-        child: Row(
-          children: [
-            Icon(
-              color: AppColors.whiteText,
-              Icons.arrow_circle_left_outlined,
-              size: 20,
-            ),
-            SizedBox(width: 5.w),
-            Text(
-              "BACK TO LOGIN",
-              style: TextStyle(
+            fontSize: 12,
+          ),
+        ),
+        GestureDetector(
+          onTap: () => navigateTo(context, const LoginPage()),
+          child: Row(
+            children: [
+              const Icon(
+                color: AppColors.whiteText,
+                Icons.arrow_circle_left_outlined,
+                size: 20,
+              ),
+              SizedBox(width: 5.w),
+              const Text(
+                "BACK TO LOGIN",
+                style: TextStyle(
                   color: AppColors.whiteText,
                   fontWeight: FontWeight.bold,
-                  fontSize: 13),
-            ),
-          ],
+                  fontSize: 13,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-    ],
-  );
+      ],
+    );
+  }
 }

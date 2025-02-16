@@ -1,9 +1,13 @@
-import 'package:flutter/material.dart';
-import 'dart:io' show Platform, File;
-import 'package:image_picker/image_picker.dart';
+import 'dart:io' show File;
 import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:valo_zone/login&SignUp/view/sign_up.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
+import 'package:valo_zone/utils/navigation.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -73,16 +77,18 @@ class _EditProfileState extends State<EditProfile> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
           backgroundColor: AppColors.homepageBackground,
           title: const Text(
-            'Select Image Source',
-            style: TextStyle(color: Colors.white),
+            'Choose the preferred option :',
+            style: TextStyle(color: Colors.white, fontSize: 16),
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const Icon(Icons.camera, color: Colors.white),
+                leading: const Icon(Icons.camera_alt, color: Colors.white),
                 title: const Text(
                   'Camera',
                   style: TextStyle(color: Colors.white),
@@ -103,6 +109,17 @@ class _EditProfileState extends State<EditProfile> {
                   _pickImage(ImageSource.gallery);
                 },
               ),
+              ListTile(
+                leading: const Icon(Icons.camera, color: Colors.white),
+                title: const Text(
+                  'Choose Avatar',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.camera);
+                },
+              ),
             ],
           ),
         );
@@ -118,10 +135,6 @@ class _EditProfileState extends State<EditProfile> {
     });
 
     try {
-      // TODO: Implement your save logic here
-      //1. Upload image if _selectedImage is not null
-      // 2. Save form data (_usernameController.text, etc.)
-
       await Future.delayed(const Duration(seconds: 2));
 
       if (mounted) {
@@ -149,24 +162,17 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.homepageBackground,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Image.asset(AssetPath.ic_valo,height: 80),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Stack(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            Stack(
               children: [
                 Column(
                   children: [
                     Image.asset(
                       AssetPath.edit_bg,
-                      height: 300,
+                      height: 350,
                       width: double.infinity,
                       fit: BoxFit.fitWidth,
                     ),
@@ -180,40 +186,40 @@ class _EditProfileState extends State<EditProfile> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 220),
+                            padding: const EdgeInsets.only(top: 245),
                             child: Stack(
                               clipBehavior: Clip.none,
                               children: [
                                 ClipOval(
                                   child: _selectedImage != null
                                       ? Image.file(
-                                    _selectedImage!,
-                                    height: 100,
-                                    width: 100,
-                                    fit: BoxFit.cover,
-                                  )
+                                          _selectedImage!,
+                                          height: 100,
+                                          width: 100,
+                                          fit: BoxFit.cover,
+                                        )
                                       : Image.asset(
-                                    AssetPath.dummy_avatar,
-                                    height: 100,
-                                    width: 100,
-                                    fit: BoxFit.cover,
-                                  ),
+                                          AssetPath.dummy_avatar,
+                                          height: 100,
+                                          width: 100,
+                                          fit: BoxFit.cover,
+                                        ),
                                 ),
                                 Positioned(
-                                  bottom: -10,
-                                  right: -10,
+                                  bottom: -5,
+                                  right: -5,
                                   child: GestureDetector(
                                     onTap: _showImageSourceDialog,
                                     child: Container(
                                       padding: const EdgeInsets.all(8),
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.SelectedIconColor,
+                                      decoration: BoxDecoration(
+                                        color: AppColors.whiteText,
                                         shape: BoxShape.circle,
                                       ),
                                       child: const Icon(
-                                        Icons.camera_alt,
+                                        CupertinoIcons.camera,
                                         color: Colors.black,
-                                        size: 20,
+                                        size: 15,
                                       ),
                                     ),
                                   ),
@@ -230,7 +236,8 @@ class _EditProfileState extends State<EditProfile> {
                               overflow: TextOverflow.visible,
                               maxLines: 2,
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.white,
                                 fontFamily: 'Poppins',
                               ),
@@ -242,27 +249,35 @@ class _EditProfileState extends State<EditProfile> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _buildTextField("User name", _usernameController, "Enter your username"),
+                                _buildTextField("User Name",
+                                    _usernameController, "Enter your username"),
                                 const SizedBox(height: 16),
-                                _buildTextField("User Email", _emailController, "Enter your email"),
+                                _buildTextField("User Email", _emailController,
+                                    "Enter your email"),
                                 const SizedBox(height: 16),
-                                _buildTextField("Valorant Rank", _rankController, 'Enter your rank, e.g "Bronze 1"'),
-                                const SizedBox(height: 24),
+                                _buildTextField(
+                                    "Valorant Rank",
+                                    _rankController,
+                                    'Enter your rank, e.g "Bronze 1"'),
+                                const SizedBox(height: 40),
                                 _buildButton(
-                                  "SAVE",
-                                  _isLoading ? null : _handleSave,
-                                  AppColors.SelectedIconColor,
-                                ),
-                                const SizedBox(height: 12),
+                                    title: "SAVE",
+                                    onTap: _isLoading ? null : _handleSave,
+                                    color: AppColors.SelectedIconColor,
+                                    buttonColor: AppColors.whiteText),
+                                const SizedBox(height: 15),
                                 _buildButton(
-                                  "CANCEL",
-                                      () => Navigator.pop(context),
-                                  AppColors.buttonWhite,
+                                  title: "CANCEL",
+                                  onTap: () => Navigator.pop(context),
+                                  color: AppColors.buttonWhite,
+                                  buttonColor: AppColors.blackText,
                                 ),
                               ],
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 40),
+                          _buildfooter(context),
+                          const SizedBox(height: 40),
                         ],
                       ),
                     ),
@@ -270,40 +285,45 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ],
             ),
-          ),
-          if (_isLoading)
-            Container(
-              color: Colors.black54,
-              child: const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.SelectedIconColor,
+            if (_isLoading)
+              Container(
+                color: Colors.black54,
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.whiteText,
+                  ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, String hint) {
+  Widget _buildTextField(
+      String label, TextEditingController controller, String hint) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
           style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 14
-          ),
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
         ),
         const SizedBox(height: 8),
         TextFormField(
           controller: controller,
+          cursorColor: AppColors.whiteText,
           decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(
+                  color: Colors.white), // Set your desired color
+            ),
             filled: true,
             hintText: hint,
-            hintStyle: const TextStyle(color: AppColors.greyText, fontSize: 12),
+            hintStyle:
+                const TextStyle(color: AppColors.dullWhiteText, fontSize: 12),
             fillColor: const Color(0xFF192637),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
@@ -316,7 +336,11 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Widget _buildButton(String title, VoidCallback? onTap, Color color) {
+  Widget _buildButton(
+      {required String title,
+      required VoidCallback? onTap,
+      required Color color,
+      required Color buttonColor}) {
     return SizedBox(
       width: double.infinity,
       height: 50,
@@ -330,9 +354,27 @@ class _EditProfileState extends State<EditProfile> {
         ),
         child: Text(
           title,
-          style: const TextStyle(color: Colors.black),
+          style: TextStyle(color: buttonColor, fontWeight: FontWeight.bold),
         ),
       ),
+    );
+  }
+
+  Widget _buildfooter(BuildContext context) {
+    return Column(
+      children: [
+        // Create account link
+        GestureDetector(
+          onTap: () => navigateTo(context, const SignUp()),
+          child: const Text(
+            "DELETE MY ACCOUNT",
+            style: TextStyle(
+                color: AppColors.whiteText,
+                fontWeight: FontWeight.bold,
+                fontSize: 12),
+          ),
+        ),
+      ],
     );
   }
 
