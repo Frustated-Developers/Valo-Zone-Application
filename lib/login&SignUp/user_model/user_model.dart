@@ -57,7 +57,7 @@ class UserModel {
 
 class UserProfile {
   final String displayName;
-  final String? photoURL;
+  late final String? photoURL;
   final String? rank;
 
   UserProfile({

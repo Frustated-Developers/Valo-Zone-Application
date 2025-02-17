@@ -26,6 +26,7 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController _rankController = TextEditingController();
   File? _selectedImage;
   bool _isLoading = false;
+  bool _isGoogleUser = false;
   late UserRepository _userRepository;
   UserModel? _currentUser;
 
@@ -50,10 +51,14 @@ class _EditProfileState extends State<EditProfile> {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser != null) {
+        // Check if user is signed in with Google
+        _isGoogleUser = currentUser.providerData
+            .any((provider) => provider.providerId == 'google.com');
+
         _currentUser =
             await _userRepository.getUserFromFirebase(currentUser.uid);
+
         if (_currentUser != null && mounted) {
-          // Load saved image path from SharedPreferences
           final prefs = await SharedPreferences.getInstance();
           final savedImagePath =
               prefs.getString('profile_image_${currentUser.uid}');
@@ -62,8 +67,11 @@ class _EditProfileState extends State<EditProfile> {
             _usernameController.text = _currentUser!.username;
             _emailController.text = _currentUser!.email;
             _rankController.text = _currentUser!.profile.rank ?? '';
+
             if (savedImagePath != null) {
               _selectedImage = File(savedImagePath);
+            } else if (_isGoogleUser && currentUser.photoURL != null) {
+              _currentUser!.profile.photoURL = currentUser.photoURL;
             }
           });
         }
