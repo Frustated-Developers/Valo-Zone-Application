@@ -79,23 +79,10 @@ class UserRepository {
         uid: credential.user!.uid,
         username: username,
         email: email,
-        accountDetails: AccountDetails(
-          creationMethod: 'email',
-          emailVerified: credential.user!.emailVerified,
-        ),
         profile: UserProfile(
           displayName: username,
           photoURL: null,
-          bio: '',
-        ),
-        settings: UserSettings(
-          emailNotifications: true,
-          pushNotifications: true,
-          darkMode: false,
-        ),
-        stats: UserStats(
-          loginCount: 1,
-          lastUpdated: DateTime.now(),
+          rank: null,
         ),
       );
 
@@ -116,23 +103,10 @@ class UserRepository {
         uid: googleUser.uid,
         username: googleUser.displayName ?? '',
         email: googleUser.email ?? '',
-        accountDetails: AccountDetails(
-          creationMethod: 'google',
-          emailVerified: googleUser.emailVerified,
-        ),
         profile: UserProfile(
           displayName: googleUser.displayName ?? '',
           photoURL: googleUser.photoURL,
-          bio: '',
-        ),
-        settings: UserSettings(
-          emailNotifications: true,
-          pushNotifications: true,
-          darkMode: false,
-        ),
-        stats: UserStats(
-          loginCount: 1,
-          lastUpdated: DateTime.now(),
+          rank: null,
         ),
       );
 
@@ -143,8 +117,8 @@ class UserRepository {
     }
   }
 
-  // Update user login stats
-  Future<void> updateLoginStats(String uid) async {
+  // Update user profile
+  Future<void> updateUserProfile(String uid, UserProfile newProfile) async {
     try {
       UserModel? user = await getUserFromFirebase(uid);
       if (user != null) {
@@ -152,20 +126,12 @@ class UserRepository {
           uid: user.uid,
           username: user.username,
           email: user.email,
-          lastLogin: DateTime.now(),
-          isActive: true,
-          accountDetails: user.accountDetails,
-          profile: user.profile,
-          settings: user.settings,
-          stats: UserStats(
-            loginCount: user.stats.loginCount + 1,
-            lastUpdated: DateTime.now(),
-          ),
+          profile: newProfile,
         );
         await saveUser(updatedUser);
       }
     } catch (e) {
-      throw Exception('Failed to update login stats: $e');
+      throw Exception('Failed to update user profile: $e');
     }
   }
 }

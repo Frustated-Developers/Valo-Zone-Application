@@ -1,9 +1,13 @@
-import 'dart:io' show File;
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:valo_zone/login&SignUp/repository/user_repository.dart';
+import 'package:valo_zone/login&SignUp/user_model/user_model.dart';
 import 'package:valo_zone/login&SignUp/view/sign_up.dart';
 import 'package:valo_zone/utils/AppColors.dart';
 import 'package:valo_zone/utils/Assets_path.dart';
@@ -22,8 +26,107 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController _rankController = TextEditingController();
   File? _selectedImage;
   bool _isLoading = false;
+  late UserRepository _userRepository;
+  UserModel? _currentUser;
 
-  // Single function to handle image picking from both camera and gallery
+  @override
+  void initState() {
+    super.initState();
+    _initializeUserRepository();
+  }
+
+  Future<void> _initializeUserRepository() async {
+    final prefs = await SharedPreferences.getInstance();
+    _userRepository = UserRepository(
+      firestore: FirebaseFirestore.instance,
+      auth: FirebaseAuth.instance,
+      prefs: prefs,
+    );
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    setState(() => _isLoading = true);
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        _currentUser =
+            await _userRepository.getUserFromFirebase(currentUser.uid);
+        if (_currentUser != null && mounted) {
+          // Load saved image path from SharedPreferences
+          final prefs = await SharedPreferences.getInstance();
+          final savedImagePath =
+              prefs.getString('profile_image_${currentUser.uid}');
+
+          setState(() {
+            _usernameController.text = _currentUser!.username;
+            _emailController.text = _currentUser!.email;
+            _rankController.text = _currentUser!.profile.rank ?? '';
+            if (savedImagePath != null) {
+              _selectedImage = File(savedImagePath);
+            }
+          });
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        _showErrorDialog('Error loading profile: $e');
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
+  Future<void> _handleSave() async {
+    if (!mounted || _currentUser == null) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      // Save the image path to SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      String? imagePath;
+
+      if (_selectedImage != null) {
+        imagePath = _selectedImage!.path;
+        await prefs.setString('profile_image_${_currentUser!.uid}', imagePath);
+      }
+
+      final updatedUser = UserModel(
+        uid: _currentUser!.uid,
+        username: _usernameController.text,
+        email: _emailController.text,
+        profile: UserProfile(
+          displayName: _usernameController.text,
+          photoURL: imagePath ?? _currentUser!.profile.photoURL,
+          rank: _rankController.text,
+        ),
+      );
+
+      await _userRepository.saveUser(updatedUser);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profile updated successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      if (mounted) {
+        _showErrorDialog('Error saving profile: $e');
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
   Future<void> _pickImage(ImageSource source) async {
     try {
       final ImagePicker picker = ImagePicker();
@@ -109,17 +212,6 @@ class _EditProfileState extends State<EditProfile> {
                   _pickImage(ImageSource.gallery);
                 },
               ),
-              ListTile(
-                leading: const Icon(Icons.camera, color: Colors.white),
-                title: const Text(
-                  'Choose Avatar',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  _pickImage(ImageSource.camera);
-                },
-              ),
             ],
           ),
         );
@@ -127,34 +219,38 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Future<void> _handleSave() async {
-    if (!mounted) return;
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      await Future.delayed(const Duration(seconds: 2));
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Profile updated successfully!'),
-            backgroundColor: Colors.green,
-          ),
+  Widget _buildProfileImage() {
+    if (_selectedImage != null) {
+      return Image.file(
+        _selectedImage!,
+        height: 100,
+        width: 100,
+        fit: BoxFit.cover,
+      );
+    } else if (_currentUser?.profile.photoURL != null) {
+      final photoURL = _currentUser!.profile.photoURL!;
+      if (photoURL.startsWith('/')) {
+        return Image.file(
+          File(photoURL),
+          height: 100,
+          width: 100,
+          fit: BoxFit.cover,
+        );
+      } else {
+        return Image.network(
+          photoURL,
+          height: 100,
+          width: 100,
+          fit: BoxFit.cover,
         );
       }
-    } catch (e) {
-      if (mounted) {
-        _showErrorDialog('Error saving profile: $e');
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
+    } else {
+      return Image.asset(
+        AssetPath.dummy_avatar,
+        height: 100,
+        width: 100,
+        fit: BoxFit.cover,
+      );
     }
   }
 
@@ -168,15 +264,11 @@ class _EditProfileState extends State<EditProfile> {
           children: [
             Stack(
               children: [
-                Column(
-                  children: [
-                    Image.asset(
-                      AssetPath.edit_bg,
-                      height: 350,
-                      width: double.infinity,
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ],
+                Image.asset(
+                  AssetPath.edit_bg,
+                  height: 350,
+                  width: double.infinity,
+                  fit: BoxFit.fitWidth,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -191,19 +283,7 @@ class _EditProfileState extends State<EditProfile> {
                               clipBehavior: Clip.none,
                               children: [
                                 ClipOval(
-                                  child: _selectedImage != null
-                                      ? Image.file(
-                                          _selectedImage!,
-                                          height: 100,
-                                          width: 100,
-                                          fit: BoxFit.cover,
-                                        )
-                                      : Image.asset(
-                                          AssetPath.dummy_avatar,
-                                          height: 100,
-                                          width: 100,
-                                          fit: BoxFit.cover,
-                                        ),
+                                  child: _buildProfileImage(),
                                 ),
                                 Positioned(
                                   bottom: -5,
@@ -228,14 +308,14 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          const SizedBox(
+                          SizedBox(
                             width: 300,
                             child: Text(
-                              "Drishtant Ranjan Srivastava",
+                              _currentUser?.username ?? "",
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.visible,
                               maxLines: 2,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -285,15 +365,6 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ],
             ),
-            if (_isLoading)
-              Container(
-                color: Colors.black54,
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.whiteText,
-                  ),
-                ),
-              ),
           ],
         ),
       ),
@@ -317,8 +388,7 @@ class _EditProfileState extends State<EditProfile> {
           decoration: InputDecoration(
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(
-                  color: Colors.white), // Set your desired color
+              borderSide: const BorderSide(color: Colors.white),
             ),
             filled: true,
             hintText: hint,
@@ -336,11 +406,12 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Widget _buildButton(
-      {required String title,
-      required VoidCallback? onTap,
-      required Color color,
-      required Color buttonColor}) {
+  Widget _buildButton({
+    required String title,
+    required VoidCallback? onTap,
+    required Color color,
+    required Color buttonColor,
+  }) {
     return SizedBox(
       width: double.infinity,
       height: 50,
@@ -363,7 +434,6 @@ class _EditProfileState extends State<EditProfile> {
   Widget _buildfooter(BuildContext context) {
     return Column(
       children: [
-        // Create account link
         GestureDetector(
           onTap: () => navigateTo(context, const SignUp()),
           child: const Text(
