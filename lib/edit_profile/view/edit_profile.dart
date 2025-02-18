@@ -29,6 +29,7 @@ class _EditProfileState extends State<EditProfile> {
   bool _isGoogleUser = false;
   late UserRepository _userRepository;
   UserModel? _currentUser;
+  String? _googlePhotoUrl;
 
   @override
   void initState() {
@@ -55,6 +56,10 @@ class _EditProfileState extends State<EditProfile> {
         _isGoogleUser = currentUser.providerData
             .any((provider) => provider.providerId == 'google.com');
 
+        if (_isGoogleUser) {
+          _googlePhotoUrl = currentUser.photoURL;
+        }
+
         _currentUser =
             await _userRepository.getUserFromFirebase(currentUser.uid);
 
@@ -68,10 +73,8 @@ class _EditProfileState extends State<EditProfile> {
             _emailController.text = _currentUser!.email;
             _rankController.text = _currentUser!.profile.rank ?? '';
 
-            if (savedImagePath != null) {
+            if (!_isGoogleUser && savedImagePath != null) {
               _selectedImage = File(savedImagePath);
-            } else if (_isGoogleUser && currentUser.photoURL != null) {
-              _currentUser!.profile.photoURL = currentUser.photoURL;
             }
           });
         }
@@ -93,13 +96,15 @@ class _EditProfileState extends State<EditProfile> {
     setState(() => _isLoading = true);
 
     try {
-      // Save the image path to SharedPreferences
-      final prefs = await SharedPreferences.getInstance();
       String? imagePath;
+      final prefs = await SharedPreferences.getInstance();
 
-      if (_selectedImage != null) {
+      // Handle image path based on user type
+      if (!_isGoogleUser && _selectedImage != null) {
         imagePath = _selectedImage!.path;
         await prefs.setString('profile_image_${_currentUser!.uid}', imagePath);
+      } else if (_isGoogleUser) {
+        imagePath = _googlePhotoUrl;
       }
 
       final updatedUser = UserModel(
@@ -136,6 +141,11 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<void> _pickImage(ImageSource source) async {
+    if (_isGoogleUser) {
+      _showErrorDialog('Google users cannot change their profile picture');
+      return;
+    }
+
     try {
       final ImagePicker picker = ImagePicker();
       final XFile? image = await picker.pickImage(
@@ -184,6 +194,11 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   void _showImageSourceDialog() {
+    if (_isGoogleUser) {
+      _showErrorDialog('Google users cannot change their profile picture');
+      return;
+    }
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -228,7 +243,22 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Widget _buildProfileImage() {
-    if (_selectedImage != null) {
+    if (_isGoogleUser && _googlePhotoUrl != null) {
+      return Image.network(
+        _googlePhotoUrl!,
+        height: 100,
+        width: 100,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Image.asset(
+            AssetPath.dummy_avatar,
+            height: 100,
+            width: 100,
+            fit: BoxFit.cover,
+          );
+        },
+      );
+    } else if (_selectedImage != null) {
       return Image.file(
         _selectedImage!,
         height: 100,
@@ -250,6 +280,14 @@ class _EditProfileState extends State<EditProfile> {
           height: 100,
           width: 100,
           fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return Image.asset(
+              AssetPath.dummy_avatar,
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+            );
+          },
         );
       }
     } else {
@@ -293,25 +331,26 @@ class _EditProfileState extends State<EditProfile> {
                                 ClipOval(
                                   child: _buildProfileImage(),
                                 ),
-                                Positioned(
-                                  bottom: -5,
-                                  right: -5,
-                                  child: GestureDetector(
-                                    onTap: _showImageSourceDialog,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.whiteText,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Icon(
-                                        CupertinoIcons.camera,
-                                        color: Colors.black,
-                                        size: 15,
+                                if (!_isGoogleUser)
+                                  Positioned(
+                                    bottom: -5,
+                                    right: -5,
+                                    child: GestureDetector(
+                                      onTap: _showImageSourceDialog,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.whiteText,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: const Icon(
+                                          CupertinoIcons.camera,
+                                          color: Colors.black,
+                                          size: 15,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                               ],
                             ),
                           ),
@@ -337,22 +376,33 @@ class _EditProfileState extends State<EditProfile> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _buildTextField("User Name",
-                                    _usernameController, "Enter your username"),
-                                const SizedBox(height: 16),
-                                _buildTextField("User Email", _emailController,
-                                    "Enter your email"),
+                                _buildTextField(
+                                  "User Name",
+                                  _usernameController,
+                                  "Enter your username",
+                                  enabled: !_isGoogleUser,
+                                ),
                                 const SizedBox(height: 16),
                                 _buildTextField(
-                                    "Valorant Rank",
-                                    _rankController,
-                                    'Enter your rank, e.g "Bronze 1"'),
+                                  "User Email",
+                                  _emailController,
+                                  "Enter your email",
+                                  enabled: false,
+                                ),
+                                const SizedBox(height: 16),
+                                _buildTextField(
+                                  "Valorant Rank",
+                                  _rankController,
+                                  'Enter your rank, e.g "Bronze 1"',
+                                  enabled: true,
+                                ),
                                 const SizedBox(height: 40),
                                 _buildButton(
-                                    title: "SAVE",
-                                    onTap: _isLoading ? null : _handleSave,
-                                    color: AppColors.SelectedIconColor,
-                                    buttonColor: AppColors.whiteText),
+                                  title: "SAVE",
+                                  onTap: _isLoading ? null : _handleSave,
+                                  color: AppColors.SelectedIconColor,
+                                  buttonColor: AppColors.whiteText,
+                                ),
                                 const SizedBox(height: 15),
                                 _buildButton(
                                   title: "CANCEL",
@@ -380,18 +430,26 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Widget _buildTextField(
-      String label, TextEditingController controller, String hint) {
+    String label,
+    TextEditingController controller,
+    String hint, {
+    bool enabled = true,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
           style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
         ),
         const SizedBox(height: 8),
         TextFormField(
           controller: controller,
+          enabled: enabled,
           cursorColor: AppColors.whiteText,
           decoration: InputDecoration(
             focusedBorder: OutlineInputBorder(
@@ -400,15 +458,21 @@ class _EditProfileState extends State<EditProfile> {
             ),
             filled: true,
             hintText: hint,
-            hintStyle:
-                const TextStyle(color: AppColors.dullWhiteText, fontSize: 12),
-            fillColor: const Color(0xFF192637),
+            hintStyle: const TextStyle(
+              color: AppColors.dullWhiteText,
+              fontSize: 12,
+            ),
+            fillColor: enabled
+                ? const Color(0xFF192637)
+                : const Color(0xFF192637).withOpacity(0.5),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide.none,
             ),
           ),
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: enabled ? Colors.white : Colors.white.withOpacity(0.7),
+          ),
         ),
       ],
     );
