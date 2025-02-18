@@ -58,6 +58,13 @@ class _EditProfileState extends State<EditProfile> {
 
         if (_isGoogleUser) {
           _googlePhotoUrl = currentUser.photoURL;
+
+          setState(() {
+            _usernameController.text = currentUser.displayName!;
+            _emailController.text = currentUser.email!;
+
+
+          });
         }
 
         _currentUser =
@@ -356,9 +363,9 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                           const SizedBox(height: 20),
                           SizedBox(
-                            width: 300,
+                            width: 150,
                             child: Text(
-                              _currentUser?.username ?? "",
+                              _currentUser?.username ?? _usernameController.text,
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.visible,
                               maxLines: 2,
@@ -390,18 +397,24 @@ class _EditProfileState extends State<EditProfile> {
                                   enabled: false,
                                 ),
                                 const SizedBox(height: 16),
-                                _buildTextField(
-                                  "Valorant Rank",
-                                  _rankController,
-                                  'Enter your rank, e.g "Bronze 1"',
-                                  enabled: true,
+                                Visibility(
+                                  visible: !_isGoogleUser,
+                                  child: _buildTextField(
+                                    "Valorant Rank",
+                                    _rankController,
+                                    'Enter your rank, e.g "Bronze 1"',
+                                    enabled: true,
+                                  ),
                                 ),
-                                const SizedBox(height: 40),
-                                _buildButton(
-                                  title: "SAVE",
-                                  onTap: _isLoading ? null : _handleSave,
-                                  color: AppColors.SelectedIconColor,
-                                  buttonColor: AppColors.whiteText,
+                                 SizedBox(height: _isGoogleUser? 20 : 40),
+                                Opacity(
+                                  opacity: _isGoogleUser ? 0.6 : 1,
+                                  child: _buildButton(
+                                    title: "SAVE",
+                                    onTap: _isLoading ? null : _handleSave,
+                                    color: AppColors.SelectedIconColor,
+                                    buttonColor: AppColors.whiteText,
+                                  ),
                                 ),
                                 const SizedBox(height: 15),
                                 _buildButton(
@@ -440,38 +453,41 @@ class _EditProfileState extends State<EditProfile> {
       children: [
         Text(
           label,
-          style: const TextStyle(
-            color: Colors.white,
+          style:  TextStyle(
+            color: enabled? Colors.white :AppColors.dullWhiteText,
             fontWeight: FontWeight.bold,
             fontSize: 14,
           ),
         ),
         const SizedBox(height: 8),
-        TextFormField(
-          controller: controller,
-          enabled: enabled,
-          cursorColor: AppColors.whiteText,
-          decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.white),
+        Opacity(
+          opacity: enabled?1:0.5,
+          child: TextFormField(
+            controller: controller,
+            enabled: enabled,
+            cursorColor: AppColors.whiteText,
+            decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: const BorderSide(color: Colors.white),
+              ),
+              filled: true,
+              hintText: hint,
+              hintStyle: const TextStyle(
+                color: AppColors.dullWhiteText,
+                fontSize: 12,
+              ),
+              fillColor: enabled
+                  ? const Color(0xFF192637)
+                  : const Color(0xFF656B75),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide.none,
+              ),
             ),
-            filled: true,
-            hintText: hint,
-            hintStyle: const TextStyle(
-              color: AppColors.dullWhiteText,
-              fontSize: 12,
+            style: TextStyle(
+              color: enabled ? Colors.white : Colors.white.withOpacity(0.7),
             ),
-            fillColor: enabled
-                ? const Color(0xFF192637)
-                : const Color(0xFF192637).withOpacity(0.5),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide.none,
-            ),
-          ),
-          style: TextStyle(
-            color: enabled ? Colors.white : Colors.white.withOpacity(0.7),
           ),
         ),
       ],
